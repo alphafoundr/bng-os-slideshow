@@ -1,5 +1,6 @@
 # build output and local state
 public/
+public-*/
 .wrangler/
 __pycache__/
 *.pyc

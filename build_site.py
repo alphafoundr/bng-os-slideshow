@@ -24,6 +24,30 @@ from data.gen_connected_exports import schedule  # noqa: E402
 
 ALL = "--all" in sys.argv
 
+# Extra editions built from the same source, each into its own folder; the live site is the build with no variant (public/).
+# BNG_VARIANT=nostudio: the deck with Studio taken out. BNG_VARIANT=studio: Studio alone, four slides, no opening sequence.
+VARIANTS = {
+    "nostudio": {"drop": ["p2", "s22"], "files": {"s24": "s24_ns", "s25": "s25_ns"}},
+    "studio": {"keep": ["p2", "s22", "s25", "ty"], "files": {"s25": "s25_st"}, "nopreshow": True, "css": ".nav .segs{display:none}"},
+}
+VARIANT = os.environ.get("BNG_VARIANT", "")
+if VARIANT:
+    if VARIANT not in VARIANTS:
+        sys.exit("FAIL: unknown BNG_VARIANT %r (known: %s)" % (VARIANT, ", ".join(VARIANTS)))
+    OUT = os.path.join(HERE, "public-" + VARIANT)
+
+
+def variant_deck(deck):
+    v = VARIANTS.get(VARIANT)
+    if not v:
+        return deck
+    out = []
+    for e in deck:
+        if e["key"] in v.get("drop", []) or ("keep" in v and e["key"] not in v["keep"]):
+            continue
+        out.append(dict(e, file=v.get("files", {}).get(e["key"], e["file"])))
+    return out
+
 
 def load(name):
     with open(os.path.join(SRC, name), "r", encoding="utf-8") as f:
@@ -161,7 +185,7 @@ def chrome(slide, ctx, idx, total_label):
 
 
 def main():
-    deck = load("deck.json")
+    deck = variant_deck(load("deck.json"))
     styles = load("data/_styles.json")
     fr = {}
     for fn in sorted(os.listdir(os.path.join(SRC, "fr"))):  # one French table per slide plus common.json
@@ -186,6 +210,8 @@ def main():
     # relative to the page and point into src/film/ (copied to public/film/). Empty = static screens.
     ctx.films = load("films.json") if os.path.exists(os.path.join(SRC, "films.json")) else {}
     keys = {e["key"] for e in deck}
+    if VARIANT:
+        ctx.films = {k: v for k, v in ctx.films.items() if k in keys}
     for fk, fe in ctx.films.items():
         if fk not in keys:
             sys.exit("FAIL: films.json names slide %r, which is not in deck.json" % fk)
@@ -208,7 +234,7 @@ def main():
         slide["section"] = entry["section"]
         slide["kind"] = entry.get("kind", "slide")
         if entry["key"] in numbered:
-            slide["props"]["Number"] = "%02d / %d" % (numbered.index(entry["key"]) + 1, len(numbered))
+            slide["props"]["Number"] = "%02d / %02d" % (numbered.index(entry["key"]) + 1, len(numbered))
         body = chrome(slide, ctx, i, "")
         slides_html.append('<section class="slide kind-%s%s" data-key="%s" data-ch="%d" data-status="%s" hidden>'
                            '<div class="art">%s</div></section>' % (slide["kind"], " desk" if slide["props"].get("Big desktop") else "",
@@ -255,6 +281,13 @@ def main():
     page = (tmpl.replace("/*CSS*/", css)
             .replace("<!--SLIDES-->", "\n".join(slides_html))
             .replace("/*FR_UI*/", json.dumps(load("fr_ui.json"), ensure_ascii=False)))
+    v = VARIANTS.get(VARIANT, {})
+    if v.get("nopreshow"):
+        gate = "/[?&]nopreshow=1/.test(location.search)||"
+        assert gate in page, "index.tmpl.html: the pre-show switch changed"
+        page = page.replace(gate, "true||")
+    if v.get("css"):
+        page = page.replace("</style>", v["css"] + "</style>", 1)
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8", newline="\n") as f:
         f.write(page)
     shutil.copy2(os.path.join(SRC, "deck.js"), os.path.join(OUT, "deck.js"))
@@ -268,8 +301,8 @@ def main():
     with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8", newline="\n") as f:
         f.write("User-agent: *\nDisallow: /\n")
     total = sum(os.path.getsize(os.path.join(dp, f)) for dp, _, fs in os.walk(OUT) for f in fs)
-    print("built %d slides (%s), %d strings, %d icons, %.1f MB -> public/" % (
-        len(slides_html), "all" if ALL else "confirmed only", len(strings.used), len(ctx.used_icons), total / 1048576))
+    print("built %d slides (%s), %d strings, %d icons, %.1f MB -> %s/" % (
+        len(slides_html), "all" if ALL else "confirmed only", len(strings.used), len(ctx.used_icons), total / 1048576, os.path.basename(OUT)))
 
 
 if __name__ == "__main__":

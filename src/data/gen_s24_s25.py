@@ -143,6 +143,17 @@ s24 = slide("395:5162", "10 · Three products · Three products, one system", "2
 s24["props"]["Show note"] = False
 dump("s24", s24)
 
+# Variant "nostudio" (Khalid, 2026-11-18: a second file with Studio removed; build with BNG_VARIANT=nostudio): the same drawing without Studio.
+import copy  # noqa: E402
+
+own_ns = copy.deepcopy(ownership)
+own_ns["seq"]["step"] = 10
+ch24_ns = [own_ns if c is ownership else c for c in ch24 if c is not studio_line and c is not studio and not any(c is k for k in chips)]
+s24_ns = slide("395:5162", "10 · Two products · Two products, one system (no Studio)", "22 / 27", "Recap", "Two products,\none system.",
+               "One system BNG owns. Each part has one job.", "Illustrative · fictional people and figures", 10, ch24_ns)
+s24_ns["props"]["Show note"] = False
+dump("s24_ns", s24_ns)
+
 
 # ---------------- 25 · What each one does (A) ----------------
 def mock(inner, gap=8):
@@ -236,3 +247,33 @@ s25 = {"id": "397:5247", "name": "10 · Three products · What each one does · 
                  "Show nav": True, "Number": "23 / 27", "Show title column": False, "Note": "Illustrative example · fictional people and figures"},
        "nav": {"Chapter": "10"}, "ch": ch25}
 dump("s25", s25)
+
+
+# Variants: "nostudio" keeps the OS and Cortex cards, wider; "studio" keeps the Studio card alone, centred, with its own heading.
+def recard(card, x, w, shift=0):
+    c = copy.deepcopy(card)
+    c.update(x=x, w=w)
+
+    def walk(n):
+        if "seq" in n:
+            n["seq"]["step"] -= shift
+            if "arrival" in n["seq"]:
+                n["seq"]["arrival"] -= shift
+        for k in n.get("ch", []):
+            walk(k)
+    walk(c)
+    return c
+
+
+s25_ns = copy.deepcopy(s25)
+s25_ns["name"] = "10 · Two products · What each one does (no Studio)"
+s25_ns["ch"] = [*copy.deepcopy(ch25[:2]), recard(ch25[2], -468, 676), recard(ch25[3], 224, 676)]
+dump("s25_ns", s25_ns)
+
+s25_st = copy.deepcopy(s25)
+s25_st["name"] = "09 · Studio · What Studio does (Studio only)"
+head_st = copy.deepcopy(ch25[:2])
+head_st[0] = {"x": -468, "y": 0, **T("Studio", "eyebrow/md", "text/neutral/subtlest", tc="UPPER", nw=1), "seq": head_st[0]["seq"]}
+head_st[1] = {"x": -468, "y": 26, **T("What Studio does.", "heading/xl", "text/neutral/bold", nw=1), "seq": head_st[1]["seq"]}
+s25_st["ch"] = [*head_st, recard(ch25[4], -122, 676, shift=2)]
+dump("s25_st", s25_st)
