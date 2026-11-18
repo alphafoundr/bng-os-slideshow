@@ -15,6 +15,20 @@ import re
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(HERE)
 PRE = os.path.join(SITE, "..", "slideshow", "preshow", "src")
+EXT = os.path.join(SITE, "src", "ext", "slideshow", "preshow", "src")
+
+
+def pre(name):
+    """The prototype file: the outer design folder where it exists (mirrored into src/ext/), else the mirror, so a clone builds alone."""
+    outer, inner = os.path.join(PRE, name), os.path.join(EXT, name)
+    if os.path.exists(outer):
+        src = read(outer)
+        if not os.path.exists(inner) or read(inner) != src:
+            os.makedirs(EXT, exist_ok=True)
+            with open(inner, "w", encoding="utf-8", newline="") as f:
+                f.write(src)
+        return src
+    return read(inner)
 
 
 def read(path):
@@ -79,8 +93,8 @@ window.BNG_PRESHOW_REST = function () {
 
 def build(out_dir):
     audio = read(os.path.join(SITE, "src", "preshow_audio.js"))
-    geo = read(os.path.join(PRE, "geometry.js"))
-    c2 = patch_c2(read(os.path.join(PRE, "c2.js")))
+    geo = pre("geometry.js")
+    c2 = patch_c2(pre("c2.js"))
     js = audio + "\n" + BOOT + "\n" + geo + "\n" + c2
     with open(os.path.join(out_dir, "preshow.js"), "w", encoding="utf-8", newline="\n") as f:
         f.write(js)
