@@ -1,0 +1,12 @@
+# build output and local state
+public/
+.wrangler/
+__pycache__/
+*.pyc
+
+# review stills, downloads and working notes
+tools/_*/
+proof/
+_previous-public-*/
+*-REPORT.md
+PORT-LEDGER.md

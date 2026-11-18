@@ -1,0 +1,7 @@
+{
+  "Brand / Sign|{\"Ink\": \"Full colour\", \"Product\": \"OS\", \"Size\": \"24\"}": "brand-kit/svg/family/sign-os-24-light.svg",
+  "Brand / Sign|{\"Ink\": \"Full colour\", \"Product\": \"OS\", \"Size\": \"48\"}": "brand-kit/svg/family/sign-os-48-light.svg",
+  "Brand / Sign|{\"Ink\": \"Full colour\", \"Product\": \"Studio\", \"Size\": \"24\"}": "brand-kit/svg/family/sign-studio-24-light.svg",
+  "Brand / Sign|{\"Ink\": \"Full colour\", \"Product\": \"Studio\", \"Size\": \"48\"}": "brand-kit/svg/family/sign-studio-48-light.svg",
+  "Brand / Logo / primary / full-colour|{}": "brand-kit/svg/wordmark-full-light.svg"
+}

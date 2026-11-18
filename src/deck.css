@@ -1,0 +1,84 @@
+@font-face{font-family:"Bricolage Grotesque";src:url(fonts/bricolage-grotesque-latin.woff2) format("woff2");font-weight:200 800;font-stretch:75% 100%;font-display:block}
+@font-face{font-family:"Inter";src:url(fonts/inter-latin.woff2) format("woff2");font-weight:100 900;font-display:block}
+@font-face{font-family:"Instrument Sans";src:url(fonts/instrument-sans-latin.woff2) format("woff2");font-weight:400 700;font-stretch:75% 100%;font-display:block}
+:root{--font-display:"Bricolage Grotesque",Inter,system-ui,sans-serif;--font-ui:Inter,system-ui,sans-serif;--font-text:"Instrument Sans",Inter,system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--color-background-neutral-canvas);overflow:hidden;color:var(--color-text-neutral-bold);-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ui);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button{font:inherit;color:inherit}
+#stage{position:fixed;inset:0;overflow:hidden;background:var(--color-background-neutral-canvas)}
+/* --ex: extra artboard width on screens wider than 16:10 (set by fit() in deck.js, 0 to 480px). Chrome reaches the edges; the title column stays on the left margin and the illustration on the right margin, so both line up with the footer; slides without a title column stay centred. */
+#deck{--ex:0px;position:absolute;left:0;top:0;width:calc(1440px + var(--ex));height:900px;transform-origin:0 0;visibility:hidden;overflow:hidden}
+body.deck-on #deck{visibility:visible}
+.slide{position:absolute;inset:0}
+.slide[hidden]{display:none}
+.art{position:absolute;inset:0;overflow:hidden;background:var(--color-background-neutral-canvas)}
+.b{position:relative}
+.bd::after{content:"";position:absolute;inset:0;border-style:var(--bs);border-color:var(--bc);border-width:var(--bw);border-radius:inherit;pointer-events:none}
+.bdo::after{inset:calc(0px - var(--bw))}
+.ng-h>*+*{margin-left:var(--ng)}
+.ng-v>*+*{margin-top:var(--ng)}
+.kg::before{content:"";position:absolute;inset:-2px;border:2px solid var(--color-background-neutral-canvas);border-radius:inherit;pointer-events:none}
+.tx{display:block;margin:0;font-synthesis:none}
+.ic svg,.lg svg{display:block;width:100%;height:100%}
+.ic,.lg{display:block}
+.b img{display:block;user-select:none;-webkit-user-drag:none}
+svg.connector,svg.vec{pointer-events:none;overflow:visible;position:absolute}
+.slot{position:absolute;left:calc(504px + var(--ex));top:72px;width:900px;height:728px}
+.art:not(:has(.titlecol)) .slot{left:calc(504px + var(--ex)*.5)}
+.kind-pause .art .slot{left:504px}
+.titlecol{position:absolute;left:36px;top:72px;width:444px;height:728px;display:flex;flex-direction:column;justify-content:center}
+.tblock{display:flex;flex-direction:column;gap:20px;width:100%}
+.eyebrow,.title,.lede{margin:0}
+.eyebrow{color:var(--color-text-neutral-subtlest)}
+.title{color:var(--color-text-neutral-bold);white-space:pre-line;font-weight:500}
+.lede{color:var(--color-text-neutral-subtle);text-wrap:pretty}
+.frule{position:absolute;left:36px;top:816px;width:calc(1368px + var(--ex));height:1px;background:var(--color-border-neutral-subtle)}
+.foot{position:absolute;left:36px;top:832px;width:calc(1368px + var(--ex));height:44px;display:flex;justify-content:space-between;align-items:center}
+.fl,.fr{display:flex;align-items:center}
+.fl{gap:24px}.fr{gap:12px}
+/* wordmark top left, on the chapter bar's line (Khalid, 2026-11-17); the footer's left holds the part name (.ftitle) and the note */
+.wm{position:absolute;left:36px;top:21px;display:block;width:96px;height:18.72px}
+.ftitle{color:var(--color-text-neutral-subtlest);white-space:nowrap}
+.ui #snd,.ui .sep{display:none}
+.wm svg{display:block;width:96px;height:18.72px}
+.note,.num{color:var(--color-text-neutral-subtlest);white-space:nowrap}
+.pager{width:44px;height:44px;padding:0;border-radius:var(--r-full);background:var(--color-background-neutral-raised);border:1px solid var(--color-border-neutral-subtle);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--color-icon-neutral-bold)}
+.pager .ic{display:none}
+.pager svg{width:20px;height:20px;display:block}
+.pager:focus-visible,.seg:focus-visible,.ui button:focus-visible{outline:2px solid var(--color-text-neutral-bold);outline-offset:2px}
+.nav{position:absolute;right:36px;top:28px;display:flex;gap:16px;align-items:center}
+.nav-label{color:var(--color-text-neutral-subtlest);white-space:nowrap}
+.segs{display:flex;gap:16px}
+.part{display:flex;gap:4px}
+.seg{display:block;width:20px;height:4px;border-radius:var(--r-full);background:var(--color-background-neutral-strong);cursor:pointer;position:relative}
+.seg::after{content:"";position:absolute;left:0;right:0;top:-10px;bottom:-10px}
+.seg.cur{background:var(--color-background-inverse-bold)}
+.seg.past{background:var(--color-background-neutral-progress)}
+/* page chrome that is not in Figma: language and sound, in the footer row, left of the page number and pager (216px = 36 margin + 156 pager group + 24 gap). The opener and the pause slides have no footer, so there they sit in the corner. */
+body[data-slide=op] .ui,body[data-slide=p1] .ui,body[data-slide=p2] .ui,body[data-slide=rv] .ui{right:36px}
+/* the reveal between the problems and the system (reveal.js): an SVG over the whole artboard, in artboard pixels; it stays put while the slides travel */
+.rv{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;transition:opacity .25s ease}
+.rv-disc{fill:var(--color-background-neutral-raised);stroke:var(--color-border-neutral-subtle);stroke-width:1}
+.rv-ico{color:var(--color-icon-neutral-bold);overflow:visible}
+.rv-label{fill:var(--color-text-neutral-subtle)}
+.rv-line{fill:var(--color-text-neutral-subtle)}
+.rv-l,.rv-ot,.rv-ob{fill:var(--color-text-neutral-bold)}
+.ui{position:absolute;right:216px;top:841px;display:flex;gap:4px;align-items:center;z-index:5;font-family:var(--font-ui);font-size:12px;line-height:17px}
+.ui button{background:none;border:0;padding:4px 8px;border-radius:var(--r-sm);color:var(--color-text-neutral-subtlest);cursor:pointer;font-weight:500;letter-spacing:.02em}
+.ui button[aria-pressed=true]{color:var(--color-text-neutral-bold);background:var(--color-background-neutral-tag)}
+.ui .sep{width:1px;height:12px;background:var(--color-border-neutral-subtle);margin:0 6px}
+body:not(.deck-on) .ui{display:none}
+/* pre-show (physics field, preshow.js): a full-viewport overlay that hands over to the opener slide */
+#preshow{position:fixed;inset:0;z-index:20;background:var(--color-background-neutral-canvas)}
+#preshow[hidden]{display:none}
+#ps-stage{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;user-select:none;-webkit-user-select:none;--ink:var(--color-text-neutral-bold)}
+#ps-stage .ink{fill:var(--ink)}
+#ps-stage .grn{fill:var(--color-background-signature-bold)}
+#ps-line{font-family:var(--font-text);fill:var(--color-text-neutral-subtle);text-anchor:middle}
+#ps-veil{position:fixed;inset:0;background:var(--color-background-neutral-canvas);opacity:0;pointer-events:none}
+#ps-hint-go{position:fixed;right:24px;bottom:18px;background:none;border:0;padding:6px 8px;border-radius:var(--r-sm);font:500 12px/1 var(--font-ui);letter-spacing:.02em;color:var(--color-text-neutral-placeholder);opacity:0;transition:opacity .6s ease;cursor:pointer}
+#ps-hint-go:focus-visible{outline:2px solid var(--color-text-neutral-bold);outline-offset:2px}
+body.go-on #ps-hint-go{opacity:1}
+body[data-phase=trans] #ps-hint-go,body[data-phase=rest] #ps-hint-go{opacity:0!important;pointer-events:none}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}

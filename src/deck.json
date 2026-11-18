@@ -1,0 +1,192 @@
+[
+  {
+    "key": "op",
+    "file": "op",
+    "chapter": 1,
+    "status": "final",
+    "kind": "opener"
+  },
+  {
+    "key": "s01",
+    "file": "s01",
+    "chapter": 1,
+    "status": "final"
+  },
+  {
+    "key": "s02",
+    "file": "s02",
+    "chapter": 1,
+    "status": "final"
+  },
+  {
+    "key": "s03",
+    "file": "s03",
+    "chapter": 2,
+    "status": "final"
+  },
+  {
+    "key": "s04",
+    "file": "s04",
+    "chapter": 3,
+    "status": "final"
+  },
+  {
+    "key": "s05",
+    "file": "s05",
+    "chapter": 4,
+    "status": "final"
+  },
+  {
+    "key": "s06",
+    "file": "s06",
+    "chapter": 4,
+    "status": "final"
+  },
+  {
+    "key": "s07",
+    "file": "s07",
+    "chapter": 4,
+    "status": "final"
+  },
+  {
+    "key": "s08",
+    "file": "s08",
+    "chapter": 4,
+    "status": "final"
+  },
+  {
+    "key": "s09",
+    "file": "s09",
+    "chapter": 4,
+    "status": "final"
+  },
+  {
+    "key": "rv",
+    "file": "rv",
+    "chapter": 5,
+    "status": "final",
+    "kind": "reveal"
+  },
+  {
+    "key": "s10",
+    "file": "s10",
+    "chapter": 5,
+    "status": "final"
+  },
+  {
+    "key": "s11",
+    "file": "s11",
+    "chapter": 5,
+    "status": "final"
+  },
+  {
+    "key": "p1",
+    "file": "p1",
+    "chapter": 6,
+    "status": "final",
+    "kind": "pause"
+  },
+  {
+    "key": "s12",
+    "file": "s12",
+    "chapter": 6,
+    "status": "final"
+  },
+  {
+    "key": "s13",
+    "file": "s13",
+    "chapter": 6,
+    "status": "final"
+  },
+  {
+    "key": "s14",
+    "file": "s14",
+    "chapter": 7,
+    "status": "final"
+  },
+  {
+    "key": "s15",
+    "file": "s15",
+    "chapter": 7,
+    "status": "final"
+  },
+  {
+    "key": "s16",
+    "file": "s16",
+    "chapter": 7,
+    "status": "final"
+  },
+  {
+    "key": "s17",
+    "file": "s17",
+    "chapter": 8,
+    "status": "final"
+  },
+  {
+    "key": "s18",
+    "file": "s18",
+    "chapter": 9,
+    "status": "final"
+  },
+  {
+    "key": "s19",
+    "file": "s19",
+    "chapter": 9,
+    "status": "final"
+  },
+  {
+    "key": "s20",
+    "file": "s20",
+    "chapter": 9,
+    "status": "final"
+  },
+  {
+    "key": "s21",
+    "file": "s21",
+    "chapter": 9,
+    "status": "final"
+  },
+  {
+    "key": "p2",
+    "file": "p2",
+    "chapter": 10,
+    "status": "final",
+    "kind": "pause"
+  },
+  {
+    "key": "s22",
+    "file": "s22",
+    "chapter": 10,
+    "status": "final"
+  },
+  {
+    "key": "s23",
+    "file": "s23",
+    "chapter": 11,
+    "status": "final"
+  },
+  {
+    "key": "s24",
+    "file": "s24",
+    "chapter": 11,
+    "status": "final"
+  },
+  {
+    "key": "s25",
+    "file": "s25",
+    "chapter": 11,
+    "status": "final"
+  },
+  {
+    "key": "s26",
+    "file": "s26",
+    "chapter": 12,
+    "status": "final"
+  },
+  {
+    "key": "s27",
+    "file": "s27",
+    "chapter": 12,
+    "status": "final"
+  }
+]

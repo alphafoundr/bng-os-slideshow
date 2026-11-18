@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--
+# Credits
+
+This work is based on "Apple Macbook Air 15 (Space Gray) 2023" (https://sketchfab.com/3d-models/apple-macbook-air-15-space-gray-2023-e8d82e341c794141a2561c2c9d01d79e) by akshatmittal (https://sketchfab.com/akshatmittal) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+Runtime modifications: hinge animation, display UV fitting and emissive image replacement, hidden separate Apple logo, softened chassis material response. Source model files remain unchanged.
+
+## three.js 0.187.0
+
+The MIT License
+
+Copyright © 2010-2026 three.js authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light">
+<title>BNG OS</title>
+<link rel="icon" href="data:,">
+<style>/*CSS*/</style>
+</head>
+<body class="preshow-on">
+<main id="stage">
+<div id="deck" aria-live="polite">
+<!--SLIDES-->
+<div class="ui" role="group" aria-label="Language and sound"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="fr" aria-pressed="false">FR</button><i class="sep"></i><button type="button" id="snd" aria-pressed="true"><span data-k="sound">Sound</span> · <span data-k="state">on</span></button></div>
+</div>
+</main>
+<div id="preshow">
+<div id="ps-veil"></div>
+<svg id="ps-stage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="BNG OS">
+  <defs id="ps-defs"><clipPath id="ps-floodClip"><circle id="ps-floodC" cx="0" cy="0" r="1"/></clipPath></defs>
+  <g id="ps-scene"><g id="ps-parts"></g><g id="ps-wmSwap" display="none"></g><g id="ps-dotG"></g></g>
+  <g id="ps-lightLayer" display="none" clip-path="url(#ps-floodClip)"><rect x="-8000" y="-8000" width="17440" height="16900" fill="var(--color-background-neutral-canvas)"/><use id="ps-lightUse" href="#ps-scene"/></g>
+  <g id="ps-rmLayer" display="none"></g>
+  <g id="ps-opener" display="none"></g>
+  <text id="ps-line" opacity="0"></text>
+</svg>
+<button type="button" class="hint" id="ps-hint-go">Press space to start</button>
+</div>
+<script>(function(){if(/[?&]nopreshow=1/.test(location.search)||location.hash.length>1){window.BNG_NOPRESHOW=1;document.body.classList.remove('preshow-on');document.getElementById('preshow').hidden=true;}})();</script>
+<script>window.BNG_FR_UI=/*FR_UI*/;</script>
+<script src="vendor/gsap-3.15.1.min.js"></script>
+<script src="deck.js"></script>
+<script src="reveal.js"></script>
+<script src="vendor/matter-0.20.0.min.js"></script>
+<script src="preshow.js"></script>
+</body>
+</html>

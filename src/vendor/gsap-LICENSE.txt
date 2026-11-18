@@ -1,0 +1,20 @@
+GSAP 3.15.1 (gsap.min.js, copied unchanged from the npm package "gsap@3.15.1", dist/gsap.min.js)
+
+The npm package ships no licence file. Its package.json says:
+  "license": "Standard 'no charge' license: https://gsap.com/standard-license."
+and the file header of gsap.min.js reads:
+  @license Copyright 2026, GreenSock. All rights reserved.
+  Subject to the terms at https://gsap.com/standard-license.
+That header is kept as shipped (the licence forbids removing or altering proprietary notices).
+
+Terms as read on https://gsap.com/standard-license on 2026-11-17 (effective 2025-04-30, last modified 2025-05-30), summarised, not a copy of the licence:
+- Grant: a non-exclusive, worldwide licence to use, reproduce, display and implement GSAP Products solely for Permitted Uses, namely
+  "the implementation and/or use of GSAP Products on any website, web application, or digital interface by any person or entity".
+- Commercial use is covered ("Commercial usage is covered under the standard license").
+- Prohibited: use in tools that let users build visual animations without code and that help create a product competing with Webflow;
+  reverse engineering to make such a product; removing or altering proprietary notices or branding.
+- The page says nothing explicit about shipping the library file inside a client deliverable or about offline use.
+  This prototype is a presentation page (a digital interface), not an animation-building tool, so it falls under Permitted Uses on a plain reading;
+  the owner should confirm before the file leaves the studio inside a client package.
+
+Read the live terms before shipping: https://gsap.com/standard-license

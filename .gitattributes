@@ -1,0 +1,2 @@
+# keep every file byte-for-byte: the build hashes its inputs and the checks compare generated JSON
+* -text

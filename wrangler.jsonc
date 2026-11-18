@@ -1,0 +1,10 @@
+{
+  // Static site: the BNG OS slideshow. Deploy: build_site.py, then `npx wrangler deploy` with
+  // CLOUDFLARE_ACCOUNT_ID set to the "Client Sites" account. Remove: `npx wrangler delete`.
+  "name": "bng-os",
+  "compatibility_date": "2026-11-13",
+  "assets": { "directory": "./public" },
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "bng-os.alphafoundr.com", "custom_domain": true }]
+}
