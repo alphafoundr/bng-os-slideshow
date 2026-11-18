@@ -32,8 +32,8 @@ for i, (name, im, title, sub) in enumerate(stages):
 ch.append(tag("We start here", 0, 156, "We start here"))
 for i, (name, im, title, sub) in enumerate(stages):
     ch.append(badge(name, 182 * i + 74, 406, str(i + 1)))
-s26 = slide("517:5998", "12 · Stages and start · Five stages, in this order", "26 / 27", "The plan", "Five stages,\nin this order.",
-            "Each one is useful on its own and prepares the next.", "Illustrative images, generated", 12, ch)
+s26 = slide("517:5998", "13 · Stages and start · Five stages, in this order", "26 / 27", "The plan", "Five stages,\nin this order.",
+            "Each one is useful on its own and prepares the next.", "Illustrative images, generated", 13, ch)
 dump("s26", s26)
 
 # ---------------- 27 · Three things to begin ----------------
@@ -49,6 +49,6 @@ for (n, y, im, m, title, sub, (tt, tx, ty)) in steps:
     ch.append(tag(tt, tx, ty, tt))
 for i, (n, y, *_r) in enumerate(steps, 1):
     ch.append(badge(n, 8, y + 8, str(i)))
-s27 = slide("517:6133", "12 · Stages and start · Three things to begin", "27 / 27", "To begin", "Three things\nto begin.",
-            "One access to open, one figure to agree. Then the first stage starts.", "Illustrative images, generated", 12, ch)
+s27 = slide("517:6133", "13 · Stages and start · Three things to begin", "27 / 27", "To begin", "Three things\nto begin.",
+            "One access to open, one figure to agree. Then the first stage starts.", "Illustrative images, generated", 13, ch)
 dump("s27", s27)

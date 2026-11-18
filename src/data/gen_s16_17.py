@@ -39,9 +39,9 @@ ch += [persona_h("Collections", 130, 640, 256, "2a9ca040", "Collections", "Sees 
        annotation("approves", 218, 592, "approves"),
        vconn("collections → reminder sent", 598, 556, 84, True), ai_node("Device · reminder sent", 590, 548),
        annotation("after approval", 545, 592, "after approval")]
-s16 = slide("308:3460", "07 · Cortex at work · Today's actions, already ranked", "16 / 27", "Cortex at work", "Today's actions,\nalready ranked.",
+s16 = slide("308:3460", "08 · Cortex at work · Today's actions, already ranked", "20 / 27", "Cortex at work", "Today's actions,\nalready ranked.",
             "Every morning the day's collection actions arrive ranked, with the reason for each. Nothing legal leaves without a person.",
-            "Illustrative example · fictional people and figures", 7, ch)
+            "Illustrative example · fictional people and figures", 8, ch)
 dump("s16", s16)
 
 # ---------------- 17 · What changes, in numbers ----------------
@@ -68,7 +68,7 @@ ch += row(404, "Adviser line-ups deciding who gets a lead", "One assignment engi
 ch += [{"x": 0, "y": 506, **T("In dirhams · scenarios", "label/md-strong", "text/neutral/subtlest", w=300)}]
 ch += row(536, "Overdue cash collected a quarter sooner", "10% of the low overdue reading to 25% of the high one. A scenario.", "not measured", "MAD 9M", "MAD 37M", vy=531, vs="heading/md", ty=534)
 ch += row(616, "Sales kept, not cancelled, per 8 months", "Earlier reminders save 10% to 30% of 34 cancellations. A scenario.", "not measured", "3 sales · MAD 5M", "10 sales · MAD 17M", vy=611, vs="heading/md", ty=614)
-s17 = slide("310:3676", "08 · In numbers · What changes, in numbers", "17 / 27", "The gains", "What changes,\nin numbers.",
+s17 = slide("310:3676", "11 · In numbers · What changes, in numbers", "24 / 27", "The gains", "What changes,\nin numbers.",
             "Every gain is a range. Today's figures come from BNG's own systems; the low and high ends are our estimates, with what each rests on.",
-            "Today: read from BNG's systems on 13 November 2026 · Low and high end: our estimates", 8, ch)
+            "Today: read from BNG's systems on 13 November 2026 · Low and high end: our estimates", 11, ch)
 dump("s17", s17)

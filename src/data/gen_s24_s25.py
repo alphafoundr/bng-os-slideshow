@@ -45,8 +45,8 @@ studio = prod_card("Studio", 0, 495, 900, "Studio", 173, "Studio", "Builds what 
 c24 = conn("BNG OS to Studio", 450, 395, 0, 100, "M 0 0 L 0 100")
 c24["n"] = "Connector · BNG OS to Studio"
 ch24 = [panel, studio, c24, node("BNG OS end", 442, 387), node("Studio end", 442, 487)]
-s24 = slide("395:5162", "11 · It is yours · Three products, one system", "24 / 27", "Recap", "Three products,\none system.", "One system BNG owns. Each part has one job.",
-            "Illustrative · fictional people and figures", 11, ch24)
+s24 = slide("395:5162", "10 · Three products · Three products, one system", "22 / 27", "Recap", "Three products,\none system.", "One system BNG owns. Each part has one job.",
+            "Illustrative · fictional people and figures", 10, ch24)
 s24["props"]["Show note"] = False
 dump("s24", s24)
 
@@ -128,8 +128,8 @@ ch25 = [{"x": -468, "y": 0, **T("Recap", "eyebrow/md", "text/neutral/subtlest", 
                ["Checks every tool against the others", "Clear cases run on their own", "Doubtful cases go to a person", "Money and legal steps wait for a yes"]),
         card25("Studio", 460, mock_st, lockup("Studio", 173, "Studio"), "Builds what BNG asks for, tested before it goes live.",
                ["Asked for in plain words", "Planned, built and tested for you", "Live only after every check", "Code and data stay with BNG"])]
-s25 = {"id": "397:5247", "name": "11 · It is yours · What each one does · A",
+s25 = {"id": "397:5247", "name": "10 · Three products · What each one does · A",
        "props": {"Lede": "A lede in one or two short lines.", "Show lede": False, "Eyebrow": "11 · It is yours", "Title": "What each\none does.", "Show footer": True, "Show note": True,
-                 "Show nav": True, "Number": "25 / 27", "Show title column": False, "Note": "Illustrative example · fictional people and figures"},
-       "nav": {"Chapter": "11"}, "ch": ch25}
+                 "Show nav": True, "Number": "23 / 27", "Show title column": False, "Note": "Illustrative example · fictional people and figures"},
+       "nav": {"Chapter": "10"}, "ch": ch25}
 dump("s25", s25)

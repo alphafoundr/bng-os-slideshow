@@ -4,189 +4,220 @@
     "file": "op",
     "chapter": 1,
     "status": "final",
-    "kind": "opener"
+    "kind": "opener",
+    "section": "The case"
   },
   {
     "key": "s01",
     "file": "s01",
     "chapter": 1,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "s02",
     "file": "s02",
     "chapter": 1,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "s03",
     "file": "s03",
     "chapter": 2,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "s04",
     "file": "s04",
     "chapter": 3,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "s05",
     "file": "s05",
     "chapter": 4,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "s06",
     "file": "s06",
     "chapter": 4,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "s07",
     "file": "s07",
     "chapter": 4,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "s08",
     "file": "s08",
     "chapter": 4,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "s09",
     "file": "s09",
     "chapter": 4,
-    "status": "final"
+    "status": "final",
+    "section": "The case"
   },
   {
     "key": "rv",
     "file": "rv",
     "chapter": 5,
     "status": "final",
-    "kind": "reveal"
+    "kind": "reveal",
+    "section": "The turn"
   },
   {
     "key": "s10",
     "file": "s10",
     "chapter": 5,
-    "status": "final"
+    "status": "final",
+    "section": "The turn"
   },
   {
     "key": "s11",
     "file": "s11",
     "chapter": 5,
-    "status": "final"
-  },
-  {
-    "key": "p1",
-    "file": "p1",
-    "chapter": 6,
     "status": "final",
-    "kind": "pause"
-  },
-  {
-    "key": "s12",
-    "file": "s12",
-    "chapter": 6,
-    "status": "final"
-  },
-  {
-    "key": "s13",
-    "file": "s13",
-    "chapter": 6,
-    "status": "final"
-  },
-  {
-    "key": "s14",
-    "file": "s14",
-    "chapter": 7,
-    "status": "final"
-  },
-  {
-    "key": "s15",
-    "file": "s15",
-    "chapter": 7,
-    "status": "final"
-  },
-  {
-    "key": "s16",
-    "file": "s16",
-    "chapter": 7,
-    "status": "final"
-  },
-  {
-    "key": "s17",
-    "file": "s17",
-    "chapter": 8,
-    "status": "final"
+    "section": "The turn"
   },
   {
     "key": "s18",
     "file": "s18",
-    "chapter": 9,
-    "status": "final"
-  },
-  {
-    "key": "s19",
-    "file": "s19",
-    "chapter": 9,
-    "status": "final"
+    "chapter": 6,
+    "status": "final",
+    "section": "The product"
   },
   {
     "key": "s20",
     "file": "s20",
-    "chapter": 9,
-    "status": "final"
+    "chapter": 6,
+    "status": "final",
+    "section": "The product"
   },
   {
     "key": "s21",
     "file": "s21",
-    "chapter": 9,
-    "status": "final"
+    "chapter": 6,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s19",
+    "file": "s19",
+    "chapter": 6,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "p1",
+    "file": "p1",
+    "chapter": 7,
+    "status": "final",
+    "kind": "pause",
+    "section": "The product"
+  },
+  {
+    "key": "s12",
+    "file": "s12",
+    "chapter": 7,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s13",
+    "file": "s13",
+    "chapter": 7,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s14",
+    "file": "s14",
+    "chapter": 8,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s15",
+    "file": "s15",
+    "chapter": 8,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s16",
+    "file": "s16",
+    "chapter": 8,
+    "status": "final",
+    "section": "The product"
   },
   {
     "key": "p2",
     "file": "p2",
-    "chapter": 10,
+    "chapter": 9,
     "status": "final",
-    "kind": "pause"
+    "kind": "pause",
+    "section": "The product"
   },
   {
     "key": "s22",
     "file": "s22",
-    "chapter": 10,
-    "status": "final"
-  },
-  {
-    "key": "s23",
-    "file": "s23",
-    "chapter": 11,
-    "status": "final"
+    "chapter": 9,
+    "status": "final",
+    "section": "The product"
   },
   {
     "key": "s24",
     "file": "s24",
-    "chapter": 11,
-    "status": "final"
+    "chapter": 10,
+    "status": "final",
+    "section": "The product"
   },
   {
     "key": "s25",
     "file": "s25",
+    "chapter": 10,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s17",
+    "file": "s17",
     "chapter": 11,
-    "status": "final"
+    "status": "final",
+    "section": "The gains"
+  },
+  {
+    "key": "s23",
+    "file": "s23",
+    "chapter": 12,
+    "status": "final",
+    "section": "Close"
   },
   {
     "key": "s26",
     "file": "s26",
-    "chapter": 12,
-    "status": "final"
+    "chapter": 13,
+    "status": "final",
+    "section": "Close"
   },
   {
     "key": "s27",
     "file": "s27",
-    "chapter": 12,
-    "status": "final"
+    "chapter": 13,
+    "status": "final",
+    "section": "Close"
   }
 ]

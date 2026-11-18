@@ -37,7 +37,7 @@ ch += [persona_h("The back office", 130, 640, 256, "2a9ca040", "The back office"
        annotation("approves", 218, 592, "approves"),
        vconn("contract file → file on hold", 598, 556, 84, True), ai_node("Device · file on hold", 590, 548),
        annotation("after approval", 545, 592, "after approval")]
-s15 = slide("307:3287", "07 · Cortex at work · The file checks itself", "15 / 27", "Cortex at work", "The file\nchecks itself.",
+s15 = slide("307:3287", "08 · Cortex at work · The file checks itself", "19 / 27", "Cortex at work", "The file\nchecks itself.",
             "A file is read as it arrives. Each mismatch names its field and goes to the right person.",
-            "Illustrative example · fictional people and figures", 7, ch)
+            "Illustrative example · fictional people and figures", 8, ch)
 dump("s15", s15)

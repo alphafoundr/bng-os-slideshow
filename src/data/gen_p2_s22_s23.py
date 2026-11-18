@@ -7,11 +7,11 @@ from gen_s14 import confirmation, vconn
 studio_lockup = {"x": -468, "y": -36, "cn": "Brand / Product lockup", "t": "F", "w": 173, "h": 48, "n": "Lockup · Studio", "lm": "H", "gap": 12, "ca": "c",
                  "ch": [{"cn": "Brand / Sign", "w": 48, "h": 48, "lg": 1, "vp": {"Product": "Studio", "Size": "48", "Ink": "Full colour"}},
                         T("Studio", "heading/xl", "text/neutral/bold", nw=1)]}
-p2 = {"id": "332:5182", "name": "10 · Studio · And when BNG needs something new (pause)",
+p2 = {"id": "332:5182", "name": "09 · Studio · And when BNG needs something new (pause)",
       "props": {"Note": "Illustrative · fictional people and figures", "Lede": "A lede in one or two short lines.", "Show lede": False,
                 "Eyebrow": "10 · Studio", "Title": "And when BNG needs\nsomething new?", "Show footer": False, "Show nav": True, "Show note": False,
                 "Show title column": False, "Number": "01 / 27"},
-      "nav": {"Chapter": "10"},
+      "nav": {"Chapter": "9"},
       "ch": [{"x": -468, "y": 421, **T("And when BNG needs\nsomething new?", "display/xl", "text/neutral/bold", w=1368)},
              {"x": -468, "y": 717, **T("You should not have to call us.", "body/lede-lg", "text/neutral/subtle", w=900)},
              studio_lockup]}
@@ -103,9 +103,9 @@ ch = [device,
       confirmation("Live in BNG OS", 426, 640, 344, "Live in BNG OS", "Under Reports, for the sales managers. Code and data stay with BNG."),
       node("Asked in plain words", 442, 95), node("Device · asked", 442, 148), node("Device · management", 262, 548), node("Management", 262, 632),
       node("Device · Live", 590, 548), node("Live in BNG OS", 590, 632)]
-s22 = slide("498:5853", "10 · Studio · You ask, it gets built (22 B)", "22 / 27", "Studio", "You ask.\nIt gets built.",
+s22 = slide("498:5853", "09 · Studio · You ask, it gets built (22 B)", "21 / 27", "Studio", "You ask.\nIt gets built.",
             "BNG describes the need in plain words. The system plans it, builds it and tests it. BNG puts it live.",
-            "Illustrative example · fictional people and figures", 10, ch)
+            "Illustrative example · fictional people and figures", 9, ch)
 dump("s22", s22)
 
 # ---------------- 23 · It stays yours. It keeps growing. ----------------
@@ -149,7 +149,7 @@ for i, (name, _, _, _) in enumerate(tools):
 for (name, x, _, _), nx in zip(tools, (52, 182, 312, 442, 572, 702, 832)):
     ch.append(node(name, nx, 416))
 ch.append({"x": 381, "y": 254, "cn": "Brand / Sign", "w": 24, "h": 24, "lg": 1, "vp": {"Product": "OS", "Size": "24", "Ink": "Full colour"}})
-s23 = slide("321:4745", "11 · It is yours · It stays yours, it keeps growing", "23 / 27", "Ownership", "It stays yours.\nIt keeps growing.",
-            "Accounts, code and data belong to BNG. It keeps growing with every request and every correction.", "Illustrative · fictional people and figures", 11, ch)
+s23 = slide("321:4745", "12 · It is yours · It stays yours, it keeps growing", "25 / 27", "Ownership", "It stays yours.\nIt keeps growing.",
+            "Accounts, code and data belong to BNG. It keeps growing with every request and every correction.", "Illustrative · fictional people and figures", 12, ch)
 s23["props"]["Show note"] = False
 dump("s23", s23)

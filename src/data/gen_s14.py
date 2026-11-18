@@ -77,7 +77,7 @@ ch += [persona_h("The sales manager", 130, 640, 256, "5755e103", "The sales mana
        vconn("decisions inbox → lead assigned", 598, 556, 84, True), ai_node("Device · lead assigned", 590, 548),
        annotation("after approval", 545, 592, "after approval")]
 # the persona uses the sales director portrait (5755e103) with the Figma crop; persona_h passes the hash to portrait()
-s14 = slide("303:3128", "07 · Cortex at work · From the form to the right adviser", "14 / 27", "Cortex at work", "From the form\nto the right adviser.",
+s14 = slide("303:3128", "08 · Cortex at work · From the form to the right adviser", "18 / 27", "Cortex at work", "From the form\nto the right adviser.",
             "Cortex reads a new lead, checks who is free and who speaks the language, and proposes an adviser. A person confirms.",
-            "Illustrative example · fictional people and figures", 7, ch)
+            "Illustrative example · fictional people and figures", 8, ch)
 dump("s14", s14)

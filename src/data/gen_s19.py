@@ -43,7 +43,7 @@ ch = [desktop_full("Device · Desktop · Cockpit", inner),
       ai_conn("device → proposal", 290, 556, 0, 84, "M 0 0 L 0 84"), ai_node("Device · proposal", 282, 548),
       ucard("A stake on each row", 494, 640, "A stake on each row", "The amount behind each one"),
       conn("device → stake", 622, 556, 0, 84, "M 0 0 L 0 84"), node("Device · stake", 614, 548), node("stake", 614, 632)]
-s19 = slide("321:5013", "09 · The app · The day starts with decisions", "19 / 27", "The app", "The day starts\nwith decisions.",
+s19 = slide("321:5013", "06 · The app · The day starts with decisions", "15 / 27", "The app", "The day starts\nwith decisions.",
             "The group's cash on top, then the decisions Cortex proposes, each with its reason. A person approves every one.",
-            "Illustrative example · fictional people and figures", 9, ch)
+            "Illustrative example · fictional people and figures", 6, ch)
 dump("s19", s19)

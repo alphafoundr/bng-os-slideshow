@@ -51,15 +51,15 @@ def ext(rel):
     return inner
 
 
-PARTS = [("The case", 4), ("The turn", 1), ("The solution", 3), ("The product", 3), ("Close", 1)]
+PARTS = [("The case", 4), ("The turn", 1), ("The product", 5), ("The gains", 1), ("Close", 2)]
 
 
-def nav_html(chapter, ctx, in_footer):
+def nav_html(chapter, ctx, in_footer, section):
     part_of = []
     for pi, (_, n) in enumerate(PARTS):
         part_of += [pi] * n
     cur_part = part_of[chapter - 1]
-    label, fr = ctx.s.attrs(PARTS[cur_part][0])
+    label, fr = ctx.s.attrs(section)
     segs = []
     c = 0
     for pi, (_, n) in enumerate(PARTS):
@@ -128,7 +128,7 @@ def chrome(slide, ctx, idx, total_label):
     show_footer = p.get("Show footer", True)
     ftitle = ""
     if show_nav:
-        nav, ftitle = nav_html(slide["chapter"], ctx, show_footer)
+        nav, ftitle = nav_html(slide["chapter"], ctx, show_footer, slide["section"])
         out.append(nav)
     if show_footer:
         out.append('<span class="wm">%s</span>' % ctx.logos["Wordmark"])
@@ -187,6 +187,7 @@ def main():
         strings.slide = entry["key"]
         slide = load("data/%s.json" % entry["file"])
         slide["chapter"] = entry["chapter"]
+        slide["section"] = entry["section"]
         slide["kind"] = entry.get("kind", "slide")
         body = chrome(slide, ctx, i, "")
         slides_html.append('<section class="slide kind-%s" data-key="%s" data-ch="%d" data-status="%s" hidden>'
