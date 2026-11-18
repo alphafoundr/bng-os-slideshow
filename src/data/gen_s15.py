@@ -37,10 +37,9 @@ ch = [subject_card("Sales contract", X2, yl[0], W2, H_FILE, "buyer", "Hicham B."
       suggestion_card("Hold the file", X3, yr[0], W3, H_SUGG, "Hold the file until\nthe price is settled", "Two tools, MAD 15,000 apart"),
       approval_card("The back office", X3, yr[1], W3, H_APPR, "rep", "Salma R.", "The back office", "Sees both values, then decides"),
       result_card("File on hold", X3C, yr[2], W3C, H_CONF, "File on hold, price to settle", "Approved by the back office and logged in the file's history.")]
-for i, (name, ic, label) in enumerate(SOURCES):
-    ch.append(source(name, X1, geo.ys[i] - 28, ic, label))
-ch += geo.build_lines({"recv": "what Cortex checked", "chain": [("contract file", "what Cortex checked")], "propose": "suggestion", "approve": "back office",
-                       "result": "file on hold"}, [s[0] for s in SOURCES])
+sources = [source(name, X1, y - 28, ic, label) for y, (name, ic, label) in zip(geo.ys, SOURCES)]
+ch = geo.build_flow(ch, sources, {"recv": "what Cortex checked", "chain": [("contract file", "what Cortex checked")],
+                                 "propose": "suggestion", "approve": "back office", "result": "file on hold"})
 s15 = slide("307:3287", "07 · Cortex at work · The file checks itself", "15 / 27", "Cortex at work", "The file\nchecks itself.",
             "A file is read as it arrives. Each mismatch names its field and goes to the right person.",
             "Illustrative example · fictional people and figures", 7, ch)

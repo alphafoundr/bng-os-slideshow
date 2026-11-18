@@ -32,6 +32,11 @@ for i, (name, im, title, sub) in enumerate(stages):
 ch.append(tag("We start here", 0, 156, "We start here"))
 for i, (name, im, title, sub) in enumerate(stages):
     ch.append(badge(name, 182 * i + 74, 406, str(i + 1)))
+at(0, ch[-6])
+for i in range(len(stages)):
+    at(i, ch[i], *ch[8 + 2 * i:10 + 2 * i], ch[-5 + i])
+draw(0, *ch[5:8], target=ch[4], arrival=4,
+     via=[(i, (182 * i + 78) / 884, ch[i]) for i in range(1, 4)])
 s26 = slide("517:5998", "13 · Stages and start · Five stages, in this order", "26 / 27", "The plan", "Five stages,\nin this order.",
             "Each one is useful on its own and prepares the next.", "Illustrative images, generated", 13, ch)
 dump("s26", s26)

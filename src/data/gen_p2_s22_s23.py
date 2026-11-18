@@ -103,6 +103,13 @@ ch = [device,
       confirmation("Live in BNG OS", 426, 640, 344, "Live in BNG OS", "Under Reports, for the sales managers. Code and data stay with BNG."),
       node("Asked in plain words", 442, 95), node("Device · asked", 442, 148), node("Device · management", 262, 548), node("Management", 262, 632),
       node("Device · Live", 590, 548), node("Live in BNG OS", 590, 632)]
+at(0, ch[4])
+at(1, device)
+at(3, ch[5])
+at(5, ch[6])
+draw(0, ch[1], ch[7], ch[8], target=device)
+draw(2, ch[2], ch[9], ch[10], target=ch[5])
+draw(4, ch[3], ch[11], ch[12], target=ch[6])
 s22 = slide("498:5853", "09 · Studio · You ask, it gets built (22 B)", "21 / 27", "Studio", "You ask.\nIt gets built.",
             "BNG describes the need in plain words. The system plans it, builds it and tests it. BNG puts it live.",
             "Illustrative example · fictional people and figures", 9, ch)
@@ -149,6 +156,18 @@ for i, (name, _, _, _) in enumerate(tools):
 for (name, x, _, _), nx in zip(tools, (52, 182, 312, 442, 572, 702, 832)):
     ch.append(node(name, nx, 416))
 ch.append({"x": 381, "y": 254, "cn": "Brand / Sign", "w": 24, "h": 24, "lg": 1, "vp": {"Product": "OS", "Size": "24", "Ink": "Full colour"}})
+at(0, ch[0])
+at(3, hub23, ch[-1])
+for i in range(3):
+    at(i, ch[1 + i])
+    start = 12 + i * 3
+    draw(i, *ch[start:start + 3], target=hub23, arrival=3)
+at(4, ch[28])
+for i in range(7):
+    step = 4 + i // 2
+    at(step + 1, ch[5 + i])
+    draw(step, ch[21 + i], ch[30 + i], ch[37 + i], target=ch[5 + i])
+at(9, list_row)
 s23 = slide("321:4745", "12 · It is yours · It stays yours, it keeps growing", "25 / 27", "Ownership", "It stays yours.\nIt keeps growing.",
             "Accounts, code and data belong to BNG. It keeps growing with every request and every correction.", "Illustrative · fictional people and figures", 12, ch)
 s23["props"]["Show note"] = False

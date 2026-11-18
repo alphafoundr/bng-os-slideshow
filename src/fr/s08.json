@@ -1,7 +1,7 @@
 {
   "One sale,\ntyped twice.": "Une vente,\nsaisie deux fois.",
-  "The same sale is typed twice, and the two versions drift apart. Nobody knows which one is right.": "La même vente est saisie deux fois, et les deux versions divergent. Personne ne sait laquelle est la bonne.",
-  "Illustrative example · fictional people and figures": "Exemple illustratif · personnes et chiffres fictifs",
+  "The same sale is typed twice, and the two versions drift apart. Nobody knows which one is right.": "Deux saisies pour la même vente. Les versions divergent. Impossible de savoir laquelle est juste.",
+  "Illustrative example · fictional people and figures": "Exemple fictif · personnes et chiffres",
   "Sale · Lot B-214": "Vente · Lot B-214",
   "Agreed price": "Prix convenu",
   "1,250,000 MAD": "1\u00a0250\u00a0000 MAD",
@@ -16,8 +16,8 @@
   "15,000 MAD apart": "15\u00a0000 MAD d’écart",
   "CRM": "CRM",
   "Finance app": "App finance",
-  "The sales adviser": "Le commercial",
+  "The sales adviser": "Le conseiller",
   "Types it in the CRM": "La saisit dans le CRM",
   "The back office": "Le back-office",
-  "Types it in the finance app": "La saisit dans l’app finance"
+  "Types it in the finance app": "La ressaisit dans l’app"
 }

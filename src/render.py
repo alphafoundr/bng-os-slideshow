@@ -317,6 +317,15 @@ def render_image_fill(f, n):
 
 
 def render_node(n, ctx, par=None, extra_cls=""):
+    markup = node_markup(n, ctx, par, extra_cls)
+    if "seq" in n:
+        data = html.escape(json.dumps(n["seq"], ensure_ascii=False), quote=True)
+        tag, space, rest = markup.partition(" ")
+        return f'{tag} data-seq="{data}"{space}{rest}'
+    return markup
+
+
+def node_markup(n, ctx, par, extra_cls):
     t = n.get("t")
     if n.get("ic"):
         return render_icon(n, ctx, par)

@@ -248,27 +248,54 @@ class GeoA:
         self.ys = [top + i * self.pitch for i in range(n_src)]  # disc centre y of each source
         self.disc_x = X1 + SRC_W // 2 + 28                      # right edge of a disc
 
-    def build_lines(self, names, src_labels, recv_y=None, send_y=None):
-        """names: dict of the line names. Returns the connector, dot and annotation records."""
+    def build_flow(self, cards, sources, names, recv_y=None, send_y=None):
+        """Build the same illustration with the trigger, evidence, decision and outcome scheduled."""
+        *trigger, read, suggestion, approval, result = cards
+        read_step = len(trigger) + len(sources)
+        proposal_step = read_step + 3
+        approval_step = proposal_step + 1
+        result_step = approval_step + 3
+        for i, card in enumerate(trigger):
+            at(i, card)
+        for i, source in enumerate(sources, len(trigger)):
+            at(i, source)
+        at(read_step, read)
+        for i, row in enumerate(read["ch"][-1]["ch"]):
+            at(read_step + 1, row, motion="row", index=i)
+        at(proposal_step, suggestion)
+        at(approval_step, approval)
+        at(approval_step + 1, *approval["ch"][1:])
+        at(result_step, result)
+
         out = []
+
+        def add(step, target, *args, arrival=None, **kwargs):
+            parts = link(*args, **kwargs)
+            draw(step, *parts, target=target, arrival=arrival)
+            out.extend(parts)
+
         recv_card_x = self.x2
-        for i, y in enumerate(self.ys):
-            out += link("%s → %s" % (src_labels[i], names["recv"]), (self.disc_x + 4, y), (recv_card_x, y), "ai", FA, FB)
+        for i, (source, y) in enumerate(zip(sources, self.ys)):
+            label = source["n"].removeprefix("Tool · ")
+            add(i + len(trigger), read, "%s → %s" % (label, names["recv"]), (self.disc_x + 4, y), (recv_card_x, y),
+                "ai", FA, FB, arrival=read_step)
         cx = self.x2 + self.w2 // 2
         fcol2 = round((FB + FC) / 2, 3)             # the centre of a col-2 card moves by the mean of its two edges
         for i in range(len(self.left) - 1):
-            out += link("%s → %s" % (names["chain"][i][0], names["chain"][i][1]), (cx, self.yl[i] + self.left[i] + 4), (cx, self.yl[i + 1]), "ai", fcol2, fcol2)
+            add(read_step - 1, read, "%s → %s" % (names["chain"][i][0], names["chain"][i][1]),
+                (cx, self.yl[i] + self.left[i] + 4), (cx, self.yl[i + 1]), "ai", fcol2, fcol2)
         ry = self.yl[self.recv]
         y_from = ry + (recv_y if recv_y is not None else 44)
         sy = self.yr[0]
         y_to = sy + (send_y if send_y is not None else self.right[0] - 40)
-        out += link("%s → %s" % (names["recv"], names["propose"]), (self.x2 + self.w2 + 4, y_from), (X3, y_to), "ai", FC, FD, z=True)
+        add(proposal_step - 1, suggestion, "%s → %s" % (names["recv"], names["propose"]),
+            (self.x2 + self.w2 + 4, y_from), (X3, y_to), "ai", FC, FD, z=True)
         cx3 = X3 + W3 // 2
         f3 = round(FD / 2, 3)                       # the centre of a col-3 card
         a_top, a_bot = self.yr[1], self.yr[1] + self.right[1]
         s_bot = self.yr[0] + self.right[0]
-        out += link("%s → %s" % (names["propose"], names["approve"]), (cx3, s_bot), (cx3, a_top), "plain", f3, f3)
-        out += link("%s → %s" % (names["approve"], names["result"]), (cx3, a_bot + 4), (cx3, self.yr[2]), "ai", f3, f3)
-        out.append(ann("approves", cx3, (s_bot + a_top) // 2, "approves", f3))
-        out.append(ann("after approval", cx3, (a_bot + self.yr[2]) // 2, "after approval", f3))
-        return out
+        add(approval_step - 1, approval, "%s → %s" % (names["propose"], names["approve"]), (cx3, s_bot), (cx3, a_top), "plain", f3, f3)
+        add(result_step - 1, result, "%s → %s" % (names["approve"], names["result"]), (cx3, a_bot + 4), (cx3, self.yr[2]), "ai", f3, f3)
+        out.append(at(approval_step - 1, ann("approves", cx3, (s_bot + a_top) // 2, "approves", f3), motion="label"))
+        out.append(at(result_step - 1, ann("after approval", cx3, (a_bot + self.yr[2]) // 2, "after approval", f3), motion="label"))
+        return cards + sources + out

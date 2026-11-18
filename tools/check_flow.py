@@ -32,10 +32,12 @@ with sync_playwright() as p:
     for size in ((1440, 900), (1920, 970)):
         for fr in (False, True):
             for s in slides:
-                ctx = b.new_context(viewport={"width": size[0], "height": size[1]})
+                # Measure the finished layout independently of entrance offsets.
+                ctx = b.new_context(viewport={"width": size[0], "height": size[1]}, reduced_motion="reduce")
                 pg = ctx.new_page()
                 pg.goto("http://localhost:%s/?nopreshow=1%s#%s" % (port, "&lang=fr" if fr else "", s))
-                pg.wait_for_timeout(2200)
+                pg.wait_for_function("window.BNG_DECK && BNG_DECK.index >= 0")
+                pg.evaluate("document.fonts.ready")
                 res = pg.evaluate(JS, s)
                 ex = pg.evaluate("parseFloat(getComputedStyle(document.getElementById('deck')).getPropertyValue('--ex'))")
                 tag = "%s %dx%d %s" % (s, size[0], size[1], "FR" if fr else "EN")

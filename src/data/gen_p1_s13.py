@@ -13,7 +13,8 @@ p1 = {"id": "332:5105", "name": "06 · Cortex decides · Meet Cortex (pause)",
 dump("p1", p1)
 
 # ---------------- 12 · One engine, tuned for BNG ----------------
-ch = [hub("Cortex", 240, 264, 180, "Built for BNG")]
+engine = hub("Cortex", 240, 264, 180, "Built for BNG")
+ch = [engine]
 # name, disc x, disc y, icon, label, connector (x,y,w,h,d), node at the tool, node at the hub
 tools = [("Fame's CRM", 32, 14, "megaphone", "Fame", (88, 42, 112, 250, "M 0 0 C 56 0 56 250 112 250"), (80, 34), (192, 284)),
          ("Nexus Panthera", 10, 114, "users", "Nexus Panthera", (88, 142, 112, 174, "M 0 0 C 56 0 56 174 112 174"), (80, 134), (192, 308)),
@@ -22,7 +23,8 @@ tools = [("Fame's CRM", 32, 14, "megaphone", "Fame", (88, 42, 112, 250, "M 0 0 C
          ("BNG Sales Monitor", 1, 414, "bar-chart", "BNG Sales Monitor", (88, 388, 112, 54, "M 0 54 C 56 54 56 0 112 0"), (80, 434), (192, 380)),
          ("Synergy", 32, 514, "circle-ask", "Synergy", (88, 412, 112, 130, "M 0 130 C 56 130 56 0 112 0"), (80, 534), (192, 404)),
          ("my.bngimmo.com", 4, 614, "smartphone", "my.bngimmo.com", (88, 436, 112, 206, "M 0 206 C 56 206 56 0 112 0"), (80, 634), (192, 428))]
-for name, x, y, ic, label, (cx, cy, cw, chh, d), n1, n2 in tools:
+at(len(tools), engine)
+for i, (name, x, y, ic, label, (cx, cy, cw, chh, d), n1, n2) in enumerate(tools):
     # Keep the output edge fixed; spread the incoming curves over the wider gap.
     d = d.replace("56", "76").replace("112", "152")
     td = tool(name, x, y, ic, label)
@@ -37,8 +39,8 @@ for name, x, y, ic, label, (cx, cy, cw, chh, d), n1, n2 in tools:
     td["exl"] = line["exw"] = 0.6
     dot = ai_node(name, *n1)
     dot["exl"] = 0.6
-    ch += [td, line, dot]
-ch += [suggestion("This lead already bought from you", 540, 120, "This lead already bought from you", "Lot D-839 in 2024, with Reda M."),
+    ch += [at(i, td), draw(i, line, dot, target=engine, arrival=len(tools)), dot]
+outputs = [suggestion("This lead already bought from you", 540, 120, "This lead already bought from you", "Lot D-839 in 2024, with Reda M."),
        ai_conn_plain("Cortex → This lead already bought from you", 420, 182, 120, 122, "M 0 122 C 60 122 60 0 120 0", True),
        ai_node("Cortex → 0", 412, 296),
        suggestion("Hold the contract for lot B-214", 540, 302, "Hold the contract for lot B-214", "Two tools, two prices, MAD 15,000 apart"),
@@ -49,6 +51,12 @@ ch += [suggestion("This lead already bought from you", 540, 120, "This lead alre
        ai_node("Cortex → 2", 412, 416),
        tag("Sales manager confirms", 728, 140, "Sales manager confirms"), tag("Back office confirms", 749, 322, "Back office confirms"),
        tag("Collections confirms", 749, 504, "Collections confirms")]
+for i, confirms in enumerate(outputs[-3:]):
+    proposal, line, dot = outputs[3 * i:3 * i + 3]
+    step = len(tools) + i
+    at(step + 1, proposal, confirms)
+    draw(step, line, dot, target=proposal)
+ch += outputs
 s12 = slide("291:2752", "06 · Cortex decides · One engine, tuned for BNG · A", "12 / 27", "Cortex: what it decides", "It reads every tool.\nIt proposes\nthe next step.",
             "Cortex reads every tool, checks them against each other and proposes the next best action. A person confirms what matters.",
             "Illustrative example", 6, ch)
@@ -68,6 +76,12 @@ ch = [hub("Cortex", 40, 264, 200, "Every event"),
       suggestion("Registered letter", 480, 516, "Send the registered letter", "60 days late, two reminders unanswered"),
       ai_conn_plain("Cortex → always confirmed", 240, 404, 240, 174, "M 0 0 C 120 0 120 174 240 174", True),
       ai_node("Cortex lane 2", 232, 396)]
+at(0, ch[0])
+for i in range(3):
+    label, card, line, dot = ch[1 + 4 * i:5 + 4 * i]
+    step = 2 * i
+    at(step + 1, label, card)
+    draw(step, line, dot, target=card)
 s13 = slide("293:3342", "06 · Cortex decides · Sure it acts, unsure it asks", "13 / 27", "Cortex: what it decides", "Sure, it acts.\nUnsure, it asks.",
             "Clear cases run on their own. Anything doubtful goes to the right person, and money or legal steps always wait for one.",
             "Illustrative example", 6, ch)

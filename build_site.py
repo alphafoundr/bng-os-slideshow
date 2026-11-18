@@ -20,6 +20,7 @@ SRC = os.path.join(HERE, "src")
 OUT = os.path.join(HERE, "public")
 sys.path.insert(0, SRC)
 import render as R  # noqa: E402
+from data.gen_connected_exports import schedule  # noqa: E402
 
 ALL = "--all" in sys.argv
 
@@ -186,6 +187,7 @@ def main():
             continue
         strings.slide = entry["key"]
         slide = load("data/%s.json" % entry["file"])
+        schedule(entry["file"], slide["ch"])
         slide["chapter"] = entry["chapter"]
         slide["section"] = entry["section"]
         slide["kind"] = entry.get("kind", "slide")

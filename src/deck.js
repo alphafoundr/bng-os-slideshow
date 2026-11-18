@@ -71,6 +71,90 @@
 
   /* ---------- motion ---------- */
   var DUR = { slide: 0.95 }, FRAME = ['.nav', '.wm', '.frule', '.foot'], finish = null;
+  var SEQUENCE = {
+    header: 0.72, beat: 0.60, draw: 0.48, part: 0.35, rise: 6,
+    dotLead: 0.06, dot: 0.08, labelLead: 0.12, row: 0.18, rowGap: 0.18,
+    finishDraw: 0.12, approach: 12
+  };
+  var sequence = null, seen = new Set(), maskId = 0;
+
+  function buildSequence(slide, nodes, sliding) {
+    var cfg = SEQUENCE, G = window.gsap, restore = [];
+    var lead = sliding ? DUR.slide : cfg.header;
+    var tl = G.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+    function beat(step) { return lead + step * cfg.beat; }
+    function enter(el, when, duration, rise) {
+      var style = el.getAttribute('style');
+      var opacity = getComputedStyle(el).opacity;
+      var y = Number(G.getProperty(el, 'y'));
+      G.set(el, { y: y + rise, opacity: 0 });
+      tl.to(el, { y: y, opacity: opacity, duration: duration }, when);
+      restore.push(function () {
+        if (style === null) el.removeAttribute('style'); else el.setAttribute('style', style);
+        G.core.getCache(el).uncache = 1;
+      });
+    }
+    function stroke(svg, step) {
+      var end = beat(step.step + 1), arrival = beat(step.arrival);
+      var ns = 'http://www.w3.org/2000/svg';
+      Array.prototype.forEach.call(svg.querySelectorAll('path'), function (path) {
+        // The solid mask follows the path while the original keeps its dash pattern.
+        var mask = document.createElementNS(ns, 'mask'), trace = document.createElementNS(ns, 'path');
+        var box = path.getBBox(), pad = 8, length = path.getTotalLength(), len = length + pad;
+        var direction = step.reverse ? -1 : 1;
+        var hold = direction * (pad + Math.min(cfg.approach, length / 3));
+        var id = 'seq-mask-' + (++maskId);
+        mask.setAttribute('id', id);
+        mask.setAttribute('maskUnits', 'userSpaceOnUse');
+        mask.setAttribute('x', box.x - pad); mask.setAttribute('y', box.y - pad);
+        mask.setAttribute('width', box.width + 2 * pad); mask.setAttribute('height', box.height + 2 * pad);
+        trace.setAttribute('d', path.getAttribute('d'));
+        trace.setAttribute('fill', 'none');
+        trace.setAttribute('stroke', 'white');
+        trace.setAttribute('stroke-width', pad);
+        trace.setAttribute('stroke-linejoin', 'round');
+        trace.setAttribute('stroke-dasharray', len + ' ' + len);
+        trace.setAttribute('stroke-dashoffset', direction * len);
+        mask.appendChild(trace); svg.appendChild(mask);
+        path.setAttribute('mask', 'url(#' + id + ')');
+        function drawTo(offset, duration, finishAt) {
+          tl.to(trace, { strokeDashoffset: offset, duration: duration, ease: 'power2.inOut', autoRound: false }, finishAt - duration);
+        }
+        if (step.via.length) {
+          step.via.forEach(function (stop) { drawTo(direction * (len - length * stop[1]), cfg.draw, beat(stop[0])); });
+          drawTo(0, cfg.draw, arrival);
+        } else {
+          drawTo(arrival > end ? hold : 0, cfg.draw, end);
+          if (arrival > end) drawTo(0, cfg.finishDraw, arrival);
+        }
+        restore.push(function () { path.removeAttribute('mask'); mask.remove(); });
+      });
+    }
+    if (!sliding) {
+      tl.from(slide.querySelectorAll('.titlecol .eyebrow, .titlecol .title, .titlecol .lede'),
+        { y: 14, opacity: 0, duration: 0.55, stagger: 0.07, clearProps: 'transform,opacity' }, 0);
+    }
+    nodes.forEach(function (el) {
+      var data = JSON.parse(el.dataset.seq), when = beat(data.step);
+      if (data.motion === 'draw') stroke(el, data);
+      else if (data.motion === 'dot') enter(el, when + cfg.beat - cfg.draw - cfg.dotLead, cfg.dot, 0);
+      else if (data.motion === 'end') enter(el, when, cfg.dot, 0);
+      else if (data.motion === 'label') enter(el, when + cfg.beat - cfg.labelLead, cfg.part, 0);
+      else if (data.motion === 'row') enter(el, when + data.index * cfg.rowGap, cfg.row, cfg.rise);
+      else enter(el, when, cfg.part, cfg.rise);
+    });
+    function complete() {
+      tl.kill();
+      restore.forEach(function (reset) { reset(); });
+      sequence = null;
+      slide.dataset.sequence = 'complete';
+    }
+    slide.dataset.sequence = 'playing';
+    sequence = { finish: function () { tl.progress(1); } };
+    tl.eventCallback('onComplete', complete);
+    tl.play();
+  }
+
   function drawSetup(svg) {
     if (svg._drawn) return svg._drawn;
     var NS = 'http://www.w3.org/2000/svg';
@@ -131,17 +215,23 @@
   function show(i, dir, instant) {
     if (i < 0 || i >= slides.length || i === cur) return;
     if (finish) finish();                       /* a key pressed mid-slide lands the running slide at once and starts the next */
+    if (sequence) sequence.finish();
     var prev = cur >= 0 ? slides[cur] : null, next = slides[i];
     var immediate = instant || reduce || !window.gsap || !prev;
     if (tlIn) { tlIn.progress(1); tlIn = null; }
     next.hidden = false;
     next.style.zIndex = 2;
     cur = i;
+    var parts = next.querySelectorAll('[data-seq]');
+    var playSequence = parts.length && !seen.has(next) && !reduce && window.gsap;
+    seen.add(next);
+    if (parts.length) next.dataset.sequence = 'complete';
     document.body.setAttribute('data-slide', next.getAttribute('data-key'));
     try { window.history.replaceState(null, '', window.location.pathname + (window.location.search || '') + (next.getAttribute('data-key') === 'op' ? '' : '#' + next.getAttribute('data-key'))); } catch (e) { /* ignore */ }
     if (immediate) {
       if (prev) { prev.hidden = true; prev.style.zIndex = ''; }
       next.style.zIndex = '';
+      if (playSequence) buildSequence(next, parts, false);
       return;
     }
     /* the slide (Khalid, 2026-11-17: "bring back the sliding effect"): the title column and the illustration travel one full artboard width,
@@ -165,9 +255,13 @@
       prev.hidden = true; prev.style.zIndex = ''; next.style.zIndex = '';
     };
     tl.eventCallback('onComplete', function () { if (finish) finish(); });
-    tlIn = buildIn(next, true);
+    if (playSequence) buildSequence(next, parts, true);
+    else if (!parts.length) tlIn = buildIn(next, true);
   }
-  function go(d) { show(Math.max(0, Math.min(slides.length - 1, cur + d)), d); }
+  function go(d) {
+    if (d > 0 && sequence) { sequence.finish(); if (finish) finish(); return; }
+    show(Math.max(0, Math.min(slides.length - 1, cur + d)), d);
+  }
   function goKey(key) { var i = slides.findIndex(function (s) { return s.getAttribute('data-key') === key; }); if (i >= 0) show(i, i > cur ? 1 : -1, true); }
 
   document.addEventListener('keydown', function (e) {
@@ -215,7 +309,7 @@
     var i = slides.findIndex(function (s) { return s.getAttribute('data-key') === h; });
     show(i >= 0 ? i : 0, 1, true);
     /* handed over from the pre-show: the opener is already on screen as the pre-show left it, so no entrance */
-    if (window.gsap && !reduce && !(o && o.quiet)) { tlIn = buildIn(slides[cur]); }
+    if (window.gsap && !reduce && !(o && o.quiet) && !slides[cur].dataset.sequence) { tlIn = buildIn(slides[cur]); }
   }
   window.BNG_DECK.start = start;
   if (!document.getElementById('preshow') || !window.BNG_PRESHOW) {

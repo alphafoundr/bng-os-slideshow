@@ -46,6 +46,14 @@ s06 = slide("279:1890", "04 · What it costs · 800 reminders, none arrived", "0
     node("800", 230, 292), node("phone left", 302, 292), node("phone right top", 582, 222), node("0 reached", 654, 173),
     node("phone right bottom", 582, 422), node("77 follow-ups", 654, 493),
 ])
+ch = s06["ch"]
+at(0, ch[4])
+at(1, ch[3])
+at(2, ch[5])
+at(4, ch[6])
+draw(0, ch[0], ch[7], ch[8], target=ch[3])
+draw(1, ch[1], ch[9], ch[10], target=ch[5])
+draw(3, ch[2], ch[11], ch[12], target=ch[6])
 dump("s06", s06)
 
 # ---------------- 07 · What is owed? It depends who counts. ----------------
@@ -61,6 +69,13 @@ s07 = slide("279:2074", "04 · What it costs · What is owed, it depends who cou
     annotation("54M apart", 384, 216, "MAD 54M apart"),
     node("80 payments top", 434, 411),
 ])
+ch = s07["ch"]
+at(0, ch[1])
+at(1, ch[2])
+draw(0, ch[3], ch[4], ch[5], target=ch[2])
+at(2, ch[7])
+at(3, ch[6])
+draw(2, ch[0], target=ch[6], end=ch[8])
 dump("s07", s07)
 
 # ---------------- 08 · One sale, typed twice. ----------------
@@ -85,4 +100,16 @@ s08 = slide("281:2072", "04 · What it costs · One sale, typed twice", "08 / 27
     node("answer left", 314, 544.5), node("finance card bottom", 764, 344), node("answer right", 570, 544.5),
     annotation("typed again", 402, 237, "Typed again"),
 ])
+ch = s08["ch"]
+at(0, ch[8])
+at(1, ch[3])
+at(2, ch[9])
+at(3, ch[4])
+at(4, ch[20])
+at(6, ch[5])
+draw(0, ch[0], ch[10], ch[11], target=ch[3])
+draw(2, ch[1], ch[12], ch[13], target=ch[4])
+draw(2, ch[2], ch[14], ch[15], target=ch[4])
+draw(4, ch[6], ch[16], ch[17], target=ch[5], arrival=6)
+draw(5, ch[7], ch[18], ch[19], target=ch[5])
 dump("s08", s08)

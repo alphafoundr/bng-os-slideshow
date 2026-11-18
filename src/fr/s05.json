@@ -1,12 +1,12 @@
 {
-  "What it costs": "Ce que ça coûte",
-  "Six sales in ten\nare paid late.": "Six ventes sur dix\nsont payées en retard.",
-  "348 of 564 sales have an instalment overdue. Half of those are more than 165 days late, and 284 of them have no recorded follow-up.": "348 ventes sur 564 ont une échéance en retard. La moitié a plus de 165 jours de retard, et 284 n’ont aucun suivi enregistré.",
+  "What it costs": "Coût des retards",
+  "Six sales in ten\nare paid late.": "Six ventes sur dix\nont un impayé.",
+  "348 of 564 sales have an instalment overdue. Half of those are more than 165 days late, and 284 of them have no recorded follow-up.": "Sur 564 ventes, 348 ont une échéance en retard. Pour la moitié, le retard dépasse 165 jours. Pour 284, aucune trace de suivi.",
   "Read from the finance app on 13 November 2026.": "Relevé dans l’application financière le 13 novembre 2026.",
   "days, median delay": "jours de retard médian",
-  "instalments 200+ days late": "échéances 200 j+ en retard",
-  "no recorded follow-up": "aucun suivi enregistré",
-  "of 564 sales have an instalment overdue": "des 564 ventes ont une échéance en retard",
+  "instalments 200+ days late": "échéances à 200 j+ de retard",
+  "no recorded follow-up": "sans trace de suivi",
+  "of 564 sales have an instalment overdue": "ventes sur 564 ont une échéance en retard",
   "62% overdue": "62 % en retard",
   "564 sales": "564 ventes"
 }

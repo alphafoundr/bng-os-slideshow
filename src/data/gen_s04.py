@@ -1,6 +1,7 @@
 """Writes s04.json from the compact Figma read of slide 277:1810 (2026-11-17). Run: python -P src/data/gen_s04.py"""
 import json
 import os
+from dsl import at, draw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SUBTLE = [{"c": "border/neutral/subtle"}]
@@ -68,6 +69,14 @@ for num, name, bx, by, ly in steps:
                "ch": [{"t": "T", "c": str(num), "f": {"c": "text/on-action/bold"}, "s": "label/tag", "nw": 1}]})
     ch.append({"x": 0, "y": ly, "t": "T", "c": name, "f": {"c": "text/neutral/bold"}, "s": "heading/xs", "nw": 1})
 ch.append(annotation("Annotation · typed again", 314, 255.5))
+paths = ch[len(guides_h) + len(guides_v):][:len(conns)]
+badges = [part for part in ch if part.get("cn") == "Illo / Badge"]
+for i, badge in enumerate(badges):
+    at(i, badge, ch[ch.index(badge) + 1])
+    if i:
+        draw(i - 1, paths[i - 1], target=badge)
+at(10, ch[len(guides_h) + len(guides_v) + len(conns)], motion="label")
+at(4, ch[-1], motion="label")
 
 data = {
     "id": "277:1810", "name": "03 · The journey · Fifteen steps, one client · B",

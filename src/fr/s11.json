@@ -1,6 +1,6 @@
 {
-  "One login.\nSix views.": "Une connexion.\nSix vues.",
-  "Each role sees its own part of the system.": "Chaque rôle voit sa propre partie du système.",
+  "One login.\nSix views.": "Un accès.\nSix vues.",
+  "Each role sees its own part of the system.": "Chacun voit ce dont il a besoin pour son rôle.",
   "Sign in": "Se connecter",
   "Work email": "E-mail professionnel",
   "Password": "Mot de passe",
@@ -8,7 +8,7 @@
   "Construction": "Chantier",
   "Sites and snags": "Chantiers et réserves",
   "Partners": "Partenaires",
-  "Only what concerns them": "Ce qui les concerne",
+  "Only what concerns them": "Leur seul périmètre",
   "name@bngimmo.com": "nom@bngimmo.com",
   "Forgot password?": "Mot de passe oublié ?"
 }

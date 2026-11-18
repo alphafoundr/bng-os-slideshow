@@ -29,6 +29,8 @@ def main():
         i0 = pg.evaluate("BNG_DECK.index")
         pg.keyboard.press("ArrowRight"); pg.wait_for_timeout(1300)
         i1 = pg.evaluate("BNG_DECK.index")
+        # This check walks between slides. The sequence check exercises skipping a running entrance.
+        pg.wait_for_function("document.querySelector('[data-key=s01]').dataset.sequence === 'complete'")
         pg.keyboard.press("Space"); pg.wait_for_timeout(1300)
         i2 = pg.evaluate("BNG_DECK.index")
         pg.keyboard.press("ArrowLeft"); pg.wait_for_timeout(1300)

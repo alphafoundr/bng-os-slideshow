@@ -44,12 +44,9 @@ appr = approval_card("Collections", X3, yr[1], W3, H_APPR, "rep", "Salma R.", "C
 done = result_card("Reminder sent", X3C, yr[2], W3C, H_CONF, "Registered letter sent", "Approved by collections, with the proof saved in the file.")
 
 SRC = (("BNG Business", "coin", "BNG Business"), ("Bank", "bank", "Bank"), ("Nexus Panthera", "users", "Nexus Panthera"))
-ch = [queue, sugg, appr, done]
-for i, (name, ic, label) in enumerate(SRC):
-    ch.append(source(name, X1, geo.ys[i] - 28, ic, label))
-# the lines: sources into the queue card; the queue (selected row) to the proposal
-ch += geo.build_lines({"recv": "today's list", "chain": [], "propose": "suggestion", "approve": "collections", "result": "reminder sent"},
-                      [s[0] for s in SRC], recv_y=148)
+sources = [source(name, X1, y - 28, ic, label) for y, (name, ic, label) in zip(geo.ys, SRC)]
+ch = geo.build_flow([queue, sugg, appr, done], sources, {
+    "recv": "today's list", "chain": [], "propose": "suggestion", "approve": "collections", "result": "reminder sent"}, recv_y=148)
 s16 = slide("308:3460", "07 · Cortex at work · Today's actions, already ranked", "16 / 27", "Cortex at work", "Today's actions,\nalready ranked.",
             "Every morning the day's collection actions arrive ranked, with the reason for each. Nothing legal leaves without a person.",
             "Illustrative example · fictional people and figures", 7, ch)

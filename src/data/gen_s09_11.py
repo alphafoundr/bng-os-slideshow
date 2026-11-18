@@ -75,11 +75,16 @@ def build(variant):
           persona_v("Sales advisers", 478, 50, "5755e103", "Sales advisers", "Their leads and sales"),
           persona_v("Buyers", 703, 50, "4cad20ba", "Buyers", "Their own file")]
     lines, nodes = [], []
+    hub_step = 4
+    at(hub_step, card)
     top, bottom, mid = CARD_Y, CARD_Y + CARD_H, CARD_X + CARD_W / 2
     for i, (name, cx) in enumerate(PERSONAS):
         lx = mid + (i - 1.5) * 44
         lines.append(curve("BNG OS → " + name, cx, 182, lx, top, "border/neutral/default", 2, [6, 6], prefix="Connector / "))
         nodes.append(node(name, cx - 8, 174))
+        step = hub_step + i
+        at(step + 1, ch[i])
+        draw(step, lines[-1], end=nodes[-1], target=ch[i], reverse=True)
     for i, (x, name, ic, label, cx) in enumerate(TOOLS):
         td = disc(name, 56, ic, 24)
         td["n"] = "Tool · " + name
@@ -97,6 +102,12 @@ def build(variant):
         else:                   # C: grey lines like the ones above, green only as the dot at the card
             lines.append(curve(name + " → BNG OS", cx, 586, lx, bottom, "border/neutral/default", 2, [6, 6], prefix="Connector / "))
             nodes.append(dot("BNG OS · " + name, lx, bottom, 8))
+        step = i // 2
+        at(step, td)
+        if variant == "A":
+            draw(step, lines[-1], nodes[-1], target=card, arrival=hub_step)
+        else:
+            draw(step, lines[-1], end=nodes[-1], target=card, arrival=hub_step)
     ch += lines + [card] + nodes
     return slide("289:2470", "05 · One system · One system, in BNG's name · B", "10 / 27", "One system above the tools",
                  "One system,\nin BNG's name.", "One system, above the tools you already have. Accounts, code and data belong to BNG.",
@@ -143,6 +154,11 @@ ch = [phone_shell("Device / Phone · Sign in", [screen]),
       conn("Back office → login", 590, 130, 126, 120, "M 0 120 C 63 120 63 0 126 0"), node("Back office", 708, 122), node("login · Back office", 582, 242),
       conn("Partners → login", 590, 364, 126, 0, "M 0 0 L 126 0", rounded=False), node("Partners", 708, 356), node("login · Partners", 582, 356),
       conn("Buyers → login", 590, 478, 126, 120, "M 0 0 C 63 0 63 120 126 120"), node("Buyers", 708, 590), node("login · Buyers", 582, 470)]
+at(3, ch[0])
+for i in range(6):
+    step = i % 3
+    at(step, ch[1 + i])
+    draw(step, *ch[7 + 3 * i:10 + 3 * i], target=ch[0], arrival=3, reverse=i >= 3)
 s11 = slide("290:3066", "05 · One system · One login, six views", "11 / 27", "One system above the tools", "One login.\nSix views.",
             "Each role sees its own part of the system.", "Illustrative · fictional people", 5, ch)
 dump("s11", s11)

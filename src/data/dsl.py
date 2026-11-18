@@ -18,6 +18,25 @@ def node(name, x, y):
             "f": [{"c": "background/neutral/raised"}], "sk": {"c": "border/neutral/bold"}, "sw": 1.5, "cr": 999, "kg": 1}
 
 
+def at(step, *parts, motion="part", **options):
+    """Schedule parts without changing their layout or stacking order."""
+    for part in parts:
+        part["seq"] = {"step": step, "motion": motion, **options}
+    return parts[0] if len(parts) == 1 else list(parts)
+
+
+def draw(step, line, start=None, end=None, *, target=None, arrival=None, reverse=False, via=()):
+    """Schedule a connector, its endpoint marks and an optional shared arrival."""
+    arrival = step + 1 if arrival is None else arrival
+    at(step, line, motion="draw", arrival=arrival, reverse=reverse,
+       target=target["n"] if target else "", via=[(beat, fraction, part["n"]) for beat, fraction, part in via])
+    if start:
+        at(step, start, motion="dot")
+    if end:
+        at(arrival, end, motion="end")
+    return line
+
+
 def conn(name, x, y, w, h, d, rounded=True):
     r = {"x": x, "y": y, "t": "V", "n": "Connector / " + name, "w": w, "h": h, "sk": {"c": "border/neutral/default"}, "sw": 2, "da": [6, 6]}
     if rounded:

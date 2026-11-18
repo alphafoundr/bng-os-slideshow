@@ -1,8 +1,8 @@
 {
-  "Today's actions,\nalready ranked.": "Les actions du jour,\ndéjà classées.",
-  "Every morning the day's collection actions arrive ranked, with the reason for each. Nothing legal leaves without a person.": "Chaque matin, les actions de recouvrement du jour arrivent classées, avec la raison de chacune. Rien de juridique ne part sans une personne.",
+  "Today's actions,\nalready ranked.": "Les actions du jour,\npar priorité.",
+  "Every morning the day's collection actions arrive ranked, with the reason for each. Nothing legal leaves without a person.": "Chaque matin, le recouvrement reçoit ses actions par ordre d’urgence, motif à l’appui. Tout envoi juridique exige une validation humaine.",
   "Today · 4 actions": "Aujourd’hui · 4 actions",
-  "Ranked, with the reason for each": "Classées, avec la raison de chacune",
+  "Ranked, with the reason for each": "Classées par urgence, motif à l’appui",
   "Most urgent first": "Les plus urgentes d’abord",
   "Nadia S.": "Nadia S.",
   "Meryem A.": "Meryem A.",
@@ -25,7 +25,7 @@
   "Collections": "Recouvrement",
   "@s16|The buyer": "L’acheteuse",
   "Salma R.": "Salma R.",
-  "Sees the reason, then decides": "Voit la raison, puis décide",
+  "Sees the reason, then decides": "Examine le motif et décide",
   "Registered letter sent": "Lettre recommandée envoyée",
-  "Approved by collections, with the proof saved in the file.": "Approuvé par le recouvrement, preuve enregistrée au dossier."
+  "Approved by collections, with the proof saved in the file.": "Validé par le recouvrement, preuve versée au dossier."
 }

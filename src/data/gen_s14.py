@@ -24,11 +24,11 @@ sugg = suggestion_card("Assign the adviser", X3, yr[0], W3, H_SUGG, "Assign the 
 appr = approval_card("The sales manager", X3, yr[1], W3, H_APPR, "director", "Omar T.", "The sales manager", "Sees the reason, then decides")
 done = result_card("Lead assigned", X3C, yr[2], W3C, H_CONF, "Lead assigned to the adviser", "Approved by the sales manager and logged in the lead's history.")
 
-ch = [lead, read, sugg, appr, done]
-for i, (name, ic, label) in enumerate((("Website form", "globe", "Website form"), ("Fame's CRM", "megaphone", "Fame"), ("Nexus Panthera", "users", "Nexus Panthera"))):
-    ch.append(source(name, X1, geo.ys[i] - 28, ic, label))
-ch += geo.build_lines({"recv": "what Cortex read", "chain": [("new lead", "what Cortex read")], "propose": "suggestion", "approve": "sales manager",
-                       "result": "lead assigned"}, ["Website form", "Fame's CRM", "Nexus Panthera"])
+sources = [source(name, X1, y - 28, ic, label) for y, (name, ic, label) in zip(geo.ys, (
+    ("Website form", "globe", "Website form"), ("Fame's CRM", "megaphone", "Fame"), ("Nexus Panthera", "users", "Nexus Panthera")))]
+ch = geo.build_flow([lead, read, sugg, appr, done], sources, {
+    "recv": "what Cortex read", "chain": [("new lead", "what Cortex read")], "propose": "suggestion",
+    "approve": "sales manager", "result": "lead assigned"})
 s14 = slide("303:3128", "07 · Cortex at work · From the form to the right adviser", "14 / 27", "Cortex at work", "From the form\nto the right adviser.",
             "Cortex reads a new lead, finds they already bought from BNG, and proposes the adviser who knows them. A person confirms.",
             "Illustrative example · fictional people and figures", 7, ch)

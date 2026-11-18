@@ -1,8 +1,8 @@
 {
   "One client,\none record.": "Un client,\nune seule fiche.",
-  "Every fact with where it comes from, on one timeline across the tools.": "Chaque information avec sa provenance, sur une seule chronologie à travers les outils.",
+  "Every fact with where it comes from, on one timeline across the tools.": "Un seul historique pour tous les outils. Chaque information indique sa source.",
   "@s20|Inbox": "Décisions",
-  "Reminder delivered and opened twice": "Relance livrée et ouverte deux fois",
+  "Reminder delivered and opened twice": "Relance reçue et ouverte deux fois",
   "15 days before the due date": "15 jours avant l’échéance",
   "28 Oct": "28 oct.",
   "First payment received, 30%": "Premier paiement reçu, 30 %",
@@ -12,13 +12,13 @@
   "Asked about the payment schedule": "A posé des questions sur l’échéancier",
   "08 Mar": "08 mars",
   "Saw an ad and filled the form": "A vu une publicité et rempli le formulaire",
-  "Interested in a 2-bedroom, budget stated": "Intéressé par un 2 chambres, budget indiqué",
+  "Interested in a 2-bedroom, budget stated": "Recherche 2 chambres, budget précisé",
   "02 Mar": "02 mars",
   "Identity verified": "Identité vérifiée",
-  "Cortex writes to it too": "Cortex y écrit aussi",
+  "Cortex writes to it too": "Cortex l’alimente",
   "Its reminders are logged here": "Ses relances y sont consignées",
-  "One timeline": "Une seule chronologie",
-  "Every tool, in date order": "Chaque outil, par ordre de date",
-  "Where it comes from": "D’où ça vient",
-  "The source on every event": "La source sur chaque événement"
+  "One timeline": "Un seul historique",
+  "Every tool, in date order": "Les faits de chaque outil, datés",
+  "Where it comes from": "La provenance",
+  "The source on every event": "Une source pour chaque événement"
 }

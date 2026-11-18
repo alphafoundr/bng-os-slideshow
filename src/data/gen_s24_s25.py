@@ -45,6 +45,10 @@ studio = prod_card("Studio", 0, 495, 900, "Studio", 173, "Studio", "Builds what 
 c24 = conn("BNG OS to Studio", 450, 395, 0, 100, "M 0 0 L 0 100")
 c24["n"] = "Connector · BNG OS to Studio"
 ch24 = [panel, studio, c24, node("BNG OS end", 442, 387), node("Studio end", 442, 487)]
+at(0, panel)
+at(1, panel["ch"][1])
+at(3, studio)
+draw(2, *ch24[2:], target=studio)
 s24 = slide("395:5162", "10 · Three products · Three products, one system", "22 / 27", "Recap", "Three products,\none system.", "One system BNG owns. Each part has one job.",
             "Illustrative · fictional people and figures", 10, ch24)
 s24["props"]["Show note"] = False
@@ -128,6 +132,16 @@ ch25 = [{"x": -468, "y": 0, **T("Recap", "eyebrow/md", "text/neutral/subtlest", 
                ["Checks every tool against the others", "Clear cases run on their own", "Doubtful cases go to a person", "Money and legal steps wait for a yes"]),
         card25("Studio", 460, mock_st, lockup("Studio", 173, "Studio"), "Builds what BNG asks for, tested before it goes live.",
                ["Asked for in plain words", "Planned, built and tested for you", "Live only after every check", "Code and data stay with BNG"])]
+at(0, *ch25[:2])
+at(1, ch25[2])
+at(2, ch25[3])
+at(3, ch25[4])
+asked, to_built, built, to_live, live = mock_st["ch"][0]["ch"]
+at(4, asked)
+at(5, built)
+at(6, live)
+draw(4, to_built["ch"][0], target=built)
+draw(5, to_live["ch"][0], target=live)
 s25 = {"id": "397:5247", "name": "10 · Three products · What each one does · A",
        "props": {"Lede": "A lede in one or two short lines.", "Show lede": False, "Eyebrow": "11 · It is yours", "Title": "What each\none does.", "Show footer": True, "Show note": True,
                  "Show nav": True, "Number": "23 / 27", "Show title column": False, "Note": "Illustrative example · fictional people and figures"},

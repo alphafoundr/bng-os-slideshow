@@ -1,6 +1,6 @@
 {
   "The day starts\nwith decisions.": "La journée commence\npar des décisions.",
-  "The group's cash on top, then the decisions Cortex proposes, each with its reason. A person approves every one.": "La trésorerie du groupe en haut, puis les décisions que Cortex propose, chacune avec sa raison. Une personne approuve chacune.",
+  "The group's cash on top, then the decisions Cortex proposes, each with its reason. A person approves every one.": "D’abord la trésorerie du groupe. Puis les décisions proposées par Cortex, motif à l’appui. Chacune attend une validation humaine.",
   "Good morning": "Bonjour",
   "3 decisions are waiting": "3 décisions vous attendent",
   "Due this month": "À encaisser ce mois-ci",
@@ -13,18 +13,18 @@
   "Call Youssef B. before Friday": "Appeler Youssef B. avant vendredi",
   "Last payment 26 days late": "Dernier paiement en retard de 26 jours",
   "overdue": "en retard",
-  "Match MAD 120,000 to lot A-102": "Rapprocher 120 000 MAD du lot A-102",
+  "Match MAD 120,000 to lot A-102": "Rattacher 120 000 MAD au lot A-102",
   "Amount and reference match": "Montant et référence concordent",
   "MAD 120,000": "120 000 MAD",
   "to match": "à rapprocher",
   "Fix the price of lot B-214": "Corriger le prix du lot B-214",
-  "Contract and Nexus Panthera differ": "Le contrat et Nexus Panthera diffèrent",
+  "Contract and Nexus Panthera differ": "Écart entre le contrat et Nexus Panthera",
   "MAD 15,000": "15 000 MAD",
   "price gap": "écart de prix",
   "The whole group": "Tout le groupe",
-  "Cash due, received and late": "À payer, reçu et en retard",
+  "Cash due, received and late": "Attendu, encaissé, en retard",
   "Cortex proposes": "Cortex propose",
-  "Each decision, with its reason": "Chaque décision, avec sa raison",
-  "A stake on each row": "Un enjeu sur chaque ligne",
-  "The amount behind each one": "Le montant derrière chacune"
+  "Each decision, with its reason": "Motif de chaque proposition",
+  "A stake on each row": "Les montants en jeu",
+  "The amount behind each one": "Le montant par décision"
 }
