@@ -1,6 +1,7 @@
 """Slides 24 (395:5162, final) and 25 (397:5247, version A, final) from the Figma reads of 2026-11-17.
 Run: cd src/data && PYTHONPATH=. python -P gen_s24_s25.py"""
 from dsl import *
+from math import sqrt
 
 
 def sign(prod):
@@ -15,11 +16,6 @@ def lockup(prod, w, label):
             "ch": [sign(prod), T(label, "heading/xl", "text/neutral/bold", nw=1)]}
 
 
-def tag_inverse(name, text):
-    return {"cn": "Illo / Tag", "t": "F", "sh": "H", "sv": "H", "n": "Tag · " + name, "f": [{"c": "background/inverse/bold"}], "cr": 4, "lm": "H",
-            "pad": [2, 8, 2, 8], "pa": "c", "ca": "c", "ch": [T(text, "label/tag", "text/inverse/bold", nw=1)]}
-
-
 def tag_neutral(name, text, **kw):
     t = {"cn": "Illo / Tag", "t": "F", "sh": "H", "sv": "H", "n": "Tag · " + name, "f": [{"c": "background/neutral/tag"}], "cr": 4, "lm": "H",
          "pad": [2, 8, 2, 8], "pa": "c", "ca": "c", "ch": [T(text, "label/tag", "text/neutral/bold", nw=1)]}
@@ -28,27 +24,120 @@ def tag_neutral(name, text, **kw):
 
 
 # ---------------- 24 · Three products, one system ----------------
-def prod_card(name, x, y, w, prod, lw, label, sentence, tagtext):
-    return {"x": x, "y": y, "t": "F", "w": w, "h": 108, "n": "Card · " + name, "f": [{"c": "background/neutral/raised"}], "sk": {"c": "border/neutral/subtle"},
-            "sw": 1, "cr": 12, "k": 1, "lm": "H", "gap": 16, "pad": [24, 24, 24, 24], "ca": "c",
-            "ch": [lockup(prod, lw, label),
-                   {"t": "F", "sh": "L", "sv": "H", "k": 1, "lm": "V", "gap": 8,
-                    "ch": [T(sentence, "body/md", "text/neutral/subtle", sh="L"), tag_neutral(tagtext, tagtext)]}]}
+def diagram_sign(product):
+    if product != "Cortex":
+        return {"cn": "Brand / Sign", "w": 24, "h": 24, "lg": 1,
+                "vp": {"Product": product, "Size": "24", "Ink": "Full colour"}}
+    sign24 = marker(48)
+    glyph, dot = sign24["ch"]
+    sign24.update(w=24, h=24)
+    glyph.update(x=glyph["x"] / 2, m=[0.5, 0, 0, 0.5])
+    for dimension in ("x", "y", "w", "h"):
+        dot[dimension] /= 2
+    return sign24
 
 
-panel = {"x": 0, "y": 125, "t": "F", "w": 900, "h": 270, "n": "Panel · BNG OS", "f": [{"c": "background/neutral/subtle"}], "sk": {"c": "border/neutral/subtle"}, "sw": 1, "cr": 12,
-         "ch": [{"x": 24, "y": 24, "t": "F", "sh": "H", "sv": "H", "k": 1, "lm": "H", "gap": 16, "ca": "c",
-                 "ch": [lockup("OS", 196, "BNG OS"), tag_inverse("Holds everything", "Holds everything")]},
-                prod_card("Cortex", 24, 120, 852, "Cortex", 177, "Cortex", "Reads the tools, checks them against each other, proposes. A person approves.", "Decides, inside it"),
-                {"x": 24, "y": 84, **T("One place for clients, properties and money, above the seven tools.", "body/md", "text/neutral/subtle", nw=1)}]}
-studio = prod_card("Studio", 0, 495, 900, "Studio", 173, "Studio", "Builds what BNG asks for, tested before it goes live. It stays BNG’s.", "Extends it")
-c24 = conn("BNG OS to Studio", 450, 395, 0, 100, "M 0 0 L 0 100")
-c24["n"] = "Connector · BNG OS to Studio"
-ch24 = [panel, studio, c24, node("BNG OS end", 442, 387), node("Studio end", 442, 487)]
-at(0, panel)
-at(1, panel["ch"][1])
-at(3, studio)
-draw(2, *ch24[2:], target=studio)
+def diagram_label(product, label, role, copy, x, y, w, stretch, centered=False):
+    return {"x": x, "y": y, "exl": stretch, "t": "F", "w": w, "n": label + " label",
+            "lm": "V", "gap": 6, "ca": "c" if centered else "s",
+            "ch": [{"t": "F", "lm": "H", "h": 32, "gap": 8, "ca": "c",
+                    "ch": [diagram_sign(product), T(label, "heading/sm", "text/neutral/bold", nw=1),
+                           tag_neutral(role, role)]},
+                   T(copy, "body/md", "text/neutral/subtle", sh="L",
+                     **({"al": "C", "nw": 1} if centered else {}))]}
+
+
+# The OS sign's 48-unit proportions set the ring's weight, opening and core.
+# The opening doubles as the path out of the core.
+cx, cy, diameter = 417, 360, 320
+radius = diameter / 2
+# A diagram ring, not the sign at poster size: a 40 px stroke keeps it light. The core and the opening keep the sign's
+# proportions to that stroke (dot 1.848 x stroke, opening 0.742 x stroke).
+stroke = 40
+inner = radius - stroke
+half_slit = stroke * 0.371
+core_d = stroke * 1.848
+outer_x = sqrt(radius ** 2 - half_slit ** 2)
+inner_x = sqrt(inner ** 2 - half_slit ** 2)
+ring_paths = []
+for side, sweep in [(-1, 1), (1, 0)]:
+    slit_y = radius + side * half_slit
+    ring_paths.append(
+        f"M {radius - outer_x:.3f} {slit_y:.3f} "
+        f"A {radius} {radius} 0 0 {sweep} {radius + outer_x:.3f} {slit_y:.3f} "
+        f"H {radius + inner_x:.3f} A {inner} {inner} 0 0 {1 - sweep} "
+        f"{radius - inner_x:.3f} {slit_y:.3f} Z")
+ring = at(7.25, {"x": cx - radius, "y": cy - radius, "exl": 0.5, "t": "V", "n": "BNG OS ring",
+                 "w": diameter, "h": diameter, "f": {"c": "icon/neutral/bold"}, "d": ring_paths})
+os_label = at(7.25, diagram_label("OS", "BNG OS", "Centralises",
+                                 "Holds every client, lot and payment in one place.",
+                                 cx - 210, 105, 420, 0.5, centered=True))
+caption = at(0, {"x": 0, "y": 104, "exl": 1, **T("The tools you already have", "label/md-strong",
+                                                  "text/neutral/subtle", w=211, al="R", nw=1)})
+ch24 = [caption]
+tools = [
+    ("Fame", "megaphone", -126),
+    ("Nexus Panthera", "users", -92),
+    ("BNG Business", "coin", -58),
+    ("Vertex", "building", -30),
+    ("BNG Sales Monitor", "bar-chart", 40),
+    ("Synergy", "circle-ask", 85),
+    ("my.bngimmo.com", "smartphone", 126),
+]
+for i, (label, glyph, y_offset) in enumerate(tools):
+    source_y = 168 + 64 * i
+    destination_y = cy + y_offset
+    destination_x = cx - sqrt(radius ** 2 - y_offset ** 2)
+    top = min(source_y, destination_y)
+    width = destination_x - 212
+    start, end = source_y - top, destination_y - top
+    line = conn(label + " → BNG OS", 212, top, width, abs(end - start),
+                f"M 0 {start} C {width * 0.52:.3f} {start} {width * 0.70:.3f} {end} {width:.3f} {end}")
+    line.update(exl=1, exw=0.5)
+    tool_row = {"x": 0, "y": source_y - 28, "exl": 1, "t": "F", "n": "Tool · " + label,
+                "w": 212, "h": 56, "lm": "H", "gap": 12, "ca": "c",
+                "ch": [T(label, "label/md-strong", "text/neutral/bold", w=144, al="R", nw=1),
+                       disc(label, 56, glyph, 24)]}
+    step = i + 0.25
+    ch24.extend([draw(step, line, target=ring, arrival=7.25), at(step, tool_row)])
+
+core = at(8, {"x": cx - core_d / 2, "y": cy - core_d / 2, "exl": 0.5, "t": "E", "n": "Cortex core",
+              "w": core_d, "h": core_d, "f": [{"c": "background/signature/bold"}]}, motion="end")
+cortex = at(9, diagram_label("Cortex", "Cortex", "Guides decisions",
+                             "Reads every tool and proposes the next step. A person confirms.",
+                             654, 433, 246, 0))
+core_edge = cx + core_d / 2
+ai_width = cortex["x"] + 3 - core_edge
+ai_height = cortex["y"] + 8 - cy
+ai_line = ai_conn("Core → Cortex", core_edge - 4, cy - 4, ai_width, ai_height,
+                  f"M 0 0 H 109 C 149 0 127 {ai_height} {ai_width:.3f} {ai_height}")
+ai_line.update(exl=0.5, exw=0.5)
+ai_dot = ai_node("Cortex callout", core_edge - 8, cy - 8)
+ai_dot["exl"] = 0.5
+
+studio = at(9.65, diagram_label("Studio", "Studio", "Extends it",
+                                "Builds what BNG asks for, tested before it goes live.",
+                                654, 170, 246, 0))
+# One curve from Studio into the ring, the same shape as the tools' lines on the left. The modules Studio adds sit under it.
+studio_top, studio_bottom = studio["y"] + 16, cy - 110
+studio_height = studio_bottom - studio_top
+entry_x = cx + sqrt(radius ** 2 - (studio_bottom - cy) ** 2)
+studio_width = 646 - entry_x
+studio_line = conn("Studio → BNG OS", entry_x, studio_top, studio_width, studio_height,
+                   f"M {studio_width:.3f} 0 C {studio_width * 0.48:.3f} 0 {studio_width * 0.30:.3f} {studio_height} 0 {studio_height}")
+studio_line.update(exl=0.5, exw=0.5)
+chips = []
+for i, label in enumerate(["Weekly report", "New alert"]):
+    chip = annotation(label, 654 + i * 126, studio["y"] + 96, label)
+    del chip["sh"]
+    chip.update(w=120, h=26, exl=0)
+    chips.append(at(10.4 + i * 0.6, chip, motion="end"))
+draw(11.4, studio_line, arrival=12.3)
+ownership = at(12.6, {"x": cx - 200, "y": 559, "exl": 0.5,
+                      **T("Accounts, code and data belong to BNG.", "body/sm", "text/neutral/subtlest",
+                          w=400, al="C", nw=1)})
+ch24 += [ring, os_label, draw(8, ai_line, ai_dot, target=cortex), core, ai_dot, cortex,
+         studio_line, studio, *chips, ownership]
 s24 = slide("395:5162", "10 · Three products · Three products, one system", "22 / 27", "Recap", "Three products,\none system.", "One system BNG owns. Each part has one job.",
             "Illustrative · fictional people and figures", 10, ch24)
 s24["props"]["Show note"] = False

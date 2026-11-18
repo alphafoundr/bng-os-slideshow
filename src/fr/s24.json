@@ -2,10 +2,14 @@
   "Recap": "En résumé",
   "Three products,\none system.": "Trois produits,\nun seul système.",
   "One system BNG owns. Each part has one job.": "BNG en est propriétaire. Chaque produit a son rôle.",
-  "Holds everything": "Centralise",
-  "One place for clients, properties and money, above the seven tools.": "Réunit clients, biens et finances en reliant les sept outils.",
-  "Reads the tools, checks them against each other, proposes. A person approves.": "Recoupe les données, recommande la suite. Une personne valide.",
-  "Decides, inside it": "Guide les décisions",
-  "Builds what BNG asks for, tested before it goes live. It stays BNG’s.": "Développe et teste ce que BNG demande, avant la mise en ligne. BNG en reste propriétaire.",
-  "Extends it": "L’étend"
+  "The tools you already have": "Vos outils actuels",
+  "Centralises": "Centralise",
+  "Holds every client, lot and payment in one place.": "Tous les clients, lots et paiements au même endroit.",
+  "Guides decisions": "Guide les décisions",
+  "Reads every tool and proposes the next step. A person confirms.": "Lit les outils et recommande la suite. Une personne valide.",
+  "Extends it": "L’étend",
+  "Builds what BNG asks for, tested before it goes live.": "Développe et teste les demandes de BNG avant la mise en ligne.",
+  "Weekly report": "Rapport hebdo",
+  "New alert": "Nouvelle alerte",
+  "Accounts, code and data belong to BNG.": "Les comptes, le code et les données appartiennent à BNG."
 }

@@ -219,5 +219,13 @@
     "chapter": 13,
     "status": "final",
     "section": "Close"
+  },
+  {
+    "key": "ty",
+    "file": "ty",
+    "chapter": 13,
+    "status": "final",
+    "kind": "pause",
+    "section": "Close"
   }
 ]

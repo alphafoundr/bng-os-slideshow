@@ -81,19 +81,30 @@ s26 = slide("517:5998", "13 · Stages and start · Five stages, in this order", 
             "Each one is useful on its own\nand prepares the next.", "Illustrative images, generated", 13, ch)
 dump("s26", s26)
 
-# ---------------- 27 · Three things to begin ----------------
-steps = [("Step 1", 102, "b5362d92", "FIT", "Read access to Fame", "Agreed, still to be opened", ("BNG · Fame", 819, 165)),
-         ("Step 2", 290, "38958e82", "FILL", "One session with finance", "To agree a single overdue figure", ("Finance · us", 817, 353)),
-         ("Step 3", 478, "f845e811", "FILL", "Contracts and collections", "The first stage starts", ("We start here", 809, 541))]
-ch = [photo(n, 0, y, 220, 148, im, m) for (n, y, im, m, _, _, _) in reversed(steps)]
-ch += [{"x": 248, "y": 270, "t": "R", "w": 652, "h": 1, "f": [{"c": "border/neutral/subtle"}]},
-       {"x": 248, "y": 458, "t": "R", "w": 652, "h": 1, "f": [{"c": "border/neutral/subtle"}]}]
-for (n, y, im, m, title, sub, (tt, tx, ty)) in steps:
-    ch.append({"x": 248, "y": y + 41, **T(title, "heading/lg", "text/neutral/bold", nw=1)})
-    ch.append({"x": 248, "y": y + 81, **T(sub, "body/lg", "text/neutral/subtlest", nw=1)})
-    ch.append(tag(tt, tx, ty, tt))
-for i, (n, y, *_r) in enumerate(steps, 1):
-    ch.append(badge(n, 8, y + 8, str(i)))
-s27 = slide("517:6133", "13 · Stages and start · Three things to begin", "27 / 27", "To begin", "Three things\nto begin.",
-            "One access to open, one figure to agree. Then the first stage starts.", "Illustrative images, generated", 13, ch)
+# ---------------- 27 · Four questions (Khalid, 2026-11-18: only what blocks the work; nothing about the quote; the rest is our call) ----------------
+questions = [("Fame", "When does the read access to Fame open?", "Already agreed. It is the first thing we need."),
+             ("Finance", "Which overdue total is the right one?", "The tools give different figures. One session with finance settles it."),
+             ("Management", "Who uses BNG Sales Monitor today?", "It overlaps with BNG OS. We need to know what to keep."),
+             ("Management ", "Who validates each stage on your side?", "One person who decides, so nothing waits.")]
+ch, pitch27 = [], 132
+for i, (who, question, why) in enumerate(questions):
+    y = 96 + pitch27 * i
+    if i:
+        ch.append({"x": 0, "y": y - 20, "t": "R", "n": f"Divider {i}", "w": 900, "h": 1, "exw": 1, "f": [{"c": "border/neutral/subtle"}]})
+    ch.append(badge(f"Question {i + 1}", 0, y + 6, str(i + 1)))
+    ch.append({"x": 44, "y": y, **T(question, "heading/lg", "text/neutral/bold", nw=1)})
+    ch.append({"x": 44, "y": y + 44, **T(why, "body/lg", "text/neutral/subtlest", nw=1)})
+    ch.append(tag(f"Question {i + 1}", 44, y + 80, who.strip()))
+s27 = slide("517:6133", "13 · Stages and start · Four questions", "27 / 27", "To begin", "Four questions.\nThe rest is on us.",
+            "Everything else we decide from what you showed us, then bring back to you.", "", 13, ch)
+s27["props"]["Show note"] = False
 dump("s27", s27)
+
+# ---------------- closing · Thank you (unnumbered, the pause layout) ----------------
+ty = {"id": "local:thank-you", "name": "13 · Stages and start · Thank you (closing)",
+      "props": {"Note": "", "Lede": "", "Show lede": False, "Eyebrow": "13 · Close", "Title": "Thank you.", "Show footer": False, "Show nav": True,
+                "Show note": False, "Show title column": False, "Number": "27 / 27"},
+      "nav": {"Chapter": "13"},
+      "ch": [{"x": -468, "y": 421, **T("Thank you.", "display/xl", "text/neutral/bold", w=1368)},
+             {"x": -468, "y": 577, **T("Over to you: your questions.", "body/lede-lg", "text/neutral/subtle", w=900)}]}
+dump("ty", ty)
