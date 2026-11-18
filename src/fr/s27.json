@@ -1,18 +1,4 @@
 {
-  "To begin": "Lancement",
-  "Four questions.\nThe rest is on us.": "Quatre questions,\nrien de plus.",
-  "Everything else we decide from what you showed us, then bring back to you.": "Tout le reste, nous le décidons à partir de ce que vous nous avez montré, puis nous vous le présentons.",
-  "Fame": "Fame",
-  "Finance": "Finance",
-  "Management": "Direction",
-  "When does the read access to Fame open?": "Quand l’accès en lecture à Fame sera-t-il ouvert ?",
-  "Already agreed. It is the first thing we need.": "Déjà accordé. C’est notre premier besoin.",
-  "Which overdue total is the right one?": "Quel est le bon total d’impayés ?",
-  "The tools give different figures. One session with finance settles it.": "Les outils donnent des chiffres différents. Un point avec la finance suffit.",
-  "Who uses BNG Sales Monitor today?": "Qui utilise BNG Sales Monitor aujourd’hui ?",
-  "It overlaps with BNG OS. We need to know what to keep.": "Il recoupe BNG OS. Nous devons savoir quoi conserver.",
-  "Who validates each stage on your side?": "Qui valide chaque étape de votre côté ?",
-  "One person who decides, so nothing waits.": "Une seule personne décide, pour que rien n’attende.",
-  "Thank you.": "Merci.",
-  "Over to you: your questions.": "À vous : vos questions."
+  "Our questions.": "Nos questions.",
+  "Thank you.": "Merci."
 }

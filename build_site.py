@@ -196,6 +196,8 @@ def main():
     nav_index = []
     img_used = set()
     i = 0
+    # the counter follows deck.json: removing or adding a slide renumbers the rest (openers, pauses and the reveal carry no number)
+    numbered = [e["key"] for e in deck if e.get("kind", "slide") == "slide" and (ALL or e["status"] != "provisional")]
     for entry in deck:
         if entry["status"] == "provisional" and not ALL:
             continue
@@ -205,6 +207,8 @@ def main():
         slide["chapter"] = entry["chapter"]
         slide["section"] = entry["section"]
         slide["kind"] = entry.get("kind", "slide")
+        if entry["key"] in numbered:
+            slide["props"]["Number"] = "%02d / %d" % (numbered.index(entry["key"]) + 1, len(numbered))
         body = chrome(slide, ctx, i, "")
         slides_html.append('<section class="slide kind-%s%s" data-key="%s" data-ch="%d" data-status="%s" hidden>'
                            '<div class="art">%s</div></section>' % (slide["kind"], " desk" if slide["props"].get("Big desktop") else "",

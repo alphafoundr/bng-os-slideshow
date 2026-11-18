@@ -50,13 +50,6 @@
     "section": "The case"
   },
   {
-    "key": "s07",
-    "file": "s07",
-    "chapter": 4,
-    "status": "final",
-    "section": "The case"
-  },
-  {
     "key": "s08",
     "file": "s08",
     "chapter": 4,
@@ -218,6 +211,7 @@
     "file": "s27",
     "chapter": 13,
     "status": "final",
+    "kind": "pause",
     "section": "Close"
   },
   {
