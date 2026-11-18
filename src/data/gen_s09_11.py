@@ -129,7 +129,7 @@ def build(variant):
         td = disc(name, 56, ic, 24)
         td["n"] = "Tool · " + name
         td["ch"] = [{"t": "F", "w": 56, "h": 56, "f": [{"c": "background/neutral/raised"}], "sk": {"c": "border/neutral/subtle"}, "sw": 1, "cr": 999,
-                     "lm": "H", "pa": "c", "ca": "c", "ch": [icon(ic, 24)]}, T(label, "label/md-strong", "text/neutral/bold", al="C", nw=1)]
+                     "lm": "H", "pa": "c", "ca": "c", "ch": [icon(ic, 24)]}, T(label, "label/md-strong", "text/neutral/bold", al="C", nw=1), relation_tag(label)]
         td["x"], td["y"] = x, 586
         ch.append(td)
         lx = mid + (i - 3) * 30
@@ -150,7 +150,7 @@ def build(variant):
             draw(step, lines[-1], end=nodes[-1], target=card, arrival=hub_step)
     ch += lines + [card] + nodes
     return slide("289:2470", "05 · One system · One system, in BNG's name · B", "10 / 27", "One system above the tools",
-                 "One system,\nin BNG's name.", "One system, above the tools you already have. Accounts, code and data belong to BNG.",
+                 "One system,\nin BNG's name.", "One system that connects your tools and replaces Nexus Panthera. Accounts, code and data belong to BNG.",
                  "Illustrative · fictional people", 5, ch)
 
 

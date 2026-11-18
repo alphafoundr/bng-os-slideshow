@@ -184,10 +184,25 @@ def tag(name, x, y, text, kind="tag"):
     elif kind == "success":
         t["f"] = [{"c": "background/success/subtle"}]
         col = "text/success/bold"
+    elif kind == "bold":    # the one tag that must be read first, e.g. the tool BNG OS replaces
+        t["f"] = [{"c": "background/action/bold"}]
+        col = "text/on-action/bold"
     else:
         t["f"] = [{"c": "background/neutral/tag"}]
         col = "text/neutral/bold"
     t.update({"cr": 4, "lm": "H", "pad": [2, 8, 2, 8], "pa": "c", "ca": "c", "ch": [T(text, "label/tag", col, nw=1)]})
+    return t
+
+
+# What BNG OS does with each existing tool (Khalid, 2026-11-18: "make it clear we're replacing Nexus Panthera in the links to BNG OS";
+# "replaces" and "integrates"). Only Nexus Panthera is marked replaced; the others are the orchestrating session's default, his to change.
+REPLACED = {"Nexus Panthera"}
+
+
+def relation_tag(tool_name):
+    replaced = tool_name in REPLACED
+    t = tag("Relation · " + tool_name, 0, 0, "Replaces" if replaced else "Integrates", "bold" if replaced else "tag")
+    del t["x"], t["y"]
     return t
 
 

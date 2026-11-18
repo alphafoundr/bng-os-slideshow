@@ -96,7 +96,8 @@ for i, (label, glyph, y_offset) in enumerate(tools):
     line.update(exl=1, exw=0.5)
     tool_row = {"x": 0, "y": source_y - 28, "exl": 1, "t": "F", "n": "Tool · " + label,
                 "w": 212, "h": 56, "lm": "H", "gap": 12, "ca": "c",
-                "ch": [T(label, "label/md-strong", "text/neutral/bold", w=144, al="R", nw=1),
+                "ch": [{"t": "F", "w": 144, "lm": "V", "gap": 2, "ca": "x",
+                        "ch": [T(label, "label/md-strong", "text/neutral/bold", w=144, al="R", nw=1), relation_tag(label)]},
                        disc(label, 56, glyph, 24)]}
     step = i + 0.25
     ch24.extend([draw(step, line, target=ring, arrival=7.25), at(step, tool_row)])
