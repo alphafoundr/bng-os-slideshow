@@ -1,20 +1,18 @@
 {
-  "Meet Cortex.": "Voici Cortex.",
-  "One engine, built and tuned only for BNG.": "Un seul moteur, construit et réglé uniquement pour BNG.",
   "Cortex": "Cortex",
   "Cortex: what it decides": "Cortex : ce qu’il décide",
-  "One engine,\ntuned for BNG.": "Un seul moteur,\nréglé pour BNG.",
   "Cortex reads every tool, checks them against each other and proposes the next best action. A person confirms what matters.": "Cortex lit chaque outil, les recoupe et propose la meilleure action suivante. Une personne confirme ce qui compte.",
   "Illustrative example": "Exemple illustratif",
   "Built for BNG": "Conçu pour BNG",
   "Suggested by Cortex": "Suggéré par Cortex",
-  "Assign the lead to the right adviser": "Attribuer le lead au bon conseiller",
-  "Speaks Dutch, free now": "Parle néerlandais, disponible",
-  "Price differs from the contract": "Le prix diffère du contrat",
-  "Two tools give two prices": "Deux outils, deux prix",
-  "Call the buyer who stopped answering": "Appeler l’acheteur qui ne répond plus",
-  "No reply to two reminders": "Aucune réponse à deux relances",
   "Sales manager confirms": "Confirmé par les ventes",
   "Back office confirms": "Le back-office confirme",
-  "Collections confirms": "Le recouvrement confirme"
+  "Collections confirms": "Le recouvrement confirme",
+  "It reads every tool.\nIt proposes\nthe next step.": "Il lit chaque outil.\nIl propose la\nprochaine étape.",
+  "This lead already bought from you": "Ce lead a déjà acheté chez vous",
+  "Lot D-839 in 2024, with Reda M.": "Lot D-839 en 2024, avec Reda M.",
+  "Hold the contract for lot B-214": "Suspendre le contrat du lot B-214",
+  "Two tools, two prices, MAD 15,000 apart": "Deux outils, deux prix, 15 000 MAD d’écart",
+  "Send the registered letter": "Envoyer la lettre recommandée",
+  "MAD 74,000, 47 days late, no reply": "74 000 MAD, 47 jours de retard, aucune réponse"
 }

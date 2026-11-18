@@ -8,7 +8,7 @@ p1 = {"id": "332:5105", "name": "06 · Cortex decides · Meet Cortex (pause)",
                 "Show title column": False, "Number": "01 / 27"},
       "nav": {"Chapter": "6"},
       "ch": [{"x": -468, "y": 557, **T("Meet Cortex.", "display/xl", "text/neutral/bold", w=1368)},
-             {"x": -468, "y": 717, **T("One engine, built and tuned only for BNG.", "body/lede-lg", "text/neutral/subtle", w=900)},
+             {"x": -468, "y": 717, **T("The part of BNG OS that reads everything and tells you what to do next.", "body/lede-lg", "text/neutral/subtle", w=900)},
              cortex_lockup(-468, -36)]}
 dump("p1", p1)
 
@@ -38,18 +38,18 @@ for name, x, y, ic, label, (cx, cy, cw, chh, d), n1, n2 in tools:
     dot = ai_node(name, *n1)
     dot["exl"] = 0.6
     ch += [td, line, dot]
-ch += [suggestion("Assign the lead to the right adviser", 540, 120, "Assign the lead to the right adviser", "Speaks Dutch, free now"),
-       ai_conn_plain("Cortex → Assign the lead to the right adviser", 420, 182, 120, 122, "M 0 122 C 60 122 60 0 120 0", True),
+ch += [suggestion("This lead already bought from you", 540, 120, "This lead already bought from you", "Lot D-839 in 2024, with Reda M."),
+       ai_conn_plain("Cortex → This lead already bought from you", 420, 182, 120, 122, "M 0 122 C 60 122 60 0 120 0", True),
        ai_node("Cortex → 0", 412, 296),
-       suggestion("Price differs from the contract", 540, 302, "Price differs from the contract", "Two tools give two prices"),
-       ai_conn_plain("Cortex → Price differs from the contract", 420, 364, 120, 0, "M 0 0 L 120 0", True),
+       suggestion("Hold the contract for lot B-214", 540, 302, "Hold the contract for lot B-214", "Two tools, two prices, MAD 15,000 apart"),
+       ai_conn_plain("Cortex → Hold the contract for lot B-214", 420, 364, 120, 0, "M 0 0 L 120 0", True),
        ai_node("Cortex → 1", 412, 356),
-       suggestion("Call the buyer who stopped answering", 540, 484, "Call the buyer who stopped answering", "No reply to two reminders"),
+       suggestion("Send the registered letter", 540, 484, "Send the registered letter", "MAD 74,000, 47 days late, no reply"),
        ai_conn_plain("Cortex → Send the payment reminder", 420, 424, 120, 122, "M 0 0 C 60 0 60 122 120 122", True),
        ai_node("Cortex → 2", 412, 416),
        tag("Sales manager confirms", 728, 140, "Sales manager confirms"), tag("Back office confirms", 749, 322, "Back office confirms"),
        tag("Collections confirms", 749, 504, "Collections confirms")]
-s12 = slide("291:2752", "06 · Cortex decides · One engine, tuned for BNG · A", "12 / 27", "Cortex: what it decides", "One engine,\ntuned for BNG.",
+s12 = slide("291:2752", "06 · Cortex decides · One engine, tuned for BNG · A", "12 / 27", "Cortex: what it decides", "It reads every tool.\nIt proposes\nthe next step.",
             "Cortex reads every tool, checks them against each other and proposes the next best action. A person confirms what matters.",
             "Illustrative example", 6, ch)
 dump("s12", s12)
