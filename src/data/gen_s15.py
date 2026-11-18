@@ -31,7 +31,7 @@ H_FILE, H_READ = 196, 392
 H_SUGG, H_APPR, H_CONF = 180, 204, 96
 geo = GeoA([H_FILE, H_READ], 1, [H_SUGG, H_APPR, H_CONF], 4)
 yl, yr = geo.yl, geo.yr
-ch = [subject_card("Sales contract", X2, yl[0], W2, H_FILE, "buyer", "Hicham B.", "The buyer", "Sales contract · lot B-214",
+ch = [subject_card("Sales contract", X2, yl[0], W2, H_FILE, "buyer4", "Hind B.", "The buyer", "Sales contract · lot B-214",
                    "Read as the file arrived · 3 of 4 checks verified"),
       read_card("What Cortex checked", X2, yl[1], W2, H_READ, "What Cortex checked", facts()),
       suggestion_card("Hold the file", X3, yr[0], W3, H_SUGG, "Hold the file until\nthe price is settled", "Two tools, MAD 15,000 apart"),

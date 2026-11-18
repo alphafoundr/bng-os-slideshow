@@ -14,7 +14,7 @@ def row(*a):
     return stretch(fact(*a, py=ROW_PY))
 
 
-lead = subject_card("New lead", X2, yl[0], W2, H_LEAD, "construction", "Jan V.", "Returning buyer", "New lead · Elyazia, 2-bed", "Came in through the website form")
+lead = subject_card("New lead", X2, yl[0], W2, H_LEAD, "buyer3", "Jan V.", "Returning buyer", "New lead · Elyazia, 2-bed", "Came in through the website form")
 read = read_card("What Cortex read", X2, yl[1], W2, H_READ, "What Cortex read",
                  [row("Project", 0, 0, "Project", "Elyazia, 2-bed", "Fame"), row("Earlier purchase", 0, 0, "Earlier purchase", "Lot D-839, 2024", "BNG Business"),
                   row("Adviser then", 0, 0, "Adviser then", "Reda M.", "Nexus Panthera"),

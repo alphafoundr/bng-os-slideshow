@@ -12,33 +12,73 @@ def badge(name, x, y, text):
 
 def photo(name, x, y, w, h, im, mode="FILL"):
     """Rectangle with a subtle fill, the image on top (FILL = cover, FIT = contain), radius 12, 1 px inside hairline, no shadow."""
-    return {"x": x, "y": y, "t": "R", "w": w, "h": h, "n": "Photo · " + name, "f": [{"c": "background/neutral/subtle"}, {"im": im, "sm": mode, "tr": [[1, 0, 0], [0, 1, 0]]}],
-            "sk": {"c": "border/neutral/subtle"}, "sw": 1, "cr": 12, "k": 1}
+    image = {"x": x, "y": y, "t": "R", "w": w}
+    if h is not None:
+        image["h"] = h
+    image.update({"n": "Photo · " + name, "f": [{"c": "background/neutral/subtle"}, {"im": im, "sm": mode, "tr": [[1, 0, 0], [0, 1, 0]]}],
+                  "sk": {"c": "border/neutral/subtle"}, "sw": 1, "cr": 12, "k": 1})
+    return image
 
 
 # ---------------- 26 · Five stages, in this order ----------------
-stages = [("Stage 1", "f845e811", "Contracts and\ncollections", "Urgent collections, verified client data"),
-          ("Stage 2", "3650788b", "Leads and\nassignment", "Leads no longer depend on one tool"),
-          ("Stage 3", "38958e82", "Commissions and\nthe 360° view", "Management sees every sale in one view"),
-          ("Stage 4", "396b09ab", "Group finance", "Cash per company, consolidated"),
-          ("Stage 5", "12ac5423", "Construction,\nafter-sales,\nclient space", "Follow-up through\nto the keys")]
-ch = []
-for i, (name, im, title, sub) in enumerate(stages):
-    ch.append(photo(name, 182 * i, 190, 172, 200, im))
-ch += [conn("Stage 1 → Stage 5", 8, 418, 884, 0, "M 0 0 L 884 0"), node("Stage 1 start", 0, 410), node("Stage 5 end", 884, 410)]
-for i, (name, im, title, sub) in enumerate(stages):
-    ch.append({"x": 182 * i - 2, "y": 442, **T(title, "heading/md", "text/neutral/bold", w=176, al="C")})
-    ch.append({"x": 182 * i - 2, "y": 534, **T(sub, "body/md", "text/neutral/subtlest", w=176, al="C")})
-ch.append(tag("We start here", 0, 156, "We start here"))
-for i, (name, im, title, sub) in enumerate(stages):
-    ch.append(badge(name, 182 * i + 74, 406, str(i + 1)))
-at(0, ch[-6])
-for i in range(len(stages)):
-    at(i, ch[i], *ch[8 + 2 * i:10 + 2 * i], ch[-5 + i])
-draw(0, *ch[5:8], target=ch[4], arrival=4,
-     via=[(i, (182 * i + 78) / 884, ch[i]) for i in range(1, 4)])
+stages = [
+    ("f845e811", "Contracts and collections", [
+        "Contract requests, checked", "Contracts with e-signature", "Welcome email",
+        "Instalment reminders that arrive", "Registered e-letters",
+    ]),
+    ("3650788b", "Leads and assignment", [
+        "Leads arrive from Fame", "Assigned in BNG OS", "Adviser and back office in one tool",
+        "No re-entry by hand",
+    ]),
+    ("38958e82", "Commissions and the 360° view", [
+        "One true version of each client", "Commissions checked per sale", "Every sale in one view",
+    ]),
+    ("396b09ab", "Group finance", [
+        "Cash per company", "Cash forecast", "Rent, commissions and advances between companies",
+    ]),
+    ("12ac5423", "Construction, after‑sales, client space", [
+        "Monthly photo and video updates", "After-sales requests", "Client space through to the keys",
+    ]),
+]
+stage_width, stage_gap = 206, 10
+pitch = stage_width + stage_gap
+track_width = pitch * len(stages) - stage_gap - 16
+growth = 1 / len(stages)
+stage_beats = 3
+photos, labels, numbers = [], [], []
+for i, (im, title, items) in enumerate(stages):
+    name = f"Stage {i + 1}"
+    x, step = pitch * i, stage_beats * i
+    stretch = {"exl": -i * growth, "exw": growth}
+    image = photo(name, x, 94, stage_width, None, im)  # CSS keeps the original ratio as the columns grow.
+    image.update(stretch)
+    photos.append(at(step, image))
+    number = badge(name, x + stage_width / 2 - 12, 347, str(i + 1))
+    number["exl"] = -(i + 0.5) * growth
+    numbers.append(at(step + 0.5, number))
+    heading = at(step + 1, T(title, "heading/md", "text/neutral/bold", sh="L", h=76))
+    rows = [
+        at(step + 1.5, {
+            "n": f"{name} · Checklist item {j + 1}", "t": "F", "lm": "H", "gap": 6, "sh": "L",
+            "ch": [icon("checkmark-20", 16, "icon/success/bold"), T(item, "body/lg", "text/neutral/subtle", sh="L")],
+        }, motion="row", index=j)
+        for j, item in enumerate(items)
+    ]
+    labels.append({"x": x, "y": 383, "t": "F", "w": stage_width, "lm": "V", "gap": 10, **stretch,
+                   "ch": [heading, {"t": "F", "lm": "V", "gap": 4, "sh": "L", "ch": rows}]})
+
+line = conn("Stage 1 → Stage 5", 8, 359, track_width, 0, f"M 0 0 L {track_width} 0")
+line.update({"exl": 0, "exw": 1})
+start = node("Stage 1 start", 0, 351)
+end = node("Stage 5 end", track_width, 351)
+end["exl"] = -1
+draw(0, line, start, end, target=photos[-1], arrival=stage_beats * (len(stages) - 1),
+     via=[(stage_beats * i, (pitch * i + stage_width / 2 - 8) / track_width, photos[i])
+          for i in range(1, len(stages) - 1)])
+chip = at(0, tag("Urgent request", 0, 60, "Your urgent request · we start here"))
+ch = [*photos, {"t": "F", "n": "Roadmap details", "ch": [line, start, end, *labels, *numbers]}, chip]
 s26 = slide("517:5998", "13 · Stages and start · Five stages, in this order", "26 / 27", "The plan", "Five stages,\nin this order.",
-            "Each one is useful on its own and prepares the next.", "Illustrative images, generated", 13, ch)
+            "Each one is useful on its own\nand prepares the next.", "Illustrative images, generated", 13, ch)
 dump("s26", s26)
 
 # ---------------- 27 · Three things to begin ----------------

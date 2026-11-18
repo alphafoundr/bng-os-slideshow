@@ -24,9 +24,11 @@ COL2 = (FB, round(FB - FC, 3))          # (exl, exw) of a col-2 card
 COL3 = (FD, FD)                         # (exl, exw) of a col-3 card
 C1 = [[0.68, 0, 0.16], [0, 0.68, 0.13]]
 C2 = [[0.72, 0, 0.14], [0, 0.72, 0.265]]
-# the site's portrait pool: six generated, labelled-fictional portraits (images.json): (hash, crop)
+CROP_NEW_BUYERS = [[0.70, 0, 0.15], [0, 0.70, 0.02]]
+# The site's generated, fictional portraits (images.json): (hash, crop).
 POOL = {"buyer": ("e9061fc2", CROP), "director": ("5755e103", CROP), "rep": ("2a9ca040", CROP), "backoffice": ("4cad20ba", CROP),
-        "construction": ("dc262b77", C1), "partner": ("f0ed4c75", C2)}
+        "construction": ("dc262b77", C1), "partner": ("f0ed4c75", C2),
+        "buyer3": ("17dd7dbc", CROP_NEW_BUYERS), "buyer4": ("777f80f3", CROP_NEW_BUYERS), "buyer5": ("a4eba5b8", CROP_NEW_BUYERS)}
 
 # columns (artboard px, slot origin)
 SRC_W, SRC_H = 140, 82          # one source: 56 px disc, 8 gap, label

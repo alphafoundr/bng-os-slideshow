@@ -35,6 +35,16 @@ section[data-key=s14] .slot .tx,section[data-key=s15] .slot .tx,section[data-key
 .eyebrow{color:var(--color-text-neutral-subtlest)}
 .title{color:var(--color-text-neutral-bold);white-space:pre-line;font-weight:500}
 .lede{color:var(--color-text-neutral-subtle);text-wrap:pretty}
+section[data-key=s26] .titlecol{width:292px}
+html[lang=fr] section[data-key=s26] .title{font-variation-settings:"wdth" 86}
+section[data-key=s26] .lede{white-space:pre-line}
+section[data-key=s26] .slot{left:334px;top:calc(60px - var(--ex)*.06);width:calc(1070px + var(--ex))}
+section[data-key=s26] [data-name^="Photo · Stage"]{aspect-ratio:172 / 200}
+/* Each photo gains one fifth of the extra width. Carry that height gain down to the line and lists. */
+section[data-key=s26] [data-name="Roadmap details"]{margin-top:calc(var(--ex) * 10 / 43)}
+section[data-key=s26] .connector > path{vector-effect:non-scaling-stroke}
+section[data-key=s26] [data-name*="Checklist item"] .ic{margin-top:5px}
+section[data-key=s26] .slot :is(.s-heading-md,.s-body-lg){text-wrap:balance}
 .frule{position:absolute;left:36px;top:816px;width:calc(1368px + var(--ex));height:1px;background:var(--color-border-neutral-subtle)}
 .foot{position:absolute;left:36px;top:832px;width:calc(1368px + var(--ex));height:44px;display:flex;justify-content:space-between;align-items:center}
 .fl,.fr{display:flex;align-items:center}

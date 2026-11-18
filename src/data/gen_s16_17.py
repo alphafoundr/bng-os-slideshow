@@ -6,14 +6,10 @@ from cortex_flow import *
 QW = W2                        # queue card width
 
 
-def qrow(name, n, hkey, ini, who_, late, amt, selected=False):
-    """App / Data display / Queue row, with the debtor's portrait (initials when the pool has no face left)."""
-    if hkey:
-        h, crop = POOL[hkey]
-        face = portrait(h, "Portrait · " + who_, 44, crop=crop)
-    else:
-        face = {"t": "F", "w": 44, "h": 44, "f": [{"c": "background/neutral/muted"}], "cr": 999, "k": 1, "lm": "H", "pa": "c", "ca": "c",
-                "ch": [T(ini, "label/sm", "text/neutral/bold", nw=1)]}
+def qrow(name, n, hkey, late, amt, selected=False):
+    """App / Data display / Queue row with the buyer's portrait."""
+    h, crop = POOL[hkey]
+    face = portrait(h, "Portrait · " + name, 44, crop=crop)
     return {"cn": "App / Data display / Queue row", "t": "F", "sh": "L", "sv": "H", "h": 76, "n": "Queue row · " + name,
             "f": [{"c": "background/neutral/selected" if selected else "background/neutral/raised"}], "sk": {"c": "border/neutral/subtle"}, "sw": [0, 0, 1, 0],
             "lm": "H", "gap": 6, "pad": [0, 8, 0, 8], "ca": "c",
@@ -21,7 +17,7 @@ def qrow(name, n, hkey, ini, who_, late, amt, selected=False):
                    {"t": "F", "sh": "L", "sv": "H", "k": 1, "lm": "H", "gap": 12, "ca": "c",
                     "ch": [face,
                            {"t": "F", "sh": "H", "sv": "H", "k": 1, "lm": "V",
-                            "ch": [T(who_, "label/md-strong", "text/neutral/bold", nw=1), T(late, "body/sm", "text/neutral/subtlest", nw=1)]}]},
+                            "ch": [T(name, "label/md-strong", "text/neutral/bold", nw=1), T(late, "body/sm", "text/neutral/subtlest", nw=1)]}]},
                    {"t": "F", "sv": "H", "w": 84, "k": 1, "lm": "V", "ca": "x", "ch": [T(amt, "label/md-strong", "text/neutral/bold", sh="L", al="R")]},
                    {"t": "F", "w": 20, "h": 20, "k": 1, "lm": "H", "pa": "c", "ca": "c", "ch": [marker(14)]}]}
 
@@ -31,10 +27,10 @@ H_SUGG, H_APPR, H_CONF = 232, 204, 96
 geo = GeoA([H_Q], 0, [H_SUGG, H_APPR, H_CONF], 3)
 yl, yr = geo.yl, geo.yr
 rows = {"t": "F", "sh": "L", "sv": "H", "lm": "V", "gap": 0,
-        "ch": [qrow("Nadia S.", 1, "partner", "NS", "Nadia S.", "47 days late", "MAD 74,000", True),
-               qrow("Meryem A.", 2, None, "MA", "Meryem A.", "31 days late", "MAD 55,500"),
-               qrow("Youssef B.", 3, "buyer", "YB", "Youssef B.", "26 days late", "MAD 92,500"),
-               qrow("Yassine K.", 4, "construction", "YK", "Yassine K.", "14 days late", "MAD 41,000")]}
+        "ch": [qrow("Nadia S.", 1, "partner", "47 days late", "MAD 74,000", True),
+               qrow("Mehdi A.", 2, "buyer5", "31 days late", "MAD 55,500"),
+               qrow("Youssef B.", 3, "buyer", "26 days late", "MAD 92,500"),
+               qrow("Yassine K.", 4, "construction", "14 days late", "MAD 41,000")]}
 queue = card("Today · 4 actions", X2, yl[0], QW, H_Q,
              [head("Today · 4 actions", "Ranked, with the reason for each"),
               T("Most urgent first", "label/md-strong", "text/neutral/subtlest", nw=1), rows], COL2, gap=14)
