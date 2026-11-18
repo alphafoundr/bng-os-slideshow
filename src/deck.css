@@ -26,6 +26,8 @@ body.deck-on #deck{visibility:visible}
 svg.connector,svg.vec{pointer-events:none;overflow:visible;position:absolute}
 .slot{position:absolute;left:calc(504px + var(--ex));top:72px;width:900px;height:728px}
 .art:not(:has(.titlecol)) .slot{left:calc(504px + var(--ex)*.5)}
+/* the Cortex-at-work cards grow with the screen: their wrapping text never leaves a single word on its last line (no orphan words) */
+section[data-key=s14] .slot .tx,section[data-key=s15] .slot .tx,section[data-key=s16] .slot .tx{text-wrap:pretty}
 .kind-pause .art .slot{left:504px}
 .titlecol{position:absolute;left:36px;top:72px;width:444px;height:728px;display:flex;flex-direction:column;justify-content:center}
 .tblock{display:flex;flex-direction:column;gap:20px;width:100%}

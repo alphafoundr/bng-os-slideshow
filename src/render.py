@@ -156,7 +156,9 @@ def seg_style(d):
 
 
 def left_style(n):
-    factor = n.get("exw") if n.get("t") == "V" and "exw" in n else n.get("exl")
+    # a vector with exw alone keeps its right end fixed (left end moves by exw); with exl as well, exl is the move of the left end and
+    # exw the growth of the width (both ends may move: right end move = exl - exw)
+    factor = n.get("exw") if n.get("t") == "V" and "exw" in n and "exl" not in n else n.get("exl")
     if factor is not None:
         return "left:calc(%spx - var(--ex) * %s)" % (fmt(n.get("x", 0)), fmt(factor))
     return "left:%spx" % fmt(n.get("x", 0))
@@ -339,7 +341,10 @@ def render_box(n, ctx, par, extra_cls=""):
     elif "exl" in n:
         st.append(left_style(n))
     if "w" in n:
-        st.append("width:%spx" % fmt(n["w"]))
+        if "exw" in n:      # a card that grows with the screen: its left edge moves by exl, its width grows by exw
+            st.append("width:calc(%spx + var(--ex) * %s)" % (fmt(n["w"]), fmt(n["exw"])))
+        else:
+            st.append("width:%spx" % fmt(n["w"]))
         if flex_in:
             st.append("flex:none")
     if "h" in n:

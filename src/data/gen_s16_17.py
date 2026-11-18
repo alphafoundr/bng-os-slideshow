@@ -1,44 +1,55 @@
-"""Slides 16 and 17 from the Figma reads of 2026-11-17 (308:3460, 310:3676). Run: PYTHONPATH=. python -P gen_s16_17.py"""
+"""Slides 16 and 17 from the Figma reads of 2026-11-17 (308:3460, 310:3676). Slide 16 is rebuilt as free-standing cards, no desktop
+device (2026-11-18; layout in cortex_flow.py); slide 17 is unchanged. Run: PYTHONPATH=. python -P gen_s16_17.py"""
 from dsl import *
-from gen_s14 import button, desktop, confirmation, vconn
+from cortex_flow import *
+
+QW = W2                        # queue card width
 
 
-def qrow(name, y, n, ini, who, late, amt, selected=False):
-    return {"x": 16, "y": y, "cn": "App / Data display / Queue row", "t": "F", "w": 316, "h": 56, "n": "Queue row · " + name,
+def qrow(name, n, hkey, ini, who_, late, amt, selected=False):
+    """App / Data display / Queue row, with the debtor's portrait (initials when the pool has no face left)."""
+    if hkey:
+        h, crop = POOL[hkey]
+        face = portrait(h, "Portrait · " + who_, 44, crop=crop)
+    else:
+        face = {"t": "F", "w": 44, "h": 44, "f": [{"c": "background/neutral/muted"}], "cr": 999, "k": 1, "lm": "H", "pa": "c", "ca": "c",
+                "ch": [T(ini, "label/sm", "text/neutral/bold", nw=1)]}
+    return {"cn": "App / Data display / Queue row", "t": "F", "sh": "L", "sv": "H", "h": 76, "n": "Queue row · " + name,
             "f": [{"c": "background/neutral/selected" if selected else "background/neutral/raised"}], "sk": {"c": "border/neutral/subtle"}, "sw": [0, 0, 1, 0],
             "lm": "H", "gap": 6, "pad": [0, 8, 0, 8], "ca": "c",
             "ch": [T(str(n), "label/md-strong", "text/neutral/subtlest", w=20, al="C"),
                    {"t": "F", "sh": "L", "sv": "H", "k": 1, "lm": "H", "gap": 12, "ca": "c",
-                    "ch": [{"t": "F", "w": 32, "h": 32, "f": [{"c": "background/neutral/muted"}], "cr": 999, "k": 1, "lm": "H", "pa": "c", "ca": "c",
-                            "ch": [T(ini, "label/sm", "text/neutral/bold", nw=1)]},
+                    "ch": [face,
                            {"t": "F", "sh": "H", "sv": "H", "k": 1, "lm": "V",
-                            "ch": [T(who, "label/md-strong", "text/neutral/bold", nw=1), T(late, "body/sm", "text/neutral/subtlest", nw=1)]}]},
-                   {"t": "F", "sv": "H", "w": 104, "k": 1, "lm": "V", "ca": "x", "ch": [T(amt, "label/md-strong", "text/neutral/bold", sh="L", al="R")]},
+                            "ch": [T(who_, "label/md-strong", "text/neutral/bold", nw=1), T(late, "body/sm", "text/neutral/subtlest", nw=1)]}]},
+                   {"t": "F", "sv": "H", "w": 84, "k": 1, "lm": "V", "ca": "x", "ch": [T(amt, "label/md-strong", "text/neutral/bold", sh="L", al="R")]},
                    {"t": "F", "w": 20, "h": 20, "k": 1, "lm": "H", "pa": "c", "ca": "c", "ch": [marker(14)]}]}
 
 
-sg = suggestion("Send the reminder", 348, 104, "Send Nadia S.\nthe registered letter", "47 days late, no reply")
-sg["w"] = 228
-inner = [{"x": 16, "y": 16, **T("Today · 4 actions", "heading/sm", "text/neutral/bold", nw=1)},
-         {"x": 16, "y": 40, **T("Ranked, with the reason for each", "body/md", "text/neutral/subtlest", nw=1)},
-         {"x": 16, "y": 80, **T("Most urgent first", "label/md-strong", "text/neutral/subtlest", nw=1)},
-         {"x": 348, "y": 80, **T("What Cortex proposes", "label/md-strong", "text/neutral/subtlest", nw=1)},
-         qrow("Nadia S.", 104, 1, "NS", "Nadia S.", "47 days late", "MAD 74,000", True),
-         qrow("Meryem A.", 160, 2, "MA", "Meryem A.", "31 days late", "MAD 55,500"),
-         qrow("Youssef B.", 216, 3, "YB", "Youssef B.", "26 days late", "MAD 92,500"),
-         qrow("Yassine K.", 272, 4, "YK", "Yassine K.", "14 days late", "MAD 41,000"),
-         sg, button("Decline", 417, 258, "Decline", False), button("Approve", 498, 258, "Approve", True),
-         {"x": 348, "y": 304, **T("Nothing is sent until you approve.", "body/xs", "text/neutral/subtlest", nw=1)}]
-ch = [desktop("Device · Desktop · Collections", inner)]
-for name, x, cx, ic, label in (("BNG Business", 205, 250, "coin", "BNG Business"), ("Bank", 422, 450, "bank", "Bank"),
-                               ("Nexus Panthera", 600, 650, "users", "Nexus Panthera")):
-    ch += [tool(name, x, 8, ic, label), vconn(name + " → collections", cx, 103, 53, True), ai_node(name, cx - 8, 95)]
-ch += [persona_h("Collections", 130, 640, 256, "2a9ca040", "Collections", "Sees the reason, then decides"),
-       confirmation("Reminder sent", 426, 640, 344, "Registered letter sent", "Approved by collections, with the proof saved in the file."),
-       vconn("back office → collections", 258, 556, 84, False), node("collections · approves", 250, 548), node("back office", 250, 632),
-       annotation("approves", 218, 592, "approves"),
-       vconn("collections → reminder sent", 598, 556, 84, True), ai_node("Device · reminder sent", 590, 548),
-       annotation("after approval", 545, 592, "after approval")]
+H_Q = 434
+H_SUGG, H_APPR, H_CONF = 232, 204, 96
+geo = GeoA([H_Q], 0, [H_SUGG, H_APPR, H_CONF], 3)
+yl, yr = geo.yl, geo.yr
+rows = {"t": "F", "sh": "L", "sv": "H", "lm": "V", "gap": 0,
+        "ch": [qrow("Nadia S.", 1, "partner", "NS", "Nadia S.", "47 days late", "MAD 74,000", True),
+               qrow("Meryem A.", 2, None, "MA", "Meryem A.", "31 days late", "MAD 55,500"),
+               qrow("Youssef B.", 3, "buyer", "YB", "Youssef B.", "26 days late", "MAD 92,500"),
+               qrow("Yassine K.", 4, "construction", "YK", "Yassine K.", "14 days late", "MAD 41,000")]}
+queue = card("Today · 4 actions", X2, yl[0], QW, H_Q,
+             [head("Today · 4 actions", "Ranked, with the reason for each"),
+              T("Most urgent first", "label/md-strong", "text/neutral/subtlest", nw=1), rows], COL2, gap=14)
+sugg = suggestion_card("Send the reminder", X3, yr[0], W3, H_SUGG, "Send Nadia S.\nthe registered letter", "47 days late, no reply",
+                       who("partner", "Nadia S.", "The buyer", None, PORTRAIT_SM))
+appr = approval_card("Collections", X3, yr[1], W3, H_APPR, "rep", "Salma R.", "Collections", "Sees the reason, then decides")
+done = result_card("Reminder sent", X3C, yr[2], W3C, H_CONF, "Registered letter sent", "Approved by collections, with the proof saved in the file.")
+
+SRC = (("BNG Business", "coin", "BNG Business"), ("Bank", "bank", "Bank"), ("Nexus Panthera", "users", "Nexus Panthera"))
+ch = [queue, sugg, appr, done]
+for i, (name, ic, label) in enumerate(SRC):
+    ch.append(source(name, X1, geo.ys[i] - 28, ic, label))
+# the lines: sources into the queue card; the queue (selected row) to the proposal
+ch += geo.build_lines({"recv": "today's list", "chain": [], "propose": "suggestion", "approve": "collections", "result": "reminder sent"},
+                      [s[0] for s in SRC], recv_y=148)
 s16 = slide("308:3460", "07 · Cortex at work · Today's actions, already ranked", "16 / 27", "Cortex at work", "Today's actions,\nalready ranked.",
             "Every morning the day's collection actions arrive ranked, with the reason for each. Nothing legal leaves without a person.",
             "Illustrative example · fictional people and figures", 7, ch)
