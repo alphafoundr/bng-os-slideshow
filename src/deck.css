@@ -29,6 +29,23 @@ svg.connector,svg.vec{pointer-events:none;overflow:visible;position:absolute}
 /* the Cortex-at-work cards grow with the screen: their wrapping text never leaves a single word on its last line (no orphan words) */
 section[data-key=s14] .slot .tx,section[data-key=s15] .slot .tx,section[data-key=s16] .slot .tx{text-wrap:pretty}
 .kind-pause .art .slot{left:504px}
+/* app slides with the large monitor (class "desk", from the slide prop "Big desktop"; owner's Figma frame "example space gains"): the slot is the whole
+   artboard, so a record's x and y are artboard pixels; on a wider page it moves right by 35% of the extra width (the title column stays on the left
+   margin; 0.35 leaves the same empty band between the lede and the monitor as between the monitor and the right margin, with every card in the room); the title block is 393 wide and the lede 350. */
+.desk .slot{left:calc(var(--ex)*.35);top:0;width:1440px;height:900px;pointer-events:none}
+.desk .titlecol{width:393px}
+.desk .lede{width:350px;max-width:100%}
+/* Keep the existing French labels legible in the fixed monitor layout. */
+html[lang=fr] .desk [data-name="Finding · ID number"]{padding-block:3px!important}
+html[lang=fr] .desk [data-name="Finding · ID number"] .s-label-tag{white-space:normal!important;line-height:14px}
+html[lang=fr] .desk [data-name="Fact / Last visit"]{gap:2px!important;padding-right:2px!important}
+html[lang=fr] .desk [data-name="Fact / Last visit"] [data-name=Source]{gap:2px!important;padding-inline:3px!important}
+html[lang=fr] section[data-key=s19].desk .title{font-variation-settings:"wdth" 86}
+section[data-key=s22].desk [data-c="Illo / UI card"] .s-body-sm{text-wrap:balance}
+/* the film on a device screen: covers the screen exactly (the screen box is overflow:hidden with the rounded corners); the static screen under it
+   is the fallback when the film does not load (deck.js adds film-failed to the screen) */
+.film{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;border:0;pointer-events:none}
+.film-failed>.film{display:none}
 .titlecol{position:absolute;left:36px;top:72px;width:444px;height:728px;display:flex;flex-direction:column;justify-content:center}
 .tblock{display:flex;flex-direction:column;gap:20px;width:100%}
 .eyebrow,.title,.lede{margin:0}

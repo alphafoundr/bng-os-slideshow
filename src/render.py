@@ -120,6 +120,7 @@ class Ctx:
         self.logos = logos
         self.uid = 0
         self.used_icons = set()
+        self.films = {}
 
     def next(self):
         self.uid += 1
@@ -454,4 +455,32 @@ def render_box(n, ctx, par, extra_cls=""):
             inner += '<img alt="" draggable="false"%s src="%s" style="%s">' % (lazy, src, ist)
     for c in n.get("ch", []):
         inner += render_node(c, ctx, n)
+    if n.get("film"):
+        # a device screen that can play a film (src/films.json): the <video> covers the screen exactly, on top of the static content,
+        # which stays as the fallback (deck.js hides the video when the file does not load). No entry for the slide: nothing is added.
+        key = getattr(ctx.s, "slide", "")
+        v = film_video(ctx.films.get(key))
+        if v:
+            cls.append("scr-film")
+            inner += v
     return '<div class="%s" style="%s"%s>%s</div>' % (" ".join(cls), ";".join(st), attrs, inner)
+
+
+def film_video(entry):
+    """<video> for one films.json entry; the French set, when there is one, rides in data-film and deck.js swaps to it."""
+    if not entry:
+        return ""
+    def srcs(e):
+        out = ""
+        for k, mime in (("mp4", "video/mp4"), ("webm", "video/webm")):
+            if e.get(k):
+                out += '<source src="%s" type="%s">' % (html.escape(e[k], quote=True), mime)
+        return out
+    data = {"en": {k: entry[k] for k in ("mp4", "webm", "poster") if entry.get(k)}}
+    fr = entry.get("fr") or {}
+    if fr.get("mp4") or fr.get("webm"):   # a French film replaces the default one as a set; a missing French poster falls back to the default poster
+        data["fr"] = {k: fr[k] for k in ("mp4", "webm") if fr.get(k)}
+        data["fr"]["poster"] = fr.get("poster") or entry["poster"]
+    loop = "" if entry.get("loop") is False else " loop"
+    return ('<video class="film" muted%s playsinline preload="none" disablepictureinpicture aria-hidden="true" poster="%s" data-film="%s">%s</video>'
+            % (loop, html.escape(entry["poster"], quote=True), html.escape(json.dumps(data, separators=(",", ":")), quote=True), srcs(entry)))

@@ -1,7 +1,8 @@
 """Slide 18 from the Figma read of 2026-11-17 (321:4137). Run: PYTHONPATH=. python -P gen_s18.py
 Also holds the app-shell helpers slide 19 and 20 import (rail, full-bleed desktop, UI cards)."""
 from dsl import *
-from gen_s14 import fact
+from cortex_flow import fact
+from desk import desktop_big, callout
 
 SIGN = {"x": 38, "y": 12, "cn": "Brand / Sign", "w": 24, "h": 24, "lg": 1, "vp": {"Product": "OS", "Size": "24", "Ink": "Full colour"}}
 
@@ -73,18 +74,17 @@ if __name__ == "__main__":
              {"x": 344, "y": 16, **T("Hicham L.", "heading/sm", "text/neutral/bold", nw=1)},
              {"x": 344, "y": 40, **T("Buyer · Lot B-214", "body/md", "text/neutral/subtlest", nw=1)},
              fact("Adviser", 344, 68, "Adviser", "Salma K.", "Nexus Panthera"), fact("Last visit", 344, 118, "Last visit", "Video visit, 34 min", "my.bngimmo.com"),
-             fact("Paid so far", 344, 168, "Paid so far", "MAD 741,000", "Bank"), fact("Next instalment", 344, 218, "Next instalment", "MAD 370,500 · 12 Nov", "BNG Business"),
+             fact("Paid so far", 344, 168, "Paid so far", "MAD 370,500", "Bank"), fact("Next instalment", 344, 218, "Next instalment", "MAD 370,500 · 12 Nov", "BNG Business"),
              fact("Last reminder", 344, 268, "Last reminder", "Delivered, opened twice", "Cortex")]
     for f in inner[-5:]:
         f["n"] = f["n"].replace("Fact · ", "Fact / ")
-    ch = [desktop_full("Device · Desktop · Shell", inner),
-          ucard("Six areas", 54, 8, "Six areas", "Named for what people work on"),
-          conn("rail → device", 182, 103, 0, 53, "M 0 0 L 0 53"), node("rail", 174, 95), node("Device · rail", 174, 148),
-          ucard("Tools are badges", 572, 8, "Tools are badges", "Shown on each fact only"),
-          conn("badges → device", 700, 103, 0.01, 53, "M 0 0 L 0 53"), node("badges", 692, 95), node("Device · badges", 692, 148),
-          ucard("A second level", 162, 640, "A second level", "Each area opens its own lists"),
-          conn("device → second level", 290, 556, 0, 84, "M 0 0 L 0 84"), node("Device · second level", 282, 548), node("second level", 282, 632)]
+    # large monitor (desk.py, the owner's "example space gains" frame): cards in slots A (top left), B (top right) and C (lower left)
+    ch = [desktop_big("Device · Desktop · Shell", inner),
+          *callout(1, "A", "Six areas", "Named for what people work on", "rail → device"),
+          *callout(3, "B", "Tools are badges", "Shown on each fact only", "badges → device"),
+          *callout(5, "C", "A second level", "Each area opens its own lists", "device → second level", source="device")]
     s18 = slide("321:4137", "08 · The app · One place for everything", "17 / 27", "The app", "One place\nfor everything.",
                 "Six areas, named for what people work on, not for the tool behind them. The tools show only as small badges.",
                 "Illustrative example · fictional people and figures", 8, ch)
+    s18["props"]["Big desktop"] = True
     dump("s18", s18)

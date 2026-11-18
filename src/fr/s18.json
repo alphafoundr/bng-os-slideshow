@@ -24,7 +24,6 @@
   "Last visit": "Dernière visite",
   "Video visit, 34 min": "Visite en visio, 34 min",
   "Paid so far": "Payé à ce jour",
-  "MAD 741,000": "741 000 MAD",
   "Next instalment": "Prochaine échéance",
   "MAD 370,500 · 12 Nov": "370 500 MAD · 12 nov.",
   "Last reminder": "Dernière relance",
@@ -34,5 +33,6 @@
   "Tools are badges": "L’outil en badge",
   "Shown on each fact only": "Sur chaque information",
   "A second level": "Des sous-rubriques",
-  "Each area opens its own lists": "Ses listes dans chaque espace"
+  "Each area opens its own lists": "Ses listes dans chaque espace",
+  "MAD 370,500": "370\u00a0500\u00a0MAD"
 }

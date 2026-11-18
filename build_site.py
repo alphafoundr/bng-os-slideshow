@@ -132,7 +132,8 @@ def chrome(slide, ctx, idx, total_label):
         nav, ftitle = nav_html(slide["chapter"], ctx, show_footer, slide["section"])
         out.append(nav)
     if show_footer:
-        out.append('<span class="wm">%s</span>' % ctx.logos["Wordmark"])
+        wordmark = "Wordmark monochrome" if p.get("Monochrome wordmark") else "Wordmark"
+        out.append('<span class="wm">%s</span>' % ctx.logos[wordmark])
     if show_title:
         eb, ebfr = ctx.s.attrs(p["Eyebrow"])
         # titles are translated as a whole, line breaks included
@@ -140,8 +141,9 @@ def chrome(slide, ctx, idx, total_label):
         lede = ""
         if p.get("Show lede"):
             lede = lede_html(p["Lede"], ctx, "lede s-body-lg")
-        out.append('<div class="titlecol"><div class="tblock"><p class="eyebrow s-eyebrow-md"%s>%s</p>'
-                   '<h1 class="title s-heading-title"%s>%s</h1>%s</div></div>' % (ebfr, eb, tfr, tbody, lede))
+        tw = ' style="width:%spx"' % p["Title width"] if p.get("Title width") else ""
+        out.append('<div class="titlecol"%s><div class="tblock"><p class="eyebrow s-eyebrow-md"%s>%s</p>'
+                   '<h1 class="title s-heading-title"%s>%s</h1>%s</div></div>' % (tw, ebfr, eb, tfr, tbody, lede))
     out.append('<div class="slot">%s</div>' % "".join(R.render_node(c, ctx, None) for c in slide["ch"]))
     if show_footer:
         note = ""
@@ -172,11 +174,23 @@ def main():
     images = load("images.json")
     with open(ext("brand-kit/svg/wordmark-full-light.svg"), encoding="utf-8") as lf:
         logos = {"Wordmark": lf.read().replace("<svg ", '<svg class="wmk" ', 1)}
+    with open(ext("brand-kit/svg/wordmark-black.svg"), encoding="utf-8") as lf:
+        logos["Wordmark monochrome"] = lf.read().replace("<svg ", '<svg class="wmk" ', 1)
     for k, path in load("logos.json").items():
         with open(ext(path), encoding="utf-8") as lf:
             logos[k] = lf.read()
     strings = R.Strings(fr)
     ctx = R.Ctx(strings, styles, icons, images, logos)
+
+    # screen films (src/films.json): {"s20": {"mp4": "film/x.mp4", "webm": "film/x.webm", "poster": "film/x.png", "fr": {same keys}}}; paths are
+    # relative to the page and point into src/film/ (copied to public/film/). Empty = static screens.
+    ctx.films = load("films.json") if os.path.exists(os.path.join(SRC, "films.json")) else {}
+    keys = {e["key"] for e in deck}
+    for fk, fe in ctx.films.items():
+        if fk not in keys:
+            sys.exit("FAIL: films.json names slide %r, which is not in deck.json" % fk)
+        if not fe.get("poster") or not (fe.get("mp4") or fe.get("webm")):
+            sys.exit("FAIL: films.json %s needs a poster and an mp4 or webm" % fk)
 
     slides_html = []
     nav_index = []
@@ -192,8 +206,9 @@ def main():
         slide["section"] = entry["section"]
         slide["kind"] = entry.get("kind", "slide")
         body = chrome(slide, ctx, i, "")
-        slides_html.append('<section class="slide kind-%s" data-key="%s" data-ch="%d" data-status="%s" hidden>'
-                           '<div class="art">%s</div></section>' % (slide["kind"], entry["key"], entry["chapter"], entry["status"], body))
+        slides_html.append('<section class="slide kind-%s%s" data-key="%s" data-ch="%d" data-status="%s" hidden>'
+                           '<div class="art">%s</div></section>' % (slide["kind"], " desk" if slide["props"].get("Big desktop") else "",
+                                                                    entry["key"], entry["chapter"], entry["status"], body))
         nav_index.append({"key": entry["key"], "ch": entry["chapter"]})
         i += 1
 
@@ -221,6 +236,15 @@ def main():
             s = ext("slideshow/" + f)
         shutil.copy2(s, os.path.join(OUT, f))
 
+
+    for fk, fe in ctx.films.items():   # only the files a mapping names are published, from src/ (e.g. src/film/x.mp4 -> public/film/x.mp4)
+        for sub in (fe, fe.get("fr") or {}):
+            for k in ("mp4", "webm", "poster"):
+                if sub.get(k):
+                    if not os.path.isfile(os.path.join(SRC, sub[k])):
+                        sys.exit("FAIL: films.json %s.%s -> %s is not in src/ (put the file in src/film/)" % (fk, k, sub[k]))
+                    os.makedirs(os.path.dirname(os.path.join(OUT, sub[k])), exist_ok=True)
+                    shutil.copy2(os.path.join(SRC, sub[k]), os.path.join(OUT, sub[k]))
 
     css = R.css_vars() + "\n" + R.style_classes(styles) + "\n" + read("deck.css")
     tmpl = read("index.tmpl.html")

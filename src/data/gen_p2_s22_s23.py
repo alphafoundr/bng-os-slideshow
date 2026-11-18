@@ -1,7 +1,7 @@
 """Pause 'And when BNG needs something new?' and slides 22, 23 from the Figma reads of 2026-11-17 (332:5182, 498:5853, 321:4745).
 Run: cd src/data && PYTHONPATH=. python -P gen_p2_s22_s23.py"""
 from dsl import *
-from gen_s14 import confirmation, vconn
+from desk import callout, desktop_big
 
 # ---------------- pause · And when BNG needs something new? ----------------
 studio_lockup = {"x": -468, "y": -36, "cn": "Brand / Product lockup", "t": "F", "w": 173, "h": 48, "n": "Lockup · Studio", "lm": "H", "gap": 12, "ca": "c",
@@ -78,41 +78,18 @@ main = {"t": "F", "sh": "L", "sv": "L", "k": 1, "lm": "V", "gap": 16, "pad": [16
                         "sw": 1, "cr": 8, "lm": "H", "gap": 4, "pad": [0, 12, 0, 12], "pa": "c", "ca": "c", "ch": [T("Send back", "label/md", "text/neutral/bold", nw=1)]},
                        {"cn": "App / Actions / Button", "t": "F", "sh": "H", "h": 32, "n": "Go live", "f": [{"c": "background/action/bold"}], "cr": 8, "lm": "H", "gap": 4,
                         "pad": [0, 12, 0, 12], "pa": "c", "ca": "c", "ch": [T("Go live", "label/md-strong", "text/on-action/bold", nw=1)]}]}]}
-device = {"x": 130, "y": 156, "cn": "Illo / Device · Desktop", "t": "F", "w": 640, "h": 440, "n": "Device · Desktop · Studio go live",
-          "ch": [{"x": 0, "y": 0, "t": "R", "w": 640, "h": 400, "f": [{"c": "background/inverse/bold"}], "cr": 12},
-                 {"x": 288, "y": 400, "t": "R", "w": 64, "h": 32, "f": [{"c": "background/neutral/strong"}]},
-                 {"x": 208, "y": 432, "t": "R", "w": 224, "h": 8, "f": [{"c": "background/neutral/strong"}], "cr": 999},
-                 {"x": 8, "y": 8, "t": "F", "w": 624, "h": 384, "f": [{"c": "background/neutral/raised"}], "cr": 8, "k": 1, "lm": "V", "gap": 12,
-                  "ch": [{"t": "F", "sh": "L", "sv": "L", "k": 1, "lm": "H", "gap": 16, "ch": [rail, main]}]}]}
-
-
-def ucard_q(name, x, y, w, title, sub):
-    c = ui_card(name, x, y, w, "x", title, sub, [])
-    # a card without an icon or rows: title row then the sentence (as in the Figma read)
-    c["ch"] = [{"t": "F", "sh": "L", "sv": "H", "lm": "H", "gap": 8, "ca": "c", "ch": [T(title, "heading/xs", "text/neutral/bold", sh="L")]},
-               T(sub, "body/sm", "text/neutral/subtlest", sh="L")]
-    return c
-
-
-ch = [device,
-      conn("Asked in plain words → device", 450, 103, 0, 53, "M 0 0 L 0 53", rounded=False),
-      conn("device → management", 270, 556, 0, 84, "M 0 0 L 0 84"),
-      conn("device → Live in BNG OS", 598, 556, 0, 84, "M 0 0 L 0 84"),
-      ucard_q("Asked in plain words", 282, 8, 336, "Asked in plain words", "“A weekly report of unsold lots, by project.”"),
-      persona_h("Management", 130, 640, 280, "e9061fc2", "Management", "Reads the checks, then goes live"),
-      confirmation("Live in BNG OS", 426, 640, 344, "Live in BNG OS", "Under Reports, for the sales managers. Code and data stay with BNG."),
-      node("Asked in plain words", 442, 95), node("Device · asked", 442, 148), node("Device · management", 262, 548), node("Management", 262, 632),
-      node("Device · Live", 590, 548), node("Live in BNG OS", 590, 632)]
-at(0, ch[4])
-at(1, device)
-at(3, ch[5])
-at(5, ch[6])
-draw(0, ch[1], ch[7], ch[8], target=device)
-draw(2, ch[2], ch[9], ch[10], target=ch[5])
-draw(4, ch[3], ch[11], ch[12], target=ch[6])
+fallback = {"x": 0, "y": 0, "t": "F", "w": 624, "h": 384, "k": 1, "lm": "H", "gap": 16, "ch": [rail, main]}
+device = desktop_big("Device · Desktop · Studio go live", [fallback])
+asked = callout(1, "A", "Asked in plain words", "“A weekly report of unsold lots, by project.”", "Asked in plain words → device")
+live = callout(3, "C", "Live in BNG OS", "Under Reports, for the sales managers. Code and data stay with BNG.",
+               "device → Live in BNG OS", source="device")
+# Keep the existing FR sentences inside the two side-attached cards.
+asked[0].update(h=98, gap=8, pad=[12, 16, 12, 16])
+live[0].update(h=108, gap=8, pad=[12, 16, 12, 16])
 s22 = slide("498:5853", "09 · Studio · You ask, it gets built (22 B)", "21 / 27", "Studio", "You ask.\nIt gets built.",
             "BNG describes the need in plain words. The system plans it, builds it and tests it. BNG puts it live.",
-            "Illustrative example · fictional people and figures", 9, ch)
+            "Illustrative example · fictional people and figures", 9, [device, *asked, *live])
+s22["props"]["Big desktop"] = True
 dump("s22", s22)
 
 # ---------------- 23 · It stays yours. It keeps growing. ----------------

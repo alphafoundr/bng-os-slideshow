@@ -1,6 +1,7 @@
 """Slide 20 from the Figma read of 2026-11-17 (321:5889). Run: PYTHONPATH=. python -P gen_s20.py"""
 from dsl import *
-from gen_s18 import desktop_full, rail, ucard
+from gen_s18 import rail
+from desk import desktop_big, callout
 
 
 def event(title_key, y, ic, title, sub, date, src):
@@ -25,14 +26,12 @@ inner = [rail("Clients", [44, 100, 156, 214, 270, 326]),
          event("Video visit, 34 minutes", 212, "smartphone", "Video visit, 34 minutes", "Asked about the payment schedule", "08 Mar", "my.bngimmo.com"),
          event("Saw an ad and filled the form", 280, "megaphone", "Saw an ad and filled the form", "Interested in a 2-bedroom, budget stated", "02 Mar", "Fame"),
          status]
-ch = [desktop_full("Device · Desktop · Client record", inner),
-      ucard("Cortex writes to it too", 162, 8, "Cortex writes to it too", "Its reminders are logged here"),
-      ai_conn("cortex event → device", 290, 103, 0, 53, "M 0 0 L 0 53"), ai_node("cortex event", 282, 95),
-      ucard("One timeline", 492, 8, "One timeline", "Every tool, in date order"),
-      conn("timeline → device", 620, 103, 0, 53, "M 0 0 L 0 53"), node("timeline", 612, 95), node("Device · timeline", 612, 148),
-      ucard("Where it comes from", 494, 640, "Where it comes from", "The source on every event"),
-      conn("device → sources", 622, 556, 0, 84, "M 0 0 L 0 84"), node("Device · sources", 614, 548), node("sources", 614, 632)]
+ch = [desktop_big("Device · Desktop · Client record", inner),
+      *callout(1, "A", "Cortex writes to it too", "Its reminders are logged here", "cortex event → device", ai=True),
+      *callout(3, "B", "One timeline", "Every tool, in date order", "timeline → device"),
+      *callout(5, "C", "Where it comes from", "The source on every event", "device → sources", source="device")]
 s20 = slide("321:5889", "08 · The app · One client, one record", "19 / 27", "The app", "One client,\none record.",
             "Every fact with where it comes from, on one timeline across the tools.",
             "Illustrative example · fictional people and figures", 8, ch)
+s20["props"]["Big desktop"] = True
 dump("s20", s20)

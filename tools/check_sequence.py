@@ -106,7 +106,7 @@ def main():
         page.goto(BASE)
         keys = page.locator(".slide").evaluate_all("els => els.map(el => el.dataset.key)")
         sequenced = page.locator(".slide:has([data-seq])").evaluate_all("els => els.map(el => el.dataset.key)")
-        assert set(sequenced) == set("s01 s03 s04 s05 s06 s07 s08 s10 s11 s12 s13 s14 s15 s16 s18 s19 s20 s21 s22 s23 s24 s25 s26".split()), sequenced
+        assert set(sequenced) == set("s01 s02 s03 s04 s05 s06 s07 s08 s09 s10 s11 s12 s13 s14 s15 s16 s18 s19 s20 s21 s22 s23 s24 s25 s26".split()), sequenced
         priority = ("s14", "s15", "s16", "s12")
         sequenced = sys.argv[2:] or [*priority, *(key for key in sequenced if key not in priority)]
         expected = {}

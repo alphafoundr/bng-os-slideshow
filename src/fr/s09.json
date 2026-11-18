@@ -1,10 +1,8 @@
 {
   "Buyer files\nwith holes.": "Dossiers acheteurs\nincomplets.",
   "The file is the base of every contract and of every reminder. Today most are incomplete.": "Contrats et relances partent du dossier acheteur. Aujourd’hui, la plupart de ces dossiers sont incomplets.",
-  "Figures read from the 975 client records on 13 November 2026.": "Chiffres relevés dans les 975 fiches clients le 13 novembre 2026.",
   "Every contract": "Chaque contrat",
   "Every reminder": "Chaque relance",
-  "client records": "fiches clients",
   "Client records": "Fiches clients",
   "975 in the finance app": "975 dans l’application financière",
   "ID number": "Numéro de pièce d’identité",
@@ -15,5 +13,18 @@
   "38% missing": "38 % absents",
   "Duplicate records": "Doublons",
   "at least 80": "au moins 80",
-  "Share of the 975 client records missing each field": "Sur 975 fiches clients, part des champs non renseignés"
+  "Figures read from the 975 client records on 13 November 2026. Illustration · fictional people": "Chiffres relevés dans les 975 fiches clients le 13 novembre 2026. Illustration · personnes fictives",
+  "Sample records": "Exemples de fiches",
+  "Buyer": "Acheteur",
+  "ID no.": "Nº d’identité",
+  "Record status": "État de la fiche",
+  "Missing": "Absent",
+  "On file": "Renseigné",
+  "Duplicate": "Doublon",
+  "Amine A.": "Amine\u00a0A.",
+  "Ilyas N.": "Ilyas\u00a0N.",
+  "Nabil R.": "Nabil\u00a0R.",
+  "Inès M.": "Inès\u00a0M.",
+  "NR": "NR",
+  "IM": "IM"
 }

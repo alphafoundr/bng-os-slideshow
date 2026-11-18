@@ -19,6 +19,10 @@ with sync_playwright() as p:
         keys = pg.evaluate("[...document.querySelectorAll('.slide')].map(s=>s.dataset.key)")
         i = keys.index('rv')
         assert keys[i - 1] == 's09' and keys[i + 1] == 's10', keys
+        pg.wait_for_function("document.querySelector('[data-key=s09]').dataset.sequence==='playing'")
+        pg.keyboard.press('ArrowRight')
+        assert pg.locator('[data-key=s09]').get_attribute('data-sequence') == 'complete'
+        assert pg.locator('body').get_attribute('data-slide') == 's09'
         # forward: it plays, and stills are taken along the way
         pg.keyboard.press('ArrowRight')
         pg.wait_for_function("document.body.dataset.slide==='rv' && BNG_REVEAL.state.mode==='play'")
@@ -38,9 +42,8 @@ with sync_playwright() as p:
         assert ('Un système' in g['text']) == (lang == 'fr'), g['text']
         # hand-over: the wordmark lands on slide 10's own wordmark
         pg.keyboard.press('ArrowRight')
-        pg.wait_for_function("BNG_REVEAL.state.t2>=0.45")
+        pg.wait_for_function("BNG_REVEAL.state.mode==='exit' && BNG_REVEAL.state.t2>=0.45 && BNG_REVEAL.state.t2<BNG_REVEAL.T2 && getComputedStyle(document.querySelector('[data-key=s10] .wm')).visibility==='hidden'")
         pg.screenshot(path=str(out / f'{w}-exit.png'))
-        assert pg.evaluate("getComputedStyle(document.querySelector('[data-key=s10] .wm')).visibility") == 'hidden'   # one wordmark on screen while it travels
         pg.wait_for_function("BNG_REVEAL.state.t2>=BNG_REVEAL.T2 || document.querySelector('.kind-reveal').hidden")
         land = pg.evaluate("""(()=>{const s=document.querySelector('.kind-reveal'),h=s.hidden;s.hidden=false;BNG_REVEAL.render(BNG_REVEAL.T1,BNG_REVEAL.T2);
           const r=e=>{const b=e.getBoundingClientRect();return [b.left,b.top,b.right,b.bottom]},a=r(document.querySelector('.rv-wm')),b=r(document.querySelector('[data-key=s10] .wm svg'));s.hidden=h;return [a,b]})()""")

@@ -1,40 +1,80 @@
 """Slides 09, 10, 11 from the Figma reads of 2026-11-17 (282:2212, 289:2470, 290:3066). Run: PYTHONPATH=. python -P src/data/gen_s09_11.py"""
 from dsl import *
+from desk import desktop_big
 
 # ---------------- 09 · Buyer files with holes ----------------
 
 
-def label_disc(x, y, name, ic, label):
-    return {"x": x, "y": y, "t": "F", "sh": "H", "sv": "H", "lm": "V", "gap": 8, "ca": "c",
-            "ch": [disc(name, 72, ic, 32), T(label, "body/lede", "text/neutral/subtlest", nw=1)]}
+def record_usage(x, ic, label):
+    return {"x": x, "y": 19, "t": "F", "sh": "H", "h": 30, "n": "Used for · " + label,
+            "f": [{"c": "background/neutral/subtle"}], "cr": 8,
+            "lm": "H", "pad": [0, 10, 0, 10], "gap": 6, "ca": "c",
+            "ch": [icon(ic, 16), T(label, "label/md", "text/neutral/bold", nw=1)]}
 
 
-def bar_row(y, label, w, right):
-    return [{"x": 20, "y": y, **T(label, "body/md", "text/neutral/bold", nw=1)},
-            {"x": 172, "y": y + 4, "t": "R", "w": 300, "h": 12, "f": [{"c": "chart/neutral/track"}], "cr": 999},
-            {"x": 172, "y": y + 4, "t": "R", "w": w, "h": 12, "f": [{"c": "chart/neutral/primary"}], "cr": 999},
-            {"x": 488, "y": y, **T(right, "label/md-strong", "text/neutral/bold", nw=1)}]
+def record_finding(x, label, value):
+    return {"x": x, "y": 68, "t": "F", "w": 142, "h": 58, "n": "Finding · " + label,
+            "f": [{"c": "background/neutral/subtle"}], "cr": 8,
+            "sk": {"c": "border/neutral/subtle"}, "sw": 1,
+            "lm": "V", "pad": [7, 9, 7, 9], "gap": 2,
+            "ch": [T(label, "label/tag", "text/neutral/subtle", nw=1),
+                   T(value, "heading/xs", "text/neutral/bold", nw=1)]}
 
 
-panel = [{"x": 20, "y": 20, **T("Client records", "heading/sm", "text/neutral/bold", nw=1)},
-         {"x": 20, "y": 39, **T("975 in the finance app", "body/xs", "text/neutral/subtlest", nw=1)}]
-for y, lab, w, right in [(96, "ID number", 234, "78% missing"), (146, "Email", 126, "42% missing"), (196, "Phone", 114, "38% missing"),
-                         (246, "Duplicate records", 25, "at least 80")]:
-    panel += bar_row(y, lab, w, right)
-panel.append({"x": 20, "y": 312, **T("Share of the 975 client records missing each field", "body/xs", "text/neutral/subtlest", nw=1)})
-desktop = {"x": 130, "y": 196, "cn": "Illo / Device · Desktop", "t": "F", "w": 640, "h": 440, "n": "Device · Desktop · Buyer file", "ch": [
-    {"x": 0, "y": 0, "t": "R", "w": 640, "h": 400, "f": [{"c": "background/inverse/bold"}], "cr": 12},
-    {"x": 288, "y": 400, "t": "R", "w": 64, "h": 32, "f": [{"c": "background/neutral/strong"}]},
-    {"x": 208, "y": 432, "t": "R", "w": 224, "h": 8, "f": [{"c": "background/neutral/strong"}], "cr": 999},
-    {"x": 8, "y": 8, "t": "F", "w": 624, "h": 384, "f": [{"c": "background/neutral/raised"}], "cr": 8, "k": 1, "lm": "V", "gap": 12,
-     "pad": [16, 16, 16, 16], "ch": [{"t": "F", "w": 592, "h": 352, "ch": panel}]}]}
+def field_status(x, present):
+    label = "On file" if present else "Missing"
+    fill = "background/neutral/subtle" if present else "background/danger/subtle"
+    colour = "text/neutral/bold" if present else "text/danger/bold"
+    return {"x": x, "y": 7, "t": "F", "sh": "H", "h": 23, "n": label, "cr": 4,
+            "f": [{"c": fill}], "lm": "H", "pad": [0, 8, 0, 8], "ca": "c",
+            "ch": [T(label, "label/tag", colour, nw=1)]}
+
+
+def record_row(y, name, initials, image, fields, duplicate=False):
+    avatar = portrait(image, size=28) if image else {
+        "t": "F", "w": 28, "h": 28, "cr": 999, "f": [{"c": "background/neutral/subtle"}],
+        "lm": "H", "pa": "c", "ca": "c",
+        "ch": [T(initials, "label/sm", "text/neutral/bold", nw=1)]}
+    children = [{"x": 8, "y": 4, **avatar},
+                {"x": 45, "y": 8, **T(name, "label/md-strong", "text/neutral/bold", nw=1)}]
+    children.extend(field_status(x, present) for x, present in zip((155, 270, 370), fields))
+    if duplicate:
+        children.append(tag("Duplicate", 474, 7, "Duplicate"))
+    return {"x": 16, "y": y, "t": "F", "w": 592, "h": 37, "n": "Record · " + name,
+            "sk": {"c": "border/neutral/subtle"}, "sw": [0, 0, 1, 0], "ch": children}
+
+
+panel = [
+    {"x": 16, "y": 12, **T("Client records", "heading/sm", "text/neutral/bold", nw=1)},
+    {"x": 16, "y": 38, **T("975 in the finance app", "body/md", "text/neutral/subtle", nw=1)},
+    record_usage(326, "file-text", "Every contract"),
+    record_usage(467, "bell", "Every reminder"),
+    record_finding(16, "ID number", "78% missing"),
+    record_finding(166, "Email", "42% missing"),
+    record_finding(316, "Phone", "38% missing"),
+    record_finding(466, "Duplicate records", "at least 80"),
+    {"x": 16, "y": 138, **T("Sample records", "heading/xs", "text/neutral/bold", nw=1)},
+    *[{"x": x, "y": 165, **T(label, "label/sm", "text/neutral/subtle", nw=1)}
+      for x, label in [(24, "Buyer"), (171, "ID no."), (286, "Email"), (386, "Phone"), (490, "Record status")]],
+    record_row(186, "Amine A.", None, "e9061fc2", (False, True, False)),
+    record_row(223, "Ilyas N.", None, "a4eba5b8", (True, False, True)),
+    record_row(260, "Nabil R.", "NR", None, (False, True, True)),
+    record_row(297, "Inès M.", "IM", None, (False, False, True), duplicate=True),
+    record_row(334, "Inès M.", "IM", None, (False, False, True), duplicate=True),
+]
+at(1, *panel[:2])
+for i, chip in enumerate(panel[2:8]):
+    at(2, chip, motion="row", index=i)
+at(4, *panel[8:14])
+for i, row in enumerate(panel[14:]):
+    at(5, row, motion="row", index=i)
 s09 = slide("282:2212", "04 · What it costs · Buyer files with holes", "09 / 27", "What it costs", "Buyer files\nwith holes.",
             "The file is the base of every contract and of every reminder. Today most are incomplete.",
-            "Figures read from the 975 client records on 13 November 2026.", 4, [
-    label_disc(103, 32, "every contract", "file-text", "Every contract"),
-    label_disc(660, 32, "every reminder", "bell", "Every reminder"),
-    stat_bare("975 client records", 386, 19, "975", "client records", fs="figure/lg"),
-    desktop])
+            "Figures read from the 975 client records on 13 November 2026. Illustration · fictional people", 4,
+            [desktop_big("Device · Desktop · Buyer file", panel)])
+s09["props"]["Big desktop"] = True
+s09["props"]["Title width"] = 444  # Keeps the French title's second line together.
+s09["props"]["Monochrome wordmark"] = True
 dump("s09", s09)
 
 # ---------------- 10 · One system, in BNG's name ----------------

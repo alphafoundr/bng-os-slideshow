@@ -1,0 +1,48 @@
+{
+  "s18": {
+    "mp4": "film/app-areas-v2.mp4",
+    "webm": "film/app-areas-v2.webm",
+    "poster": "film/app-areas-v2-poster.png",
+    "fr": {
+      "mp4": "film/app-areas-fr-v2.mp4",
+      "webm": "film/app-areas-fr-v2.webm",
+      "poster": "film/app-areas-fr-v2-poster.png"
+    }
+  },
+  "s19": {
+    "mp4": "film/app-home-v1.mp4",
+    "webm": "film/app-home-v1.webm",
+    "poster": "film/app-home-v1-poster.png",
+    "fr": {
+      "mp4": "film/app-home-fr-v2.mp4",
+      "webm": "film/app-home-fr-v2.webm",
+      "poster": "film/app-home-fr-v2-poster.png"
+    }
+  },
+  "s20": {
+    "mp4": "film/app-record-v4.mp4",
+    "webm": "film/app-record-v4.webm",
+    "poster": "film/app-record-v4-poster.png",
+    "fr": {
+      "mp4": "film/app-record-fr-v4.mp4",
+      "webm": "film/app-record-fr-v4.webm",
+      "poster": "film/app-record-fr-v4-poster.png"
+    }
+  },
+  "s22": {
+    "mp4": "film/studio-chat.mp4",
+    "webm": "film/studio-chat.webm",
+    "poster": "film/studio-chat-poster.png",
+    "loop": false,
+    "fr": {
+      "mp4": "film/studio-chat-fr-v3.mp4",
+      "webm": "film/studio-chat-fr-v3.webm",
+      "poster": "film/studio-chat-fr-v3-poster.png"
+    }
+  },
+  "s21": {
+    "mp4": "film/app-money-v3.mp4",
+    "webm": "film/app-money-v3.webm",
+    "poster": "film/app-money-v3-poster.png"
+  }
+}

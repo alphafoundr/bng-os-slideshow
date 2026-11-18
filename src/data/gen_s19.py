@@ -1,6 +1,7 @@
 """Slide 19 from the Figma read of 2026-11-17 (321:5013). Run: PYTHONPATH=. python -P gen_s19.py"""
 from dsl import *
-from gen_s18 import desktop_full, rail, ucard
+from gen_s18 import rail
+from desk import desktop_big, callout
 
 
 def tile(name, x, label, value):
@@ -36,14 +37,13 @@ inner = [rail("Home", [44, 102, 158, 214, 270, 326]),
          drow("Match MAD 120,000 to lot A-102", 244, "Match MAD 120,000 to lot A-102", "Amount and reference match", "MAD 120,000", "to match"),
          drow("Fix the price of lot B-214", 300, "Fix the price of lot B-214", "Contract and Nexus Panthera differ", "MAD 15,000", "price gap")]
 # the Home rail item is the selected one on this slide
-ch = [desktop_full("Device · Desktop · Cockpit", inner),
-      ucard("The whole group", 366, 8, "The whole group", "Cash due, received and late"),
-      conn("figures → device", 494, 103, 0, 53, "M 0 0 L 0 53"), node("figures", 486, 95), node("Device · figures", 486, 148),
-      ucard("Cortex proposes", 162, 640, "Cortex proposes", "Each decision, with its reason"),
-      ai_conn("device → proposal", 290, 556, 0, 84, "M 0 0 L 0 84"), ai_node("Device · proposal", 282, 548),
-      ucard("A stake on each row", 494, 640, "A stake on each row", "The amount behind each one"),
-      conn("device → stake", 622, 556, 0, 84, "M 0 0 L 0 84"), node("Device · stake", 614, 548), node("stake", 614, 632)]
+ch = [desktop_big("Device · Desktop · Cockpit", inner),
+      *callout(1, "A", "The whole group", "Cash due, received and late", "figures → device"),
+      *callout(3, "C", "Cortex proposes", "Each decision, with its reason", "device → proposal", ai=True, source="device"),
+      *callout(5, "B", "A stake on each row", "The amount behind each one", "device → stake", source="device")]
 s19 = slide("321:5013", "08 · The app · The day starts with decisions", "18 / 27", "The app", "The day starts\nwith decisions.",
             "The group's cash on top, then the decisions Cortex proposes, each with its reason. A person approves every one.",
             "Illustrative example · fictional people and figures", 8, ch)
+s19["props"]["Big desktop"] = True
+s19["props"]["Title width"] = 444
 dump("s19", s19)

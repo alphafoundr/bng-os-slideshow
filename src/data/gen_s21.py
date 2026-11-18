@@ -1,7 +1,8 @@
 """Slide 21 from the Figma read of 2026-11-17 (322:6839). Run: cd src/data && PYTHONPATH=. python -P gen_s21.py"""
 from dsl import *
-from gen_s14 import fact, vconn
-from gen_s18 import desktop_full, rail, ucard, SIGN  # noqa: F401
+from cortex_flow import fact
+from gen_s18 import rail
+from desk import desktop_big, callout
 
 
 def badge(name, text):
@@ -45,14 +46,13 @@ inner = [rail("Money", [44, 100, 156, 212, 268, 326]),
          conflict, fact244("Schedule", 238, "Schedule", "Due 28 Oct", "BNG Business"), fact244("Paid so far", 288, "Paid so far", "MAD 96,000", "Bank"),
          sugg, buttons]
 
-ch = [desktop_full("Device · Desktop · Collections", inner),
-      ucard("Two sources, two amounts", 222, 8, "Two sources, two amounts", "Both shown, each with its source"),
-      vconn("two sources → device", 350, 103, 53, False), node("two sources", 342, 95), node("Device · two sources", 342, 148),
-      ucard("Cortex holds the message", 512, 8, "Cortex holds the message", "It never sends a wrong figure"),
-      vconn("hold → device", 640, 103, 53, True), ai_node("hold", 632, 95),
-      ucard("A person settles it", 494, 640, "A person settles it", "Nothing is sent before approval"),
-      vconn("device → settle", 622, 556, 84, False), node("Device · settle", 614, 548), node("settle", 614, 632)]
+ch = [desktop_big("Device · Desktop · Collections", inner),
+      *callout(1, "A", "Two sources, two amounts", "Both shown, each with its source", "two sources → device"),
+      *callout(3, "B", "Cortex holds the message", "It never sends a wrong figure", "hold → device", ai=True),
+      *callout(5, "C", "A person settles it", "Nothing is sent before approval", "device → settle", source="device")]
 s21 = slide("322:6839", "08 · The app · Money that agrees", "20 / 27", "The app", "Money that agrees\nbefore it moves.",
             "Cortex checks each reminder against the contract and the bank. When two sources differ, it holds the message and says why.",
             "Illustrative example · fictional people and figures", 8, ch)
+s21["props"]["Big desktop"] = True
+s21["props"]["Title width"] = 444   # "Money that agrees" does not fit 393 px at heading/title: keep the old column width so no word is left alone on a line
 dump("s21", s21)

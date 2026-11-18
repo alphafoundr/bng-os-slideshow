@@ -25,6 +25,62 @@
   window.addEventListener('orientationchange', fit);
   fit();
 
+  /* Screen films are warmed on the current and next slides. The monitor entrance owns playback. */
+  var films = slides.map(function (s) { return s.querySelector('video.film'); });
+  var filmReady = false;
+  films.forEach(function (v) {
+    if (!v) return;
+    v._sets = JSON.parse(v.dataset.film);
+    v._set = v._sets.en;
+    v._failedSources = 0;
+    v.addEventListener('error', function (e) {
+      if (e.target !== v && ++v._failedSources < v.children.length) return;
+      v.pause();
+      v.parentNode.classList.add('film-failed');
+    }, true);
+  });
+  function filmWarm(i) {
+    var v = films[i];
+    if (reduce || !v || v.preload === 'auto') return;
+    v.preload = 'auto';
+    v.load();
+  }
+  function filmPlay() {
+    filmReady = true;
+    var v = films[cur];
+    if (reduce || !v || v.parentNode.classList.contains('film-failed')) return;
+    v.play().catch(function () { /* Autoplay may be blocked or interrupted by navigation. */ });
+  }
+  function filmLeave(i) {
+    filmReady = false;
+    var v = films[i];
+    if (!v || reduce) return;
+    v.pause();
+    if (v.readyState) v.currentTime = 0;
+  }
+  function filmLang(lang) {
+    films.forEach(function (v, i) {
+      if (!v) return;
+      var set = v._sets[lang] || v._sets.en;
+      if (set === v._set) return;
+      v.pause();
+      v._set = set;
+      v.poster = set.poster;
+      v._failedSources = 0;
+      v.parentNode.classList.remove('film-failed');
+      v.replaceChildren();
+      ['mp4', 'webm'].forEach(function (format) {
+        if (!set[format]) return;
+        var source = document.createElement('source');
+        source.src = set[format];
+        source.type = 'video/' + format;
+        v.appendChild(source);
+      });
+      if (v.preload === 'auto') v.load();
+      if (i === cur && filmReady) filmPlay();
+    });
+  }
+
   /* ---------- language ---------- */
   var frNodes = Array.prototype.slice.call(deck.querySelectorAll('[data-fr]'));
   frNodes.forEach(function (n) {
@@ -44,6 +100,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('.pager.prev'), function (b) { b.setAttribute('aria-label', lang === 'fr' ? FRUI.prev : 'Previous slide'); });
     Array.prototype.forEach.call(document.querySelectorAll('.pager.next'), function (b) { b.setAttribute('aria-label', lang === 'fr' ? FRUI.next : 'Next slide'); });
     updateSoundLabel();
+    filmLang(lang);
     if (persist) {
       store.set('bng-os-lang', lang);
       try { var u = new URL(window.location.href); u.searchParams.set('lang', lang); window.history.replaceState(null, '', u); } catch (e) { /* ignore */ }
@@ -142,6 +199,9 @@
       else if (data.motion === 'label') enter(el, when + cfg.beat - cfg.labelLead, cfg.part, 0);
       else if (data.motion === 'row') enter(el, when + data.index * cfg.rowGap, cfg.row, cfg.rise);
       else enter(el, when, cfg.part, cfg.rise);
+      if (el.dataset.c === 'Illo / Device · Desktop' && el.querySelector('video.film')) {
+        tl.call(filmPlay, [], when + cfg.part);
+      }
     });
     function complete() {
       tl.kill();
@@ -216,12 +276,15 @@
     if (i < 0 || i >= slides.length || i === cur) return;
     if (finish) finish();                       /* a key pressed mid-slide lands the running slide at once and starts the next */
     if (sequence) sequence.finish();
+    filmLeave(cur);
     var prev = cur >= 0 ? slides[cur] : null, next = slides[i];
     var immediate = instant || reduce || !window.gsap || !prev;
     if (tlIn) { tlIn.progress(1); tlIn = null; }
     next.hidden = false;
     next.style.zIndex = 2;
     cur = i;
+    filmWarm(i);
+    filmWarm(i + 1);
     var parts = next.querySelectorAll('[data-seq]');
     var playSequence = parts.length && !seen.has(next) && !reduce && window.gsap;
     seen.add(next);
@@ -232,6 +295,7 @@
       if (prev) { prev.hidden = true; prev.style.zIndex = ''; }
       next.style.zIndex = '';
       if (playSequence) buildSequence(next, parts, false);
+      else if (films[i]) filmPlay();
       return;
     }
     /* the slide (Khalid, 2026-11-17: "bring back the sliding effect"): the title column and the illustration travel one full artboard width,
@@ -253,6 +317,7 @@
       G.set([].concat(Array.prototype.slice.call(pm), Array.prototype.slice.call(nm), touched), { clearProps: 'transform,opacity,visibility' });
       art.style.background = '';
       prev.hidden = true; prev.style.zIndex = ''; next.style.zIndex = '';
+      if (!playSequence && films[i]) filmPlay();
     };
     tl.eventCallback('onComplete', function () { if (finish) finish(); });
     if (playSequence) buildSequence(next, parts, true);

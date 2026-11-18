@@ -1,8 +1,4 @@
-"""Add step data to checked-in exports and monitor slides as their records are loaded.
-
-The monitor generators own the screen and callout geometry. This companion
-only schedules their outer records.
-"""
+"""Add step data to checked-in exports as their records are loaded."""
 if __package__:
     from .dsl import at, draw
 else:
@@ -53,17 +49,6 @@ def late_sales(ch):
         draw(step, ch[i], end=ch[8 + i], target=card)
 
 
-def monitor(ch, inputs, outputs):
-    device = at(len(inputs), ch[0])
-    for step, (card, line, start, *end) in enumerate(inputs):
-        at(step, ch[card])
-        draw(step, ch[line], ch[start], *(ch[i] for i in end), target=device, arrival=len(inputs))
-    for i, (card, line, start, *end) in enumerate(outputs):
-        step = len(inputs) + 1 + 2 * i
-        at(step + 1, ch[card])
-        draw(step, ch[line], ch[start], *(ch[i] for i in end), target=ch[card])
-
-
 def schedule(key, ch):
     if key == "s01":
         companies(ch)
@@ -71,11 +56,3 @@ def schedule(key, ch):
         ownership_lanes(ch)
     elif key == "s05":
         late_sales(ch)
-    elif key == "s18":
-        monitor(ch, [(1, 2, 3, 4), (5, 6, 7, 8)], [(9, 10, 11, 12)])
-    elif key == "s19":
-        monitor(ch, [(1, 2, 3, 4)], [(5, 6, 7), (8, 9, 10, 11)])
-    elif key == "s20":
-        monitor(ch, [(1, 2, 3), (4, 5, 6, 7)], [(8, 9, 10, 11)])
-    elif key == "s21":
-        monitor(ch, [(1, 2, 3, 4), (5, 6, 7)], [(8, 9, 10, 11)])
