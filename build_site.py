@@ -219,7 +219,6 @@ def main():
             s = ext("slideshow/" + f)
         shutil.copy2(s, os.path.join(OUT, f))
 
-    shutil.copytree(os.path.join(SRC, "mac"), os.path.join(OUT, "mac"))
 
     css = R.css_vars() + "\n" + R.style_classes(styles) + "\n" + read("deck.css")
     tmpl = read("index.tmpl.html")

@@ -2,11 +2,11 @@
 from dsl import *
 
 # ---------------- pause · Meet Cortex. ----------------
-p1 = {"id": "332:5105", "name": "07 · Cortex decides · Meet Cortex (pause)",
+p1 = {"id": "332:5105", "name": "06 · Cortex decides · Meet Cortex (pause)",
       "props": {"Note": "Illustrative · fictional people and figures", "Lede": "A lede in one or two short lines.", "Show lede": False,
                 "Eyebrow": "06 · Cortex: what it decides", "Title": "Meet Cortex.", "Show footer": False, "Show nav": True, "Show note": False,
                 "Show title column": False, "Number": "01 / 27"},
-      "nav": {"Chapter": "7"},
+      "nav": {"Chapter": "6"},
       "ch": [{"x": -468, "y": 557, **T("Meet Cortex.", "display/xl", "text/neutral/bold", w=1368)},
              {"x": -468, "y": 717, **T("One engine, built and tuned only for BNG.", "body/lede-lg", "text/neutral/subtle", w=900)},
              cortex_lockup(-468, -36)]}
@@ -49,9 +49,9 @@ ch += [suggestion("Assign the lead to the right adviser", 540, 120, "Assign the 
        ai_node("Cortex → 2", 412, 416),
        tag("Sales manager confirms", 728, 140, "Sales manager confirms"), tag("Back office confirms", 749, 322, "Back office confirms"),
        tag("Collections confirms", 749, 504, "Collections confirms")]
-s12 = slide("291:2752", "07 · Cortex decides · One engine, tuned for BNG · A", "16 / 27", "Cortex: what it decides", "One engine,\ntuned for BNG.",
+s12 = slide("291:2752", "06 · Cortex decides · One engine, tuned for BNG · A", "12 / 27", "Cortex: what it decides", "One engine,\ntuned for BNG.",
             "Cortex reads every tool, checks them against each other and proposes the next best action. A person confirms what matters.",
-            "Illustrative example", 7, ch)
+            "Illustrative example", 6, ch)
 dump("s12", s12)
 
 # ---------------- 13 · Sure, it acts. Unsure, it asks. ----------------
@@ -68,7 +68,7 @@ ch = [hub("Cortex", 40, 264, 200, "Every event"),
       suggestion("Registered letter", 480, 516, "Send the registered letter", "60 days late, two reminders unanswered"),
       ai_conn_plain("Cortex → always confirmed", 240, 404, 240, 174, "M 0 0 C 120 0 120 174 240 174", True),
       ai_node("Cortex lane 2", 232, 396)]
-s13 = slide("293:3342", "07 · Cortex decides · Sure it acts, unsure it asks", "17 / 27", "Cortex: what it decides", "Sure, it acts.\nUnsure, it asks.",
+s13 = slide("293:3342", "06 · Cortex decides · Sure it acts, unsure it asks", "13 / 27", "Cortex: what it decides", "Sure, it acts.\nUnsure, it asks.",
             "Clear cases run on their own. Anything doubtful goes to the right person, and money or legal steps always wait for one.",
-            "Illustrative example", 7, ch)
+            "Illustrative example", 6, ch)
 dump("s13", s13)

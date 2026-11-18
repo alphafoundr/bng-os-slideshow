@@ -58,5 +58,5 @@ account; pushing to this repository does not change the live page.
 - `src/data/`: slide generators (`gen_*.py`, helpers in `dsl.py`) and their output.
 - `src/fr/`: French strings. `src/deck.json`: order and chapters.
 - `src/ext/`: the logo files and four portraits the build needs, mirrored from the design folders.
-- `src/img/`, `src/fonts/`, `src/audio/`, `src/mac/`, `src/vendor/`: assets and third-party libraries (licences beside them).
+- `src/img/`, `src/fonts/`, `src/audio/`, `src/vendor/`: assets and third-party libraries (licences beside them).
 - `tools/`: checks and screenshot helpers.

@@ -3,9 +3,9 @@ from pathlib import Path
 import sys
 from playwright.sync_api import sync_playwright
 
-ORDER = 'op s01 s02 s03 s04 s05 s06 s07 s08 s09 rv s10 s11 s18 s20 s21 s19 p1 s12 s13 s14 s15 s16 p2 s22 s24 s25 s17 s23 s26 s27'.split()
+ORDER = 'op s01 s02 s03 s04 s05 s06 s07 s08 s09 rv s10 s11 p1 s12 s13 s14 s15 s16 s18 s19 s20 s21 p2 s22 s24 s25 s17 s23 s26 s27'.split()
 NUMBERS = {k: f'{i:02d} / 27' for i, k in enumerate(k for k in ORDER if k not in ('rv', 'p1', 'p2'))}
-CHAPTERS = [1,1,1,2,3,4,4,4,4,4,5,5,5,6,6,6,6,7,7,7,8,8,8,9,9,10,10,11,12,13,13]
+CHAPTERS = [1, 1, 1, 2, 3, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 8, 9, 9, 10, 10, 11, 12, 13, 13]
 out = Path(__file__).parent / '_order'
 out.mkdir(exist_ok=True)
 with sync_playwright() as p:
@@ -32,7 +32,7 @@ with sync_playwright() as p:
             assert slide.locator('.num').inner_text() == NUMBERS[key], key
         else:
             assert slide.locator('.num:visible').count() == 0, key
-        if key in ('s18', 's19', 'p1', 's17', 's23'):
+        if key in ('s12', 's14', 's18', 's17', 's23'):
             page.screenshot(path=str(out / (key + '.png')))
         if i < len(ORDER) - 1:
             page.keyboard.press('ArrowRight')

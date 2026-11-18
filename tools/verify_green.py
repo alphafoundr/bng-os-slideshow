@@ -21,7 +21,7 @@ server = ThreadingHTTPServer(('127.0.0.1',0),partial(SimpleHTTPRequestHandler,di
 threading.Thread(target=server.serve_forever,daemon=True).start()
 try:
     port = str(server.server_port)
-    for script in (['shot_green'] if '--shots' in sys.argv else ['check_deck','check_reveal','check_mac','shot_green']):
+    for script in (['shot_green'] if '--shots' in sys.argv else ['check_deck','check_reveal','shot_green']):
         run(['tools/'+script+'.py',port],script+'.txt')
 finally:
     server.shutdown()

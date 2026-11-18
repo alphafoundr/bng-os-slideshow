@@ -223,8 +223,3 @@
     window.addEventListener('load', function () { if (!window.BNG_PRESHOW) start(); });
   }
 })();
-
-/* The pilot has no imports or DOM effects unless explicitly enabled. */
-if (new URLSearchParams(location.search).get("mac") === "1") {
-  import("./mac/pilot.js").then(m => m.mount()).catch(() => { /* Keep the flat illustration. */ });
-}

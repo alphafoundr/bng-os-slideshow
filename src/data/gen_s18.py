@@ -84,7 +84,7 @@ if __name__ == "__main__":
           conn("badges → device", 700, 103, 0.01, 53, "M 0 0 L 0 53"), node("badges", 692, 95), node("Device · badges", 692, 148),
           ucard("A second level", 162, 640, "A second level", "Each area opens its own lists"),
           conn("device → second level", 290, 556, 0, 84, "M 0 0 L 0 84"), node("Device · second level", 282, 548), node("second level", 282, 632)]
-    s18 = slide("321:4137", "06 · The app · One place for everything", "12 / 27", "The app", "One place\nfor everything.",
+    s18 = slide("321:4137", "08 · The app · One place for everything", "17 / 27", "The app", "One place\nfor everything.",
                 "Six areas, named for what people work on, not for the tool behind them. The tools show only as small badges.",
-                "Illustrative example · fictional people and figures", 6, ch)
+                "Illustrative example · fictional people and figures", 8, ch)
     dump("s18", s18)

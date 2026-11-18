@@ -93,37 +93,9 @@
     "section": "The turn"
   },
   {
-    "key": "s18",
-    "file": "s18",
-    "chapter": 6,
-    "status": "final",
-    "section": "The product"
-  },
-  {
-    "key": "s20",
-    "file": "s20",
-    "chapter": 6,
-    "status": "final",
-    "section": "The product"
-  },
-  {
-    "key": "s21",
-    "file": "s21",
-    "chapter": 6,
-    "status": "final",
-    "section": "The product"
-  },
-  {
-    "key": "s19",
-    "file": "s19",
-    "chapter": 6,
-    "status": "final",
-    "section": "The product"
-  },
-  {
     "key": "p1",
     "file": "p1",
-    "chapter": 7,
+    "chapter": 6,
     "status": "final",
     "kind": "pause",
     "section": "The product"
@@ -131,34 +103,62 @@
   {
     "key": "s12",
     "file": "s12",
-    "chapter": 7,
+    "chapter": 6,
     "status": "final",
     "section": "The product"
   },
   {
     "key": "s13",
     "file": "s13",
-    "chapter": 7,
+    "chapter": 6,
     "status": "final",
     "section": "The product"
   },
   {
     "key": "s14",
     "file": "s14",
-    "chapter": 8,
+    "chapter": 7,
     "status": "final",
     "section": "The product"
   },
   {
     "key": "s15",
     "file": "s15",
-    "chapter": 8,
+    "chapter": 7,
     "status": "final",
     "section": "The product"
   },
   {
     "key": "s16",
     "file": "s16",
+    "chapter": 7,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s18",
+    "file": "s18",
+    "chapter": 8,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s19",
+    "file": "s19",
+    "chapter": 8,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s20",
+    "file": "s20",
+    "chapter": 8,
+    "status": "final",
+    "section": "The product"
+  },
+  {
+    "key": "s21",
+    "file": "s21",
     "chapter": 8,
     "status": "final",
     "section": "The product"

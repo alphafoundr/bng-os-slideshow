@@ -39,9 +39,9 @@ ch += [persona_h("Collections", 130, 640, 256, "2a9ca040", "Collections", "Sees 
        annotation("approves", 218, 592, "approves"),
        vconn("collections → reminder sent", 598, 556, 84, True), ai_node("Device · reminder sent", 590, 548),
        annotation("after approval", 545, 592, "after approval")]
-s16 = slide("308:3460", "08 · Cortex at work · Today's actions, already ranked", "20 / 27", "Cortex at work", "Today's actions,\nalready ranked.",
+s16 = slide("308:3460", "07 · Cortex at work · Today's actions, already ranked", "16 / 27", "Cortex at work", "Today's actions,\nalready ranked.",
             "Every morning the day's collection actions arrive ranked, with the reason for each. Nothing legal leaves without a person.",
-            "Illustrative example · fictional people and figures", 8, ch)
+            "Illustrative example · fictional people and figures", 7, ch)
 dump("s16", s16)
 
 # ---------------- 17 · What changes, in numbers ----------------

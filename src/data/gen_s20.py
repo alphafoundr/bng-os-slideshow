@@ -32,7 +32,7 @@ ch = [desktop_full("Device · Desktop · Client record", inner),
       conn("timeline → device", 620, 103, 0, 53, "M 0 0 L 0 53"), node("timeline", 612, 95), node("Device · timeline", 612, 148),
       ucard("Where it comes from", 494, 640, "Where it comes from", "The source on every event"),
       conn("device → sources", 622, 556, 0, 84, "M 0 0 L 0 84"), node("Device · sources", 614, 548), node("sources", 614, 632)]
-s20 = slide("321:5889", "06 · The app · One client, one record", "13 / 27", "The app", "One client,\none record.",
+s20 = slide("321:5889", "08 · The app · One client, one record", "19 / 27", "The app", "One client,\none record.",
             "Every fact with where it comes from, on one timeline across the tools.",
-            "Illustrative example · fictional people and figures", 6, ch)
+            "Illustrative example · fictional people and figures", 8, ch)
 dump("s20", s20)

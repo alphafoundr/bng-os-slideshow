@@ -8,7 +8,7 @@ server=subprocess.Popen([sys.executable,'-m','http.server',port,'--directory','p
 try:
     time.sleep(1)
     logs=[]
-    for tool in ('check_deck','check_reveal','check_mac','check_preshow'):
+    for tool in ('check_deck','check_reveal','check_preshow'):
         r=subprocess.run([sys.executable,'-P',f'tools/{tool}.py',port],cwd=ROOT,capture_output=True,text=True)
         logs.append(tool+' exit '+str(r.returncode)+'\n'+r.stdout+r.stderr)
         print(logs[-1],flush=True)

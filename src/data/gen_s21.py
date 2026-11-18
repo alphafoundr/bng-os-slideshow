@@ -52,7 +52,7 @@ ch = [desktop_full("Device · Desktop · Collections", inner),
       vconn("hold → device", 640, 103, 53, True), ai_node("hold", 632, 95),
       ucard("A person settles it", 494, 640, "A person settles it", "Nothing is sent before approval"),
       vconn("device → settle", 622, 556, 84, False), node("Device · settle", 614, 548), node("settle", 614, 632)]
-s21 = slide("322:6839", "06 · The app · Money that agrees", "14 / 27", "The app", "Money that agrees\nbefore it moves.",
+s21 = slide("322:6839", "08 · The app · Money that agrees", "20 / 27", "The app", "Money that agrees\nbefore it moves.",
             "Cortex checks each reminder against the contract and the bank. When two sources differ, it holds the message and says why.",
-            "Illustrative example · fictional people and figures", 6, ch)
+            "Illustrative example · fictional people and figures", 8, ch)
 dump("s21", s21)
