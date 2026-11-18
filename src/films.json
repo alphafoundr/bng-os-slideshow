@@ -43,6 +43,11 @@
   "s21": {
     "mp4": "film/app-money-v3.mp4",
     "webm": "film/app-money-v3.webm",
-    "poster": "film/app-money-v3-poster.png"
+    "poster": "film/app-money-v3-poster.png",
+    "fr": {
+      "mp4": "film/app-money-fr-v3.mp4",
+      "webm": "film/app-money-fr-v3.webm",
+      "poster": "film/app-money-fr-v3-poster.png"
+    }
   }
 }
